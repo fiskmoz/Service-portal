@@ -4,7 +4,9 @@ from django.template import loader, Context
 
 # Create your views here.
 def NewForm(request):
-    template = loader.get_template('FormHome.html')
-    context = {"my_name": "tempname"}
-    return HttpResponse(template.render(context,request))
-    return HttpResponse("please log in")
+    if request.user.is_authenticated:
+        template = loader.get_template('FormHome.html')
+        context = {"my_name": "tempname"}
+        return HttpResponse(template.render(context,request))
+    else:
+        return HttpResponse("please log in ")
