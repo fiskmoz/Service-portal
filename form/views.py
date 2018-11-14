@@ -7,3 +7,4 @@ def NewForm(request):
     template = loader.get_template('FormHome.html')
     context = {"my_name": "tempname"}
     return HttpResponse(template.render(context,request))
+    return HttpResponse("please log in")
