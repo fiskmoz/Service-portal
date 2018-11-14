@@ -70,7 +70,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'SuperSecretServicePortal.wsgi.application'
 
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'home'
+
+LOGOUT_REDIRECT_URL = 'home'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
