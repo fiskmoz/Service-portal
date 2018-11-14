@@ -4,5 +4,5 @@ from . import views
 #Creating views for forms
 
 urlpatterns = [
-    path('form/', views.NewForm),
+    path('', views.NewForm),
 ]
