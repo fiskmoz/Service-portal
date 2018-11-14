@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import loader
+
 # Create your views here.
-def mainpage(request):
-    return HttpResponse("You are in forms.")
+def NewForm(request):
+    return HttpResponse("HEJ")
