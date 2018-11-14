@@ -13,7 +13,7 @@ def NewForm(request):
 
 def EditForm(request):
     if request.user.is_authenticated:
-        template = loader.get_template('FormHome.html') ## HTML FOR EDIT FORMS
+        template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
         context = {"my_name": "tempname"}
         return HttpResponse(template.render(context,request))
     else:
@@ -21,7 +21,7 @@ def EditForm(request):
 
 def ViewForms(request):
     if request.user.is_authenticated:
-        template = loader.get_template('FormHome.html') ## HTML FOR VIEw forms
+        template = loader.get_template('ViewForms.html') ## HTML FOR VIEw forms
         context = {"my_name": "tempname"}
         return HttpResponse(template.render(context,request))
     else:
