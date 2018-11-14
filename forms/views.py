@@ -5,7 +5,7 @@ from django.template import loader, Context
 # Create your views here.
 def NewForm(request):
     if request.user.is_authenticated:
-        template = loader.get_template('FormHome.html')
+        template = loader.get_template('CreateForm.html')
         context = {"my_name": "tempname"}
         return HttpResponse(template.render(context,request))
     else:
