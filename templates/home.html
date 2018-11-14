@@ -6,6 +6,9 @@
 {% block content %}
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
+  {% if user.is_superuser == 1%}
+    <p><a href="{% url 'admin:index' %}">link to admin panel</a></p>
+  {% endif %}
   <p><a href="{% url 'logout' %}">logout</a></p>
 {% else %}
   <p>You are not logged in</p>
