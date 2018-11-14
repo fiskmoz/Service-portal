@@ -1,3 +1,7 @@
 Py manage.py runserver  # starta servern
 
 Py manage.py startapp polls # för att skapa en ny app
+
+py manage.py createsuperuser # Skapa en super user
+
+py manage.py migarate # server update??
