@@ -1,9 +1,5 @@
 *.pyc
 *.pyo
 __pycache__/
-<<<<<<< HEAD
 *.sqlite3
-=======
-*.pyc
-*.sqlite3
->>>>>>> master
+
