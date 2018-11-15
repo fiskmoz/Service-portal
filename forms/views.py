@@ -5,9 +5,15 @@ from django.template import loader, Context
 # Create your views here.
 def NewForm(request):
     if request.user.is_authenticated:
-        template = loader.get_template('CreateForm.html')
-        context = {"my_name": "tempname"}
-        return HttpResponse(template.render(context,request))
+        if request.method == 'POST' :
+            service = request.POST.get('button1', '')
+            responseTime = request.POST.get('button2', '')
+            serviceTime = request.POST.get('button3', '')
+            return HttpResponse('Success!')
+        else:
+            template = loader.get_template('CreateForm.html')
+            context = {"my_name": "tempname"}
+            return HttpResponse(template.render(context,request))
     else:
         return HttpResponse("please log in ")
 
