@@ -9,7 +9,6 @@
 				<li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }} </a></p>
 			{% endif %}
 		{% endfor %}
-    <p><a href="{% url 'editform' %}">EDIT THIS FORM</a></p>
 		<p><a href="{{request.META.HTTP_REFERER}}">Go back</a></p>
 	</body>
 </html
