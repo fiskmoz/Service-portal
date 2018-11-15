@@ -4,6 +4,11 @@
 		<title>ViewForms</title>
 	</head>
 	<body>
+		{% for order in allOrders %}
+			{% if order.User.username.strip == CurrentUser %}
+				<p><a href="forms/{{ order.id }}/"> {{ order.OrderName }} </a></p>
+			{% endif %}
+		{% endfor %}
     <p><a href="{% url 'editform' %}">EDIT THIS FORM</a></p>
 		<p><a href="{{request.META.HTTP_REFERER}}">Go back</a></p>
 	</body>

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader, Context
+from .models import Order
 
 # Create your views here.
 def NewForm(request):
@@ -21,8 +22,12 @@ def EditForm(request):
 
 def ViewForms(request):
     if request.user.is_authenticated:
+        allOrders = Order.objects.all()
         template = loader.get_template('ViewForms.html') ## HTML FOR VIEw forms
-        context = {"my_name": "tempname"}
+        context = {
+        'allOrders' : allOrders,
+        'CurrentUser' : request.user.username,
+        }
         return HttpResponse(template.render(context,request))
     else:
         return HttpResponse("please log in ")
