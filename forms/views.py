@@ -8,13 +8,18 @@ from django.utils import timezone
 def NewForm(request):
     if request.user.is_authenticated:
         if request.method == 'POST' :
-            service = request.POST.get('button1', '')
-            responseTime = request.POST.get('button2', '')
-            serviceTime = request.POST.get('button3', '')
-            newOrder = Order(User=request.user, Date=timezone.now(),
-            Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime)
-            newOrder.save()
-            return HttpResponse('Success!')
+            orderName = request.POST.get('orderName', '')
+            #print(Order.objects.filter(User=request.user).filter(OrderName=orderName))
+            if Order.objects.filter(User=request.user).filter(OrderName=orderName) == False:
+                service = request.POST.get('service', '')
+                responseTime = request.POST.get('response', '')
+                serviceTime = request.POST.get('serviceTime', '')
+                newOrder = Order(User=request.user, OrderName=orderName, Date=timezone.now(),
+                Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime)
+                newOrder.save()
+                return HttpResponse('Success!')
+            else:
+                return HttpResponse('Ordername already exists!')
         else:
             template = loader.get_template('CreateForm.html')
             context = {"my_name": "tempname"}

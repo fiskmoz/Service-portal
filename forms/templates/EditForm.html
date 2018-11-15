@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>EditForm</title>
+		<title>Edit Service</title>
 	</head>
 	<body>
-		<form>
+		<h1>Edit Service:</h1>
+		<form action="" method ="POST" name="order">
+			{% csrf_token %}
+			Name of order:
+			<input type="text" name="orderName" required="required"><br>
 			<p>Type of Service:</p>
-			<input type="radio" name="button1" value="Gold" > Gold<br>
-			<input type="radio" name="button1" value="Silver"> Silver<br>
-			<input type="radio" name="button1" value="Bronze" required="required"> Bronze<br>
+			<input type="radio" name="service" value="Gold" > Gold<br>
+			<input type="radio" name="service" value="Silver"> Silver<br>
+			<input type="radio" name="service" value="Bronze" required="required"> Bronze<br>
 			<p>Response Time:</p>
-			<input type="radio" name="button2" value="10"> 10 Minutes<br>
-			<input type="radio" name="button2" value="20"> 20 Minutes<br>
-			<input type="radio" name="button2" value="30" required="required"> 30 Minutes<br>
+			<input type="radio" name="response" value="10"> 10 Minutes<br>
+			<input type="radio" name="response" value="20"> 20 Minutes<br>
+			<input type="radio" name="response" value="30" required="required"> 30 Minutes<br>
 			<p>Service Time:</p>
-			<input type="radio" name="button3" value="1"> Mon-Fri, 8-18<br>
-			<input type="radio" name="button3" value="2"> Mon-Sun, 8-18<br>
-			<input type="radio" name="button3" value="3" required="required"> 24/7, 365/y<br>
-			<p></p>
+			<input type="radio" name="serviceTime" value="1"> Mon-Fri, 8-18<br>
+			<input type="radio" name="serviceTime" value="2"> Mon-Sun, 8-18<br>
+			<input type="radio" name="serviceTime" value="3" required="required"> 24/7, 365/y<br><br>
 			<input type="submit">
 		</form>
 
