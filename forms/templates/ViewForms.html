@@ -6,7 +6,7 @@
 	<body>
 		{% for order in allOrders %}
 			{% if order.User.username.strip == CurrentUser %}
-				<p><a href="forms/{{ order.id }}/"> {{ order.OrderName }} </a></p>
+				<li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }} </a></p>
 			{% endif %}
 		{% endfor %}
     <p><a href="{% url 'editform' %}">EDIT THIS FORM</a></p>

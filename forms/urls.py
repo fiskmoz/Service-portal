@@ -6,5 +6,6 @@ from . import views
 urlpatterns = [
     path('Create', views.NewForm, name='newform'),
     path('Edit', views.EditForm, name='editform'),
+    path(r'^(?P<order_id>[0-9]+)/$', views.OrderDetail, name = 'orderdetail'),
     path('', views.ViewForms, name='viewform')
 ]
