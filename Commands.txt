@@ -4,7 +4,11 @@ Py manage.py startapp polls # för att skapa en ny app
 
 py manage.py createsuperuser # Skapa en super user
 
-py manage.py migarate # server update??
+py manage.py makemigrations *appname* # Add app.models to changelog
+
+py manage.py migarate # Runs the change file for the database
+
+
 
 
 # REFRESH .GITIGNORE #
