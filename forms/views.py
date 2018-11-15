@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader, Context
 from .models import Order
+from django.utils import timezone
 
 # Create your views here.
 def NewForm(request):
@@ -10,6 +11,9 @@ def NewForm(request):
             service = request.POST.get('button1', '')
             responseTime = request.POST.get('button2', '')
             serviceTime = request.POST.get('button3', '')
+            newOrder = Order(User=request.user, Date=timezone.now(),
+            Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime)
+            newOrder.save()
             return HttpResponse('Success!')
         else:
             template = loader.get_template('CreateForm.html')
