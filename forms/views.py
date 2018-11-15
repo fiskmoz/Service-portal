@@ -32,10 +32,9 @@ def EditForm(request):
 
 def ViewForms(request):
     if request.user.is_authenticated:
-        allOrders = Order.objects.all()
         template = loader.get_template('ViewForms.html') ## HTML FOR VIEw forms
         context = {
-        'allOrders' : allOrders,
+        'myOrders' : GetMyOrders(request.user.username),
         'CurrentUser' : request.user.username,
         }
         return HttpResponse(template.render(context,request))
@@ -44,6 +43,31 @@ def ViewForms(request):
 
 def OrderDetail(request, order_id):
     if request.user.is_authenticated:
-        return HttpResponse(order_id)
+        template = loader.get_template('OrderDetail.html')
+        context = {
+            "order" : GetSpecificOrder(order_id)
+        }
+        return HttpResponse(template.render(context,request ))
     else:
         return HttpResponse("please log in ")
+
+
+def GetMyOrders(username):
+    allOrders = Order.objects.all()
+    myOrders = []
+    for order in allOrders:
+        if(order.User.username == username):
+            myOrders.append(order)
+    return myOrders
+
+def GetSpecificOrder(order_id):
+    allOrders = Order.objects.all()
+    found = "not found"
+    for order in allOrders:
+        if str(order.id) == order_id:
+            currentOrder = order
+            found = "found"
+            break
+    if(found == "not found"):
+        return HttpResponse("Order not found")
+    return currentOrder
