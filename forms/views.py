@@ -9,8 +9,9 @@ def NewForm(request):
     if request.user.is_authenticated:
         if request.method == 'POST' :
             orderName = request.POST.get('orderName', '')
-            #print(Order.objects.filter(User=request.user).filter(OrderName=orderName))
-            if Order.objects.filter(User=request.user).filter(OrderName=orderName) == False:
+            # print(Order.objects.filter(User=request.user).filter(OrderName=orderName))
+            #if len(Order.objects.filter(User=request.user).filter(OrderName=orderName)) < 1 :
+            if not Order.objects.filter(User=request.user).filter(OrderName=orderName) :
                 service = request.POST.get('service', '')
                 responseTime = request.POST.get('response', '')
                 serviceTime = request.POST.get('serviceTime', '')
