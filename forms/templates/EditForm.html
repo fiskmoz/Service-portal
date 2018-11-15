@@ -1,12 +1,10 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>CreateForm</title>
+		<title>EditForm</title>
 	</head>
 	<body>
-		<form action="" method ="POST" name="order">
-			{% csrf_token %}
+		<form>
 			<p>Type of Service:</p>
 			<input type="radio" name="button1" value="Gold" > Gold<br>
 			<input type="radio" name="button1" value="Silver"> Silver<br>
@@ -18,7 +16,8 @@
 			<p>Service Time:</p>
 			<input type="radio" name="button3" value="1"> Mon-Fri, 8-18<br>
 			<input type="radio" name="button3" value="2"> Mon-Sun, 8-18<br>
-			<input type="radio" name="button3" value="3" required="required"> 24/7, 365/y<br><br>
+			<input type="radio" name="button3" value="3" required="required"> 24/7, 365/y<br>
+			<p></p>
 			<input type="submit">
 		</form>
 
