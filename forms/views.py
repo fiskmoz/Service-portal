@@ -8,13 +8,18 @@ from django.utils import timezone
 def NewForm(request):
     if request.user.is_authenticated:
         if request.method == 'POST' :
-            service = request.POST.get('button1', '')
-            responseTime = request.POST.get('button2', '')
-            serviceTime = request.POST.get('button3', '')
-            newOrder = Order(User=request.user, Date=timezone.now(),
-            Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime)
-            newOrder.save()
-            return HttpResponse('Success!')
+            orderName = request.POST.get('orderName', '')
+            #print(Order.objects.filter(User=request.user).filter(OrderName=orderName))
+            if Order.objects.filter(User=request.user).filter(OrderName=orderName) == False:
+                service = request.POST.get('service', '')
+                responseTime = request.POST.get('response', '')
+                serviceTime = request.POST.get('serviceTime', '')
+                newOrder = Order(User=request.user, OrderName=orderName, Date=timezone.now(),
+                Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime)
+                newOrder.save()
+                return HttpResponse('Success!')
+            else:
+                return HttpResponse('Ordername already exists!')
         else:
             template = loader.get_template('CreateForm.html')
             context = {"my_name": "tempname"}
@@ -32,10 +37,9 @@ def EditForm(request):
 
 def ViewForms(request):
     if request.user.is_authenticated:
-        allOrders = Order.objects.all()
         template = loader.get_template('ViewForms.html') ## HTML FOR VIEw forms
         context = {
-        'allOrders' : allOrders,
+        'myOrders' : GetMyOrders(request.user.username),
         'CurrentUser' : request.user.username,
         }
         return HttpResponse(template.render(context,request))
@@ -44,6 +48,31 @@ def ViewForms(request):
 
 def OrderDetail(request, order_id):
     if request.user.is_authenticated:
-        return HttpResponse(order_id)
+        template = loader.get_template('OrderDetail.html')
+        context = {
+            "order" : GetSpecificOrder(order_id)
+        }
+        return HttpResponse(template.render(context,request ))
     else:
         return HttpResponse("please log in ")
+
+
+def GetMyOrders(username):
+    allOrders = Order.objects.all()
+    myOrders = []
+    for order in allOrders:
+        if(order.User.username == username):
+            myOrders.append(order)
+    return myOrders
+
+def GetSpecificOrder(order_id):
+    allOrders = Order.objects.all()
+    found = "not found"
+    for order in allOrders:
+        if str(order.id) == order_id:
+            currentOrder = order
+            found = "found"
+            break
+    if(found == "not found"):
+        return HttpResponse("Order not found")
+    return currentOrder
