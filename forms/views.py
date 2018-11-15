@@ -41,3 +41,9 @@ def ViewForms(request):
         return HttpResponse(template.render(context,request))
     else:
         return HttpResponse("please log in ")
+
+def OrderDetail(request, order_id):
+    if request.user.is_authenticated:
+        return HttpResponse("COMMING SOON")
+    else:
+        return HttpResponse("please log in ")
