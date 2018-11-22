@@ -38,10 +38,10 @@ def NewForm(request):
     else:                                                                               # if not logged in
         return HttpResponse("please log in ")
 
-def EditForm(request):
+def EditForm(request, order_id):
     if request.user.is_authenticated:
         template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
-        context = {"my_name": "tempname"}
+        context = {"order": GetSpecificOrder(order_id), }
         return HttpResponse(template.render(context,request))
     else:
         return HttpResponse("Please log in ")
@@ -61,7 +61,7 @@ def OrderDetail(request, order_id):
     if request.user.is_authenticated:
         template = loader.get_template('OrderDetail.html')
         context = {
-            "order" : GetSpecificOrder(order_id)
+            "order" : GetSpecificOrder(order_id),
         }
         return HttpResponse(template.render(context,request ))
     else:
