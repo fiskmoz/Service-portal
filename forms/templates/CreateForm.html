@@ -1,10 +1,15 @@
+{% extends 'FormBase.html' %}
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Add Service</title>
-	</head>
-	<body>
+{% block content %}
+
+		{% if messages %}					<!-- Shows messages from django, in this case if ordername already exists -->
+			{% for message in messages %}
+				<script>
+					alert('{{ message }}');
+				</script>
+			{% endfor %}
+		{% endif %}
+
 		<h1>Add Service:</h1>
 		<form action="" method ="POST" name="order">
 			{% csrf_token %}
@@ -27,5 +32,4 @@
 
 		<p><a href="{{request.META.HTTP_REFERER}}">Go back</a></p>
 		<input type=button value="Previous Page" onClick="javascript:history.go(-1);">
-	</body>
-</html
+{% endblock %}

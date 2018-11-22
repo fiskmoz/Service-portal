@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Edit Service</title>
-	</head>
-	<body>
+{% extends 'FormBase.html' %}
+
+{% block content %}
 		<h1>Edit Service:</h1>
 		<form action="" method ="POST" name="order">
 			{% csrf_token %}
@@ -25,5 +22,4 @@
 		</form>
 
 		<p><a href="{{request.META.HTTP_REFERER}}">Go back</a></p>
-	</body>
-</html
+{% endblock %}
