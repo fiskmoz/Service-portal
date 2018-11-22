@@ -4,14 +4,21 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<style>
+h1 {
+	font-size: 250%;
+}
+</style>
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'newform' %}">Create new Form</a></p>
-  <p><a href="{% url 'viewform' %}">View all your forms</a></p>
-  {% if user.is_superuser == 1%}
-    <p><a href="{% url 'admin:index' %}">link to admin panel</a></p>
-  {% endif %}
-  <p><a href="{% url 'logout' %}">logout</a></p>
+  <h1> Hi {{ user.username }}! </h1>
+  <ol>
+    <li><a href="{% url 'newform' %}">Create new Form</a></p>
+    <li><a href="{% url 'viewform' %}">View all your forms</a></p>
+    {% if user.is_superuser == 1%}
+      <li><a href="{% url 'admin:index' %}">link to admin panel</a></p>
+      {% endif %}
+      <li><a href="{% url 'logout' %}">logout</a></p>
+  </ol>
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">login</a>
