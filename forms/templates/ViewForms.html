@@ -1,8 +1,32 @@
-{% extends 'FormBase.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
+<!-- THIS IS DESIGN FOR THE LIST-->
+<style>
+ul {
+	list-style: none;
+	background: #800080;
+	padding: 0;
+	border: 1px solid #ddd;
+}
+
+ul li {
+	padding: 8px 16x;
+	border-bottom: 1px solid #ddd;
+}
+
+ul li:last-child {
+	border-bottom: : none
+}
+</style>
+
+<style>
+</style>
+
+	<ul>
 		{% for order in myOrders %}
 			<li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }} </a></p>
 		{% endfor %}
+	</ul>
 		<p><a href="{{request.META.HTTP_REFERER}}">Go back</a></p>
 {% endblock %}

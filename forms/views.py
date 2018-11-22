@@ -12,7 +12,7 @@ def AddToDatabase(request):
     service = request.POST.get('service', '')
     responseTime = request.POST.get('response', '')
     serviceTime = request.POST.get('serviceTime', '')
-    
+
     newOrder = Order(User=request.user, OrderName=orderName, Date=timezone.now(),
     Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime)
     newOrder.save()
