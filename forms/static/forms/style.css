@@ -4,7 +4,7 @@ body{
 }
 
 ol {
-	list-style: none;
+	list-style: Circle;
 	background: #404040;
 	padding: 0;
 	border: 1px solid #ddd;
