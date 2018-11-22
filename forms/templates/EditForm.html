@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'FormBase.html' %}
 
 {% block content %}
-		<h2>Edit Service:</h2>
+		<h1>Edit Service:</h1>
 		<form action="" method ="POST" name="order">
 			{% csrf_token %}
 			Name of order:
@@ -20,4 +20,6 @@
 			<input type="radio" name="serviceTime" value="3" required="required"> 24/7, 365/y<br><br>
 			<input type="submit">
 		</form>
+
+		<p><a href="{{request.META.HTTP_REFERER}}">Go back</a></p>
 {% endblock %}
