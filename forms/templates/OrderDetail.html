@@ -1,16 +1,6 @@
-{% extends 'FormBase.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
-<<<<<<< HEAD
-		<p> Order: {{order.OrderName}} </p>
-		<p> Your current medal: {{order.Medal}} </p>
-    <p> Chosen response time: {{order.ResponseTime}}</p>
-    <p> Chosen service time: {{order.ServiceTime}} </p>
-    <p> Order date: {{order.Date}} </p>
-    <p></p>
-    <p><a href="{% url 'editform' order.id %}"> EDIT THIS FORM</a></p>
-		<p><a href="{{request.META.HTTP_REFERER}}">Go back</a></p>
-=======
 
 <style>
 p {
@@ -29,5 +19,4 @@ p {
 	<p><a href="{% url 'editform' order.id %}">EDIT THIS FORM</a></p>
 <ol>
 
->>>>>>> 9fec1e93027a370c55c898260277638e73990ec7
 {% endblock %}

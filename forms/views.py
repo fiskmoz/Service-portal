@@ -41,13 +41,7 @@ def NewForm(request):
 def EditForm(request, order_id):
     if request.user.is_authenticated:
         template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
-<<<<<<< HEAD
-        context = {
-            'order' : GetSpecificOrder(order_id)
-        }
-=======
         context = {"order": GetSpecificOrder(order_id), }
->>>>>>> 9fec1e93027a370c55c898260277638e73990ec7
         return HttpResponse(template.render(context,request))
     else:
         return HttpResponse("Please log in ")
@@ -67,11 +61,7 @@ def OrderDetail(request, order_id):
     if request.user.is_authenticated:
         template = loader.get_template('OrderDetail.html')
         context = {
-<<<<<<< HEAD
-            'order' : GetSpecificOrder(order_id)
-=======
             "order" : GetSpecificOrder(order_id),
->>>>>>> 9fec1e93027a370c55c898260277638e73990ec7
         }
         return HttpResponse(template.render(context,request ))
     else:
