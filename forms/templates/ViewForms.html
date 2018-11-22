@@ -2,7 +2,6 @@
 
 {% block content %}
 		{% for order in myOrders %}
-			<li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }} </a></p>
 			<li><p><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }} </a></p>
 		{% endfor %}
 		<p><a href="{{request.META.HTTP_REFERER}}">Go back</a></p>
