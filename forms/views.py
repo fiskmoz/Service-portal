@@ -12,7 +12,7 @@ def AddToDatabase(request):
     service = request.POST.get('service', '')
     responseTime = request.POST.get('response', '')
     serviceTime = request.POST.get('serviceTime', '')
-    
+
     newOrder = Order(User=request.user, OrderName=orderName, Date=timezone.now(),
     Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime)
     newOrder.save()
@@ -38,11 +38,10 @@ def NewForm(request):
     else:                                                                               # if not logged in
         return HttpResponse("please log in ")
 
-def EditForm(request, order):
+def EditForm(request, order_id):
     if request.user.is_authenticated:
         template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
         context = {
-            "order" : order
         }
         return HttpResponse(template.render(context,request))
     else:
@@ -63,7 +62,7 @@ def OrderDetail(request, order_id):
     if request.user.is_authenticated:
         template = loader.get_template('OrderDetail.html')
         context = {
-            "order" : GetSpecificOrder(order_id)
+            'order' : GetSpecificOrder(order_id)
         }
         return HttpResponse(template.render(context,request ))
     else:
