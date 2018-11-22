@@ -22,14 +22,16 @@
     <div class="collapse navbar-collapse" id="navbarMenu">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a href="{% url 'admin:index' %}" class="nav-link">Admin Page</a>
-        </li>
-        <li class="nav-item">
           <a href="{% url 'newform' %}" class="nav-link">Create Form</a>
         </li>
         <li class="nav-item">
           <a href="{% url 'viewform' %}" class="nav-link">View Forms</a>
         </li>
+        {% if user.is_superuser == 1 %}
+          <li class="nav-item">
+            <a href="{% url 'admin:index' %}" class="nav-link">Admin Page</a>
+          </li>
+        {% endif %}
       </ul>
       <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
