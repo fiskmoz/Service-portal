@@ -28,10 +28,12 @@ def NewForm(request):
     else:
         return HttpResponse("please log in ")
 
-def EditForm(request):
+def EditForm(request, order):
     if request.user.is_authenticated:
         template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
-        context = {"my_name": "tempname"}
+        context = {
+            "order" : order
+        }
         return HttpResponse(template.render(context,request))
     else:
         return HttpResponse("Please log in ")
