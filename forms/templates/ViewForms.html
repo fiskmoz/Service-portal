@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>ViewForms</title>
-	</head>
-	<body>
+{% extends 'FormBase.html' %}
+
+{% block content %}
 		{% for order in myOrders %}
 			<li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }} </a></p>
 		{% endfor %}
 		<p><a href="{{request.META.HTTP_REFERER}}">Go back</a></p>
-	</body>
-</html>
+{% endblock %}

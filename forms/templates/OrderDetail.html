@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>OrderDetail</title>
-	</head>
-	<body>
+{% extends 'FormBase.html' %}
+
+{% block content %}
 		<p> Order: {{order.Ordername}} </p>
 		<p> Your current medal: {{order.Medal}} </p>
     <p> Chosen response time: {{order.ResponseTime}}</p>
@@ -12,5 +9,4 @@
     <p></p>
     <p><a href="{% url 'editform' %}">EDIT THIS FORM</a></p>
 		<p><a href="{{request.META.HTTP_REFERER}}">Go back</a></p>
-	</body>
-</html
+{% endblock %}

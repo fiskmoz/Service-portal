@@ -1,9 +1,5 @@
 1. Sova
 2. Orderstatus
-3. Endast skicka en användares ordrar istället för alla
-4. Lägag till ordernamn(Unikt för användaren)
-5. Visa sin order.
-
 
  Kontrakt sida
  Edit order
