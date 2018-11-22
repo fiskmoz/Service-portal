@@ -6,6 +6,17 @@ from django.utils import timezone
 from django.shortcuts import redirect
 from django.contrib import messages
 
+def AddToDatabase(request):
+
+    orderName = request.POST.get('orderName', '')
+    service = request.POST.get('service', '')
+    responseTime = request.POST.get('response', '')
+    serviceTime = request.POST.get('serviceTime', '')
+    
+    newOrder = Order(User=request.user, OrderName=orderName, Date=timezone.now(),
+    Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime)
+    newOrder.save()
+
 
 # Create your views here.
 def NewForm(request):
@@ -13,12 +24,7 @@ def NewForm(request):
         if request.method == 'POST' :
             orderName = request.POST.get('orderName', '')
             if not Order.objects.filter(User=request.user).filter(OrderName=orderName) :   # checks if user has an order with the ordername
-                service = request.POST.get('service', '')
-                responseTime = request.POST.get('response', '')
-                serviceTime = request.POST.get('serviceTime', '')
-                newOrder = Order(User=request.user, OrderName=orderName, Date=timezone.now(),
-                Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime)
-                newOrder.save()
+                AddToDatabase(request)
                 return redirect('home')
             else:                                                                       # if ordername exists
                 messages.info(request, 'ordername already exists!')
@@ -29,7 +35,7 @@ def NewForm(request):
             template = loader.get_template('CreateForm.html')
             context = {"my_name": "tempname"}
             return HttpResponse(template.render(context,request))
-    else:
+    else:                                                                               # if not logged in
         return HttpResponse("please log in ")
 
 def EditForm(request):
