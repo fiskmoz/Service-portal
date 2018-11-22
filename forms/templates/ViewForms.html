@@ -28,5 +28,4 @@ ul li:last-child {
 			<li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }} </a></p>
 		{% endfor %}
 	</ul>
-		<p><a href="{{request.META.HTTP_REFERER}}">Go back</a></p>
 {% endblock %}

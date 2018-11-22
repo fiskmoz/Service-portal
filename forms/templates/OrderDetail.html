@@ -1,4 +1,4 @@
-{% extends 'FormBase.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
 		<p> Order: {{order.OrderName}} </p>
@@ -8,5 +8,4 @@
     <p> Order date: {{order.Date}} </p>
     <p></p>
     <p><a href="{% url 'editform' %}">EDIT THIS FORM</a></p>
-		<p><a href="{{request.META.HTTP_REFERER}}">Go back</a></p>
 {% endblock %}
