@@ -3,25 +3,29 @@ from django.http import HttpResponse
 from django.template import loader, Context
 from .models import Order
 from django.utils import timezone
+from django.shortcuts import redirect
+from django.contrib import messages
+
 
 # Create your views here.
 def NewForm(request):
     if request.user.is_authenticated:
         if request.method == 'POST' :
             orderName = request.POST.get('orderName', '')
-            # print(Order.objects.filter(User=request.user).filter(OrderName=orderName))
-            #if len(Order.objects.filter(User=request.user).filter(OrderName=orderName)) < 1 :
-            if not Order.objects.filter(User=request.user).filter(OrderName=orderName) :
+            if not Order.objects.filter(User=request.user).filter(OrderName=orderName) :   # checks if user has an order with the ordername
                 service = request.POST.get('service', '')
                 responseTime = request.POST.get('response', '')
                 serviceTime = request.POST.get('serviceTime', '')
                 newOrder = Order(User=request.user, OrderName=orderName, Date=timezone.now(),
                 Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime)
                 newOrder.save()
-                return HttpResponse('Success!')
-            else:
-                return HttpResponse('Ordername already exists!')
-        else:
+                return redirect('home')
+            else:                                                                       # if ordername exists
+                messages.info(request, 'ordername already exists!')
+                template = loader.get_template('CreateForm.html')
+                context = {"my_name": "tempname"}
+                return HttpResponse(template.render(context,request))
+        else:                                                                           # first time loading into page
             template = loader.get_template('CreateForm.html')
             context = {"my_name": "tempname"}
             return HttpResponse(template.render(context,request))

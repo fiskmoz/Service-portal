@@ -1,6 +1,15 @@
 {% extends 'FormBase.html' %}
 
 {% block content %}
+
+		{% if messages %}					<!-- Shows messages from django, in this case if ordername already exists -->
+			{% for message in messages %}
+				<script>
+					alert('{{ message }}');
+				</script>
+			{% endfor %}
+		{% endif %}
+
 		<h1>Add Service:</h1>
 		<form action="" method ="POST" name="order">
 			{% csrf_token %}
