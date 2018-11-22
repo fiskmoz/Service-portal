@@ -42,6 +42,7 @@ def EditForm(request, order_id):
     if request.user.is_authenticated:
         template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
         context = {
+            'order' : GetSpecificOrder(order_id)
         }
         return HttpResponse(template.render(context,request))
     else:
