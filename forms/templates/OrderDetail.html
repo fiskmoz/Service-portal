@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-		<p> Order: {{order.OrderName}} </p>
-		<p> Your current medal: {{order.Medal}} </p>
-    <p> Chosen response time: {{order.ResponseTime}}</p>
-    <p> Chosen service time: {{order.ServiceTime}} </p>
-    <p> Order date: {{order.Date}} </p>
-    <p></p>
-    <p><a href="{% url 'editform' %}">EDIT THIS FORM</a></p>
+
+<style>
+p {
+	color: blue;
+}
+</style>
+<h2> {{order.OrderName}} </h2>
+<ol>
+	<li><p> Your ordernumber: {{order.OrderName}} </p></li>
+	<li><p> Your current medal: {{order.Medal}} </p></li>
+	<li><p> Chosen response time: {{order.ResponseTime}}</p></li>
+	<li><p> Chosen service time: {{order.ServiceTime}} </p></li>
+	<li><p> Order date: {{order.Date}} </p></li>
+</ol>
+<ol>
+	<p><a href="{% url 'editform' %}">EDIT THIS FORM</a></p>
+<ol>
+
 {% endblock %}

@@ -4,13 +4,9 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<style>
-h1 {
-	font-size: 250%;
-}
 </style>
 {% if user.is_authenticated %}
-  <h1> Hi {{ user.username }}! </h1>
+  <h2> Hi {{ user.username }}! </h2>
   <ol>
     <li><a href="{% url 'newform' %}">Create new Form</a></p>
     <li><a href="{% url 'viewform' %}">View all your forms</a></p>
@@ -20,7 +16,9 @@ h1 {
       <li><a href="{% url 'logout' %}">logout</a></p>
   </ol>
 {% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
+  <h2>You are not logged in</h2>
+  <ol>
+    <li> <a href="{% url 'login' %}">Please log in</a></li>
+  <ol>
 {% endif %}
 {% endblock %}
