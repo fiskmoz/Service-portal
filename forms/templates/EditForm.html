@@ -1,4 +1,4 @@
-{% extends 'FormBase.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
 		<h1>Edit Service:</h1>
@@ -20,6 +20,4 @@
 			<input type="radio" name="serviceTime" value="3" required="required"> 24/7, 365/y<br><br>
 			<input type="submit">
 		</form>
-
-		<p><a href="{{request.META.HTTP_REFERER}}">Go back</a></p>
 {% endblock %}
