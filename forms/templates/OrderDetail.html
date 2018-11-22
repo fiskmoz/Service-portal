@@ -16,7 +16,7 @@ p {
 	<li><p> Order date: {{order.Date}} </p></li>
 </ol>
 <ol>
-	<p><a href="{% url 'editform' %}">EDIT THIS FORM</a></p>
+	<p><a href="{% url 'editform' order.id %}">EDIT THIS FORM</a></p>
 <ol>
 
 {% endblock %}
