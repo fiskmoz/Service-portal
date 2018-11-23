@@ -14,9 +14,12 @@ p {
 	<li><p> Chosen response time: {{order.ResponseTime}}</p></li>
 	<li><p> Chosen service time: {{order.ServiceTime}} </p></li>
 	<li><p> Order date: {{order.Date}} </p></li>
+	<li><p> Most Recent: {{ order.MostRecent }} </p></li>
 </ol>
+{% if order.MostRecent == "TRUE" %}
 <ol>
 	<p><a href="{% url 'editform' order.id %}">EDIT THIS FORM</a></p>
 <ol>
+{% endif %}
 
 {% endblock %}

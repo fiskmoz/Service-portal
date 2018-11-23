@@ -14,7 +14,7 @@ def AddToDatabase(request):
     serviceTime = request.POST.get('serviceTime', '')
 
     newOrder = Order(User=request.user, OrderName=orderName, Date=timezone.now(),
-    Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime)
+    Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime, MostRecent="TRUE")
     newOrder.save()
 
 
@@ -42,9 +42,19 @@ def EditForm(request, order_id):
     order = GetSpecificOrder(order_id)
     if request.user.is_authenticated:
         if order.User.username == request.user.username:
-            template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
-            context = {"order": order, }
-            return HttpResponse(template.render(context,request))
+            if order.MostRecent == "TRUE":
+                if request.method == "POST":
+                    updatedOrderName = request.POST.get('orderName', '')
+                    AddToDatabase(request)
+                    order.MostRecent = "FALSE"
+                    order.save()
+                    return redirect('home')
+                else:
+                    template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
+                    context = {"order": order, }
+                    return HttpResponse(template.render(context,request))
+            else:
+                return HttpResponse("THIS IS NOT THE MOST RECENT THING")
         else:
             return HttpResponse("NOT YOUR FORM!! LEAVE")
     else:

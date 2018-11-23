@@ -5,7 +5,7 @@
 		<form action="" method ="POST" name="order">
 			{% csrf_token %}
 			Name of order:
-			<input type="text" name="orderName" required="required" value="{{order.OrderName}}"><br>
+			<input type="text" name="orderName" required="required" value="{{order.OrderName}}" disabled><br>
 			<p>Type of Service:</p>
 			{% if order.Medal == 'Gold' %}
 				<input type="radio" name="service" value="Gold" checked="checked"> Gold<br>

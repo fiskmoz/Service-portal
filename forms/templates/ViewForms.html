@@ -2,11 +2,20 @@
 
 {% block content %}
 
+<style>
+p {
+	color: red;
+}
+</style>
 <!-- THIS IS ACTUAL HTML CODE FOR PAGE -->
 <h2> Your orders: </h2>
 <ol>
 	{% for order in myOrders %}
-		<li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }} </a></p>
+	  {% if order.MostRecent == "TRUE" %}
+				<li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }}</a> <p> MOST RECENT </p></li>
+			{% else %}
+				<li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }}</a> <p> OLD </p></li>
+		{% endif %}
 	{% endfor %}
 </ol>
 {% endblock %}
