@@ -39,10 +39,14 @@ def NewForm(request):
         return HttpResponse("please log in ")
 
 def EditForm(request, order_id):
+    order = GetSpecificOrder(order_id)
     if request.user.is_authenticated:
-        template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
-        context = {"order": GetSpecificOrder(order_id), }
-        return HttpResponse(template.render(context,request))
+        if order.User.username == request.user.username:
+            template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
+            context = {"order": order, }
+            return HttpResponse(template.render(context,request))
+        else:
+            return HttpResponse("NOT YOUR FORM!! LEAVE")
     else:
         return HttpResponse("Please log in ")
 
@@ -58,12 +62,16 @@ def ViewForms(request):
         return HttpResponse("please log in ")
 
 def OrderDetail(request, order_id):
+    order = GetSpecificOrder(order_id)
     if request.user.is_authenticated:
-        template = loader.get_template('OrderDetail.html')
-        context = {
-            "order" : GetSpecificOrder(order_id),
-        }
-        return HttpResponse(template.render(context,request ))
+        if order.User.username == request.user.username:
+            template = loader.get_template('OrderDetail.html')
+            context = {
+            "order" : order,
+            }
+            return HttpResponse(template.render(context,request ))
+        else:
+            return HttpResponse("NOT YOUR FORM!!!! LEAVE")
     else:
         return HttpResponse("please log in ")
 
