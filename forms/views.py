@@ -37,26 +37,24 @@ def NewForm(request):
 
 
 def EditForm(request, order_id):
-    order = GetSpecificOrder(order_id)
-    if request.user.is_authenticated:
-        if order.User.username == request.user.username:
-            if order.MostRecent == "TRUE":
-                if request.method == "POST":
-                    updatedOrderName = request.POST.get('orderName', '')
-                    AddToDatabase(request)
-                    order.MostRecent = "FALSE"
-                    order.save()
-                    return redirect('home')
-                else:
-                    template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
-                    context = {"order": order, }
-                    return HttpResponse(template.render(context,request))
-            else:
-                return HttpResponse("THIS IS NOT THE MOST RECENT THING")
-        else:
-            return HttpResponse("NOT YOUR FORM!! LEAVE")
-    else:
+    #Sanity Checks
+    if not request.user.is_authenticated:
         return HttpResponse("Please log in ")
+    order = GetSpecificOrder(order_id)
+    if not order.User.username == request.user.username:
+        return HttpResponse("NOT YOUR FORM! LEAVE! ")
+    if not order.MostRecent == "TRUE":
+        return HttpResponse("THIS IS NOT THE MOST RECENT THING")
+    if not request.method == "POST":
+        template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
+        context = {"order": order, }
+        return HttpResponse(template.render(context,request))
+
+    updatedOrderName = request.POST.get('orderName', '')
+    AddToDatabase(request)
+    order.MostRecent = "FALSE"
+    order.save()
+    return redirect('home')
 
 def ViewForms(request):
     if request.user.is_authenticated:
