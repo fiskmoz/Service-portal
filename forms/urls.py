@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from forms import views
 
 #Creating views for forms
 
