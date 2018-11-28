@@ -17,7 +17,16 @@ class OrderList(APIView):
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
     def post(self, request):
-        return ("TODO")
+        OrderCreator = request.user.username
+        orderName = request.POST.get('orderName', '')
+        Medal = request.POST.get('Medal', '')
+        ServiceTime = request.POST.get('ServiceTime', '')
+        responseTime = request.POST.get('ResponseTime', '')
+
+        newOrder = Order(OrderCreator=request.user, OrderName=orderName, Date=timezone.now(),
+        Medal=Medal, ServiceTime=ServiceTime, ResponseTime=responseTime, MostRecent="TRUE")
+        newOrder.save()
+        return HttpResponse("SUccess!!!")
         # WHAT TO DO WHEN RECEIVING A POST (NEW ORDER?)
 
 class SpecificOrderView(APIView):
