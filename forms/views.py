@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader, Context
-from .models import Order
+from API.models import Order
 from django.utils import timezone
 from django.shortcuts import redirect
 from django.contrib import messages
