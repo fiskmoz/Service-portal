@@ -42,7 +42,5 @@ class SpecificOrderView(APIView):
 
     def get(self, request, id):
         order = Order.objects.get(id = id)
-        if (order.OrderCreator == request.user.username):
-            serializer = OrderSerializer(order, many=False)
-            return Response(serializer.data)
-        return HttpResponseNotFound("404 MOFO")
+        serializer = OrderSerializer(order, many=False)
+        return Response(serializer.data)
