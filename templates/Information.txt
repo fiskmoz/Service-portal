@@ -1,0 +1,3 @@
+Python version 3.7.1
+Django framework
+Tastypie Framework for API
