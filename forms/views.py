@@ -5,6 +5,7 @@ from API.models import Order
 from django.utils import timezone
 from django.shortcuts import redirect
 from django.contrib import messages
+from API.models import Order
 
 def AddToDatabase(request):
 
