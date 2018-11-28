@@ -4,7 +4,7 @@ from django.contrib import auth
 
 # Create your models here.
 class Order(models.Model):
-    User = models.ForeignKey(auth.models.User, on_delete=models.CASCADE)
+    OrderCreator = models.CharField(max_length = 250, default = "NOBODY")
     OrderName = models.CharField(max_length = 250, default = 'defaultordername')
     Medal = models.CharField(max_length = 250)
     ServiceTime = models.CharField(max_length = 250)
