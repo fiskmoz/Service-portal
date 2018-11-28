@@ -8,11 +8,6 @@ from API.models import Order
 from .serializer import OrderSerializer
 from rest_framework import generics
 from django.utils import timezone
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 94e2792f8bb369b5a92d5c9b5cb7ac1c68cea02a
 
 # Create your views here.
 def Home(requests):
