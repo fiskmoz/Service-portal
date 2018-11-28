@@ -18,25 +18,22 @@ def AddToDatabase(request):
     newOrder.save()
 
 
-# Create your views here.
 def NewForm(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST' :
-            orderName = request.POST.get('orderName', '')
-            if not Order.objects.filter(User=request.user).filter(OrderName=orderName) :   # checks if user has an order with the ordername
-                AddToDatabase(request)
-                return redirect('home')
-            else:                                                                       # if ordername exists
-                messages.info(request, 'ordername already exists!')
-                template = loader.get_template('CreateForm.html')
-                context = {"my_name": "tempname"}
-                return HttpResponse(template.render(context,request))
-        else:                                                                           # first time loading into page
-            template = loader.get_template('CreateForm.html')
-            context = {"my_name": "tempname"}
-            return HttpResponse(template.render(context,request))
-    else:                                                                               # if not logged in
+    # Sanity checks
+    if not request.user.is_authenticated:
         return HttpResponse("please log in ")
+
+    if  request.method == "POST":
+        orderName = request.POST.get('orderName', '')
+        if not Order.objects.filter(User=request.user).filter(OrderName=orderName) :   # checks if user has an order with the ordername
+            AddToDatabase(request)
+            return redirect('home')
+        messages.info(request, 'ordername already exists!')
+
+    template = loader.get_template('CreateForm.html')
+    context = {"my_name": "tempname"}
+    return HttpResponse(template.render(context,request))
+
 
 def EditForm(request, order_id):
     order = GetSpecificOrder(order_id)
