@@ -62,23 +62,9 @@ def ViewForms(request):
 def OrderDetail(request, order_id):
     if not request.user.is_authenticated:
         return HttpResponse("Please log in")
-    order = GetSpecificOrder(order_id)
-    if not order.OrderCreator == request.user.username:
-        return HttpResponse("NOT YOUR FORM!!!! LEAVE")
+        
     template = loader.get_template('OrderDetail.html')
     context = {
-    "order" : order,
+    "order" : requests.get(url='http://127.0.0.1:8000/API/'+order_id+'/').json(),
     }
     return HttpResponse(template.render(context,request ))
-
-def GetSpecificOrder(order_id):
-    allOrders = Order.objects.all()
-    found = "not found"
-    for order in allOrders:
-        if str(order.id) == order_id:
-            currentOrder = order
-            found = "found"
-            break
-    if(found == "not found"):
-        return HttpResponse("Order not found")
-    return currentOrder
