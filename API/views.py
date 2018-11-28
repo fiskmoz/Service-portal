@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpResponseNotFound
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from API.models import Order
 from .serializer import OrderSerializer
 from rest_framework import generics
+from django.utils import timezone
+
+
 
 # Create your views here.
 def Home(requests):
@@ -37,5 +41,7 @@ class SpecificOrderView(APIView):
 
     def get(self, request, id):
         order = Order.objects.get(id = id)
-        serializer = OrderSerializer(order, many=False)
-        return Response(serializer.data)
+        if (order.OrderCreator == request.user.username):
+            serializer = OrderSerializer(order, many=False)
+            return Response(serializer.data)
+        return HttpResponseNotFound("404 MOFO")
