@@ -6,6 +6,7 @@ from rest_framework import status
 from API.models import Order
 from .serializer import OrderSerializer
 from rest_framework import generics
+from django.utils import timezone
 
 # Create your views here.
 def Home(requests):
@@ -17,13 +18,16 @@ class OrderList(APIView):
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
     def post(self, request):
-        OrderCreator = request.user.username
-        orderName = request.POST.get('orderName', '')
+        OrderName = request.POST.get('OrderName', '')
+        OrderCreator = request.POST.get('OrderCreator', '')
+        if  Order.objects.filter(OrderCreator=OrderCreator).filter(OrderName=OrderName) :
+            print("DUPLICATE FOUND")
+            return HttpResponse("Ordername duplicate")
+        print(OrderCreator)
         Medal = request.POST.get('Medal', '')
         ServiceTime = request.POST.get('ServiceTime', '')
         responseTime = request.POST.get('ResponseTime', '')
-
-        newOrder = Order(OrderCreator=request.user, OrderName=orderName, Date=timezone.now(),
+        newOrder = Order(OrderCreator=OrderCreator, OrderName=OrderName, Date=timezone.now(),
         Medal=Medal, ServiceTime=ServiceTime, ResponseTime=responseTime, MostRecent="TRUE")
         newOrder.save()
         return HttpResponse("SUccess!!!")

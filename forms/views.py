@@ -15,14 +15,21 @@ def NewForm(request):
         return HttpResponse("please log in ")
 
     if not request.method == "POST":
-        orderName = request.POST.get('orderName', '')
         template = loader.get_template('CreateForm.html')
         context = {"my_name": "tempname"}
         return HttpResponse(template.render(context,request))
-    orderName = request.POST.get('orderName', '')
-    if not Order.objects.filter(OrderCreator=request.user).filter(OrderName=orderName) :   # checks if user has an order with the ordername
-        AddToDatabase(request)
-        return redirect('home')
+    OrderCreator = request.user.username
+    OrderName = request.POST.get('OrderName', '')
+    print(OrderName)
+    Medal = request.POST.get('Medal', '')
+    ServiceTime = request.POST.get('ServiceTime', '')
+    responseTime = request.POST.get('ResponseTime', '')
+    payload = ({'OrderCreator': OrderCreator, 'OrderName': OrderName, 'Medal' : Medal,
+    'ServiceTime': ServiceTime, 'ResponseTime': responseTime})
+    r = requests.post(url = 'http://127.0.0.1:8000/API/',
+    data = payload)
+    print(json.dumps(payload))
+    return redirect('home')
     messages.info(request, 'ordername already exists!')
 
 
