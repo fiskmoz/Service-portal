@@ -9,18 +9,6 @@ from API.models import Order
 import requests
 import json
 
-def AddToDatabase(request):
-
-    orderName = request.POST.get('orderName', '')
-    service = request.POST.get('service', '')
-    responseTime = request.POST.get('response', '')
-    serviceTime = request.POST.get('serviceTime', '')
-
-    newOrder = Order(OrderCreator=request.user, OrderName=orderName, Date=timezone.now(),
-    Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime, MostRecent="TRUE")
-    newOrder.save()
-
-
 def NewForm(request):
     # Sanity checks
     if not request.user.is_authenticated:
@@ -65,7 +53,7 @@ def ViewForms(request):
 
     template = loader.get_template('ViewForms.html') ## HTML FOR VIEw forms
     context = {
-    'myOrders' : GetMyOrders(request.user.username),
+    'myOrders' : requests.get(url='http://127.0.0.1:8000/API/').json(),
     'CurrentUser' : request.user.username,
     }
     return HttpResponse(template.render(context,request))
@@ -82,15 +70,6 @@ def OrderDetail(request, order_id):
     "order" : order,
     }
     return HttpResponse(template.render(context,request ))
-
-
-def GetMyOrders(username):
-    allOrders = Order.objects.all()
-    myOrders = []
-    for order in allOrders:
-        if(order.OrderCreator == username):
-            myOrders.append(order)
-    return myOrders
 
 def GetSpecificOrder(order_id):
     allOrders = Order.objects.all()

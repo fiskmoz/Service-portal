@@ -17,7 +17,7 @@ def Home(requests):
 
 class OrderList(APIView):
     def get(self, request):
-        orders = Order.objects.filter(OrderCreator = request.user.username)
+        orders = Order.objects.all() #filter(OrderCreator = request.user.username)
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
     def post(self, request):
