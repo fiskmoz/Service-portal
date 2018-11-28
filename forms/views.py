@@ -6,6 +6,8 @@ from django.utils import timezone
 from django.shortcuts import redirect
 from django.contrib import messages
 from API.models import Order
+import requests
+import json
 
 def AddToDatabase(request):
 
@@ -85,7 +87,6 @@ def OrderDetail(request, order_id):
 
 
 def GetMyOrders(username):
-
     allOrders = Order.objects.all()
     myOrders = []
     for order in allOrders:
