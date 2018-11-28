@@ -5,6 +5,7 @@ from API import views
 
 urlpatterns = [
     path('', views.OrderList.as_view()),
+    path('<id>/', views.SpecificOrderView.as_view())
     # path('', views.Home, name='home')
 ]
 

@@ -6,4 +6,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         # fields = ('')
-        fields = '__all__'
+        fields = ('__all__')
+
+# Converts to JSON
+# Validation
