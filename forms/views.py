@@ -26,16 +26,16 @@ def NewForm(request):
     if not request.user.is_authenticated:
         return HttpResponse("please log in ")
 
-    if  request.method == "POST":
+    if not request.method == "POST":
         orderName = request.POST.get('orderName', '')
-        if not Order.objects.filter(User=request.user).filter(OrderName=orderName) :   # checks if user has an order with the ordername
-            AddToDatabase(request)
-            return redirect('home')
-        messages.info(request, 'ordername already exists!')
-
-    template = loader.get_template('CreateForm.html')
-    context = {"my_name": "tempname"}
-    return HttpResponse(template.render(context,request))
+        template = loader.get_template('CreateForm.html')
+        context = {"my_name": "tempname"}
+        return HttpResponse(template.render(context,request))
+    orderName = request.POST.get('orderName', '')
+    if not Order.objects.filter(User=request.user).filter(OrderName=orderName) :   # checks if user has an order with the ordername
+        AddToDatabase(request)
+        return redirect('home')
+    messages.info(request, 'ordername already exists!')
 
 
 def EditForm(request, order_id):
@@ -72,18 +72,16 @@ def ViewForms(request):
 
 
 def OrderDetail(request, order_id):
+    if not request.user.is_authenticated:
+        return HttpResponse("Please log in")
     order = GetSpecificOrder(order_id)
-    if request.user.is_authenticated:
-        if order.User.username == request.user.username:
-            template = loader.get_template('OrderDetail.html')
-            context = {
-            "order" : order,
-            }
-            return HttpResponse(template.render(context,request ))
-        else:
-            return HttpResponse("NOT YOUR FORM!!!! LEAVE")
-    else:
-        return HttpResponse("please log in ")
+    if not order.User.username == request.user.username:
+        return HttpResponse("NOT YOUR FORM!!!! LEAVE")
+    template = loader.get_template('OrderDetail.html')
+    context = {
+    "order" : order,
+    }
+    return HttpResponse(template.render(context,request ))
 
 
 def GetMyOrders(username):
