@@ -16,7 +16,7 @@ def AddToDatabase(request):
     responseTime = request.POST.get('response', '')
     serviceTime = request.POST.get('serviceTime', '')
 
-    newOrder = Order(User=request.user, OrderName=orderName, Date=timezone.now(),
+    newOrder = Order(OrderCreator=request.user, OrderName=orderName, Date=timezone.now(),
     Medal=service, ServiceTime=serviceTime, ResponseTime=responseTime, MostRecent="TRUE")
     newOrder.save()
 
@@ -32,7 +32,7 @@ def NewForm(request):
         context = {"my_name": "tempname"}
         return HttpResponse(template.render(context,request))
     orderName = request.POST.get('orderName', '')
-    if not Order.objects.filter(User=request.user).filter(OrderName=orderName) :   # checks if user has an order with the ordername
+    if not Order.objects.filter(OrderCreator=request.user).filter(OrderName=orderName) :   # checks if user has an order with the ordername
         AddToDatabase(request)
         return redirect('home')
     messages.info(request, 'ordername already exists!')
@@ -43,7 +43,7 @@ def EditForm(request, order_id):
     if not request.user.is_authenticated:
         return HttpResponse("Please log in ")
     order = GetSpecificOrder(order_id)
-    if not order.User.username == request.user.username:
+    if not order.OrderCreator.username == request.user.username:
         return HttpResponse("NOT YOUR FORM! LEAVE! ")
     if not order.MostRecent == "TRUE":
         return HttpResponse("THIS IS NOT THE MOST RECENT THING")
@@ -75,7 +75,7 @@ def OrderDetail(request, order_id):
     if not request.user.is_authenticated:
         return HttpResponse("Please log in")
     order = GetSpecificOrder(order_id)
-    if not order.User.username == request.user.username:
+    if not order.OrderCreator == request.user.username:
         return HttpResponse("NOT YOUR FORM!!!! LEAVE")
     template = loader.get_template('OrderDetail.html')
     context = {
@@ -88,7 +88,7 @@ def GetMyOrders(username):
     allOrders = Order.objects.all()
     myOrders = []
     for order in allOrders:
-        if(order.User.username == username):
+        if(order.OrderCreator == username):
             myOrders.append(order)
     return myOrders
 
