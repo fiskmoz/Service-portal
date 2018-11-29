@@ -5,38 +5,38 @@
 		<form action="" method ="POST" name="order">
 			{% csrf_token %}
 			Name of order:
-			<input type="text" name="orderName" required="required" value="{{order.OrderName}}" readonly><br>
+			<input type="text" name="OrderName" required="required" value="{{order.OrderName}}" readonly><br>
 			<p>Type of Service:</p>
 			{% if order.Medal == 'Gold' %}
-				<input type="radio" name="service" value="Gold" checked="checked"> Gold<br>
+				<input type="radio" name="Medal" value="Gold" checked="checked"> Gold<br>
 			{% else %}
-				<input type="radio" name="service" value="Gold"> Gold<br>
+				<input type="radio" name="Medal" value="Gold"> Gold<br>
 			{% endif %}
 			{% if order.Medal == 'Silver' %}
-				<input type="radio" name="service" value="Silver" checked="checked"> Silver<br>
+				<input type="radio" name="Medal" value="Silver" checked="checked"> Silver<br>
 			{% else %}
-				<input type="radio" name="service" value="Silver"> Silver<br>
+				<input type="radio" name="Medal" value="Silver"> Silver<br>
 			{% endif %}
 			{% if order.Medal == 'Bronze' %}
-				<input type="radio" name="service" value="Bronze" checked="checked"> Bronze<br>
+				<input type="radio" name="Medal" value="Bronze" checked="checked"> Bronze<br>
 			{% else %}
-				<input type="radio" name="service" value="Bronze"> Bronze<br>
+				<input type="radio" name="Medal" value="Bronze"> Bronze<br>
 			{% endif %}
 			<p>Response Time:</p>
 			{% if order.ResponseTime == '10' %}
-				<input type="radio" name="response" value="10" checked="checked"> 10 Minutes<br>
+				<input type="radio" name="ResponseTime" value="10" checked="checked"> 10 Minutes<br>
 			{% else %}
-				<input type="radio" name="response" value="10"> 10 Minutes<br>
+				<input type="radio" name="ResponseTime" value="10"> 10 Minutes<br>
 			{% endif %}
 			{% if order.ResponseTime == '20' %}
-				<input type="radio" name="response" value="20" checked="checked"> 20 Minutes<br>
+				<input type="radio" name="ResponseTime" value="20" checked="checked"> 20 Minutes<br>
 			{% else %}
-				<input type="radio" name="response" value="20"> 20 Minutes<br>
+				<input type="radio" name="ResponseTime" value="20"> 20 Minutes<br>
 			{% endif %}
 			{% if order.ResponseTime == '30' %}
-				<input type="radio" name="response" value="30" checked="checked"> 30 Minutes<br>
+				<input type="radio" name="ResponseTime" value="30" checked="checked"> 30 Minutes<br>
 			{% else %}
-				<input type="radio" name="response" value="30"> 30 Minutes<br>
+				<input type="radio" name="ResponseTime" value="30"> 30 Minutes<br>
 			{% endif %}
 			<p>Service Time:</p>
 			{% if order.ServiceTime == '1' %}
