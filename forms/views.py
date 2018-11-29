@@ -30,15 +30,15 @@ def EditForm(request, order_id):
     #Sanity Checks
     if not request.user.is_authenticated:
         return HttpResponse("Please log in ")
-    order = GetSpecificOrder(order_id)
-    if not order.OrderCreator.username == request.user.username:
-        return HttpResponse("NOT YOUR FORM! LEAVE! ")
-    if not order.MostRecent == "TRUE":
-        return HttpResponse("THIS IS NOT THE MOST RECENT THING")
-    if not request.method == "POST":
-        template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
-        context = {"order": order, }
-        return HttpResponse(template.render(context,request))
+#    order = GetSpecificOrder(order_id)
+#    if not order.OrderCreator.username == request.user.username:
+#        return HttpResponse("NOT YOUR FORM! LEAVE! ")
+#    if not order.MostRecent == "TRUE":
+#        return HttpResponse("THIS IS NOT THE MOST RECENT THING")
+#    if not request.method == "POST":
+    template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
+    context = {"order": requests.get(url='http://127.0.0.1:8000/API/'+order_id+'/').json(), }
+    return HttpResponse(template.render(context,request))
 
     updatedOrderName = request.POST.get('orderName', '')
     AddToDatabase(request)
@@ -62,7 +62,7 @@ def ViewForms(request):
 def OrderDetail(request, order_id):
     if not request.user.is_authenticated:
         return HttpResponse("Please log in")
-        
+
     template = loader.get_template('OrderDetail.html')
     context = {
     "order" : requests.get(url='http://127.0.0.1:8000/API/'+order_id+'/').json(),
