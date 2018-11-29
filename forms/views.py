@@ -9,6 +9,8 @@ from API.models import Order
 import requests
 import json
 
+APIurl = 'http://127.0.0.1:8000/API/'
+
 def GetPayload(request):
     OrderCreator = request.user.username
     OrderName = request.POST.get('OrderName', '')
@@ -28,7 +30,7 @@ def NewForm(request):
         template = loader.get_template('CreateForm.html')
         context = {"my_name": "tempname"}
         return HttpResponse(template.render(context,request))
-    r = requests.post(url = 'http://127.0.0.1:8000/API/',
+    r = requests.post(url = APIurl,
     data = GetPayload(request))
     print(json.dumps(payload))
     return redirect('home')
@@ -40,9 +42,9 @@ def EditForm(request, order_id):
         return HttpResponse("Please log in ")
     if not request.method == "POST":
         template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
-        context = {"order": requests.get(url='http://127.0.0.1:8000/API/'+order_id+'/').json(), }
+        context = {"order": requests.get(url=APIurl+order_id+'/').json(), }
         return HttpResponse(template.render(context,request))
-    r = requests.post(url = 'http://127.0.0.1:8000/API/'+order_id+'/',
+    r = requests.post(url = APIurl+order_id+'/',
     data = GetPayload(request))
     return redirect('home')
 
@@ -53,7 +55,7 @@ def ViewForms(request):
 
     template = loader.get_template('ViewForms.html') ## HTML FOR VIEw forms
     context = {
-    'myOrders' : requests.get(url='http://127.0.0.1:8000/API/').json(),
+    'myOrders' : requests.get(url=APIurl).json(),
     'CurrentUser' : request.user.username,
     }
     return HttpResponse(template.render(context,request))
@@ -65,6 +67,6 @@ def OrderDetail(request, order_id):
 
     template = loader.get_template('OrderDetail.html')
     context = {
-    "order" : requests.get(url='http://127.0.0.1:8000/API/'+order_id+'/').json(),
+    "order" : requests.get(url=APIurl+order_id+'/').json(),
     }
     return HttpResponse(template.render(context,request ))
