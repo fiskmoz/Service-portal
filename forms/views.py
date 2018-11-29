@@ -64,3 +64,14 @@ def OrderDetail(request, order_id):
     "order" : requests.get(url=APIurl+order_id+'/').json(),
     }
     return HttpResponse(template.render(context,request ))
+
+def ContractPage(request):
+    #Sanity Check
+    if not request.user.is_authenticated:
+        return HttpResponse("Not Valid")
+
+    template = loader.get_template('ContractPage.html') # HTML for contractpage
+    context = {
+    'CurrentUser' : request.user.username
+    }
+    return HttpResponse(template.render(context,request ))
