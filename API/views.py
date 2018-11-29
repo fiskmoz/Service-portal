@@ -40,7 +40,10 @@ class SpecificOrderView(APIView):
     def post(self, request, id ):
         OldOrder = Order.objects.get(id = id)
         OldOrder.MostRecent = "FALSE"
-        CreateNewOrder(request)
+        OldOrder.save()
+        NewOrder = CreateNewOrder(request)
+        NewOrder.ParentOrder = id
+        NewOrder.save()
         return HttpResponse("Sucess!")
 
 
@@ -52,4 +55,5 @@ def CreateNewOrder(request):
     responseTime = request.POST.get('ResponseTime', '')
     newOrder = Order(OrderCreator=OrderCreator, OrderName=OrderName, Date=timezone.now(),
     Medal=Medal, ServiceTime=ServiceTime, ResponseTime=responseTime, MostRecent="TRUE")
-    return newOrder.save()
+    newOrder.save()
+    return newOrder
