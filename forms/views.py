@@ -36,20 +36,19 @@ def EditForm(request, order_id):
     #Sanity Checks
     if not request.user.is_authenticated:
         return HttpResponse("Please log in ")
-#    order = GetSpecificOrder(order_id)
-#    if not order.OrderCreator.username == request.user.username:
-#        return HttpResponse("NOT YOUR FORM! LEAVE! ")
-#    if not order.MostRecent == "TRUE":
-#        return HttpResponse("THIS IS NOT THE MOST RECENT THING")
-#    if not request.method == "POST":
-    template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
-    context = {"order": requests.get(url='http://127.0.0.1:8000/API/'+order_id+'/').json(), }
-    return HttpResponse(template.render(context,request))
-
-    updatedOrderName = request.POST.get('orderName', '')
-    AddToDatabase(request)
-    order.MostRecent = "FALSE"
-    order.save()
+    if not request.method == "POST":
+        template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
+        context = {"order": requests.get(url='http://127.0.0.1:8000/API/'+order_id+'/').json(), }
+        return HttpResponse(template.render(context,request))
+    OrderCreator = request.user.username
+    OrderName = request.POST.get('OrderName', '')
+    Medal = request.POST.get('Medal', '')
+    ServiceTime = request.POST.get('ServiceTime', '')
+    responseTime = request.POST.get('ResponseTime', '')
+    payload = ({'OrderCreator': OrderCreator, 'OrderName': OrderName, 'Medal' : Medal,
+    'ServiceTime': ServiceTime, 'ResponseTime': responseTime})
+    r = requests.post(url = 'http://127.0.0.1:8000/API/'+order_id+'/',
+    data = payload)
     return redirect('home')
 
 def ViewForms(request):
