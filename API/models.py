@@ -18,3 +18,9 @@ class Order(models.Model):
 class Agreements(models.Model):
     Order = models.ForeignKey(Order, on_delete=models.CASCADE)
     AgreementInText = models.CharField(max_length = 250)
+
+class Resources(models.Model):
+    Object = models.CharField(max_length = 50)
+    OS = models.CharField(max_length = 50)
+    Packet = models.CharField(max_length = 50)
+    SystemId = models.CharField(max_length = 50)
