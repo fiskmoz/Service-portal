@@ -30,7 +30,6 @@ def NewForm(request):
     data = payload)
     print(json.dumps(payload))
     return redirect('home')
-    messages.info(request, 'ordername already exists!')
 
 
 def EditForm(request, order_id):
@@ -69,7 +68,7 @@ def ViewForms(request):
 def OrderDetail(request, order_id):
     if not request.user.is_authenticated:
         return HttpResponse("Please log in")
-        
+
     template = loader.get_template('OrderDetail.html')
     context = {
     "order" : requests.get(url='http://127.0.0.1:8000/API/'+order_id+'/').json(),
