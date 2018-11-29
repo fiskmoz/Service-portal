@@ -11,7 +11,7 @@ class Order(models.Model):
     ResponseTime = models.CharField(max_length = 250)
     Date = models.CharField(max_length = 250)
     MostRecent = models.CharField(max_length = 250)
-    ParentOrder = models.CharField(max_length = 250)
+    ParentOrder = models.CharField(max_length = 250, default = "ORIGINAL")
 
 
 class Agreements(models.Model):
