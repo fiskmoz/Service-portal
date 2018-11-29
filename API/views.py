@@ -41,6 +41,7 @@ class SpecificOrderView(APIView):
         OldOrder = Order.objects.get(id = id)
         OldOrder.MostRecent = "FALSE"
         CreateNewOrder(request)
+        return HttpResponse("Sucess!")
 
 
 def CreateNewOrder(request):
