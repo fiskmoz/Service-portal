@@ -14,10 +14,12 @@ APIurl = 'http://127.0.0.1:8000/API/'
 def GetPayload(request):
     OrderCreator = request.user.username
     OrderName = request.POST.get('OrderName', '')
+    SystemId = request.POST.get('SystemId', '')
     Medal = request.POST.get('Medal', '')
     ServiceTime = request.POST.get('ServiceTime', '')
     responseTime = request.POST.get('ResponseTime', '')
-    payload = ({'OrderCreator': OrderCreator, 'OrderName': OrderName, 'Medal' : Medal,
+    payload = ({'OrderCreator': OrderCreator, 'OrderName': OrderName,
+    'SystemId' : SystemId, 'Medal' : Medal,
     'ServiceTime': ServiceTime, 'ResponseTime': responseTime})
     return payload
 

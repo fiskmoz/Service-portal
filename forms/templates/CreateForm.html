@@ -13,8 +13,10 @@
 		<h1>Add Service:</h1>
 		<form action="" method ="POST" name="order">
 			{% csrf_token %}
-			Name of order:
+			<p>Name of Order:</p>
 			<input type="text" name="OrderName" required="required"><br>
+			<p>System Id:</p>
+			<input type="text" name="SystemId" required="required"><br>
 			<p>Type of Service:</p>
 			<input type="radio" name="Medal" value="Gold" > Gold<br>
 			<input type="radio" name="Medal" value="Silver"> Silver<br>
