@@ -6,6 +6,7 @@ from django.contrib import auth
 class Order(models.Model):
     OrderCreator = models.CharField(max_length = 250, default = "NOBODY")
     OrderName = models.CharField(max_length = 250, default = 'defaultordername')
+    SystemId = models.CharField(max_length = 250, default = "UNDEFINED")
     Medal = models.CharField(max_length = 250)
     ServiceTime = models.CharField(max_length = 250)
     ResponseTime = models.CharField(max_length = 250)

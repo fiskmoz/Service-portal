@@ -49,11 +49,12 @@ class SpecificOrderView(APIView):
 
 def CreateNewOrder(request):
     OrderName = request.POST.get('OrderName', '')
+    SystemId = request.POST.get('SystemId', '')
     OrderCreator = request.POST.get('OrderCreator', '')
     Medal = request.POST.get('Medal', '')
     ServiceTime = request.POST.get('ServiceTime', '')
     responseTime = request.POST.get('ResponseTime', '')
-    newOrder = Order(OrderCreator=OrderCreator, OrderName=OrderName, Date=timezone.now(),
+    newOrder = Order(OrderCreator=OrderCreator, OrderName=OrderName, SystemId=SystemId, Date=timezone.now(),
     Medal=Medal, ServiceTime=ServiceTime, ResponseTime=responseTime, MostRecent="TRUE")
     newOrder.save()
     return newOrder
