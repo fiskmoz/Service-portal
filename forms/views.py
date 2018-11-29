@@ -50,8 +50,9 @@ def ViewForms(request):
     if not request.user.is_authenticated:
         return HttpResponse("Please log in ")
     template = loader.get_template('ViewForms.html') ## HTML FOR VIEw forms
+
     context = {
-    'myOrders' : requests.get(url=APIurl).json(),
+    'myOrders' : requests.get(url=APIurl,data = ({'OrderCreator' : request.user.username})).json(),
     'CurrentUser' : request.user.username,
     }
     return HttpResponse(template.render(context,request))
