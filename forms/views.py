@@ -31,7 +31,7 @@ def NewForm(request):
         context = {"my_name": "tempname"}
         return HttpResponse(template.render(context,request))
     r = requests.post(url = APIurl, data = GetPayload(request))
-    return redirect('home')
+    return ContractPage(request)
 
 def EditForm(request, order_id):
     #Sanity Checks
@@ -69,9 +69,7 @@ def ContractPage(request):
     #Sanity Check
     if not request.user.is_authenticated:
         return HttpResponse("Not Valid")
-
     template = loader.get_template('ContractPage.html') # HTML for contractpage
-    context = {
-    'CurrentUser' : request.user.username
-    }
+    # Add whats required for the contractpage
+    context = GetPayload(request)
     return HttpResponse(template.render(context,request ))

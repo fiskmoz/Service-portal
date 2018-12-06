@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-		<h2>Edit Service:</h2>
+		<h2>Edit Order</h2>
 		<form action="" method ="POST" name="order">
 			{% csrf_token %}
 			Name of order:<br>
 			<input type="text" name="OrderName" required="required" value="{{order.OrderName}}" readonly><br><br>
 			System Id:<br>
 			<input type="text" name="SystemId" required="required" value="{{order.SystemId}}" readonly><br><br>
-			Type of Service:<br>
+			Service Tier:<br>
 			{% if order.Medal == 'Gold' %}
 				<input type="radio" name="Medal" value="Gold" checked="checked"> Gold<br>
 			{% else %}
@@ -40,7 +40,7 @@
 			{% else %}
 				<input type="radio" name="ResponseTime" value="30"> 30 Minutes<br>
 			{% endif %}
-			<br>Service Time:<br>
+			<br>Scheduled Support Time:<br>
 			{% if order.ServiceTime == '1' %}
 				<input type="radio" name="ServiceTime" value="1" checked="checked"> Mon-Fri, 8-18<br>
 			{% else %}

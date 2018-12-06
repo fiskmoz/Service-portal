@@ -8,7 +8,12 @@ from API.models import Order
 from .serializer import OrderSerializer
 from rest_framework import generics
 from django.utils import timezone
+<<<<<<< HEAD
 from django.contrib.auth.models import User
+=======
+from API.models import Resources
+from .serializer import ResourcesSerializer
+>>>>>>> 891a5835017213d85759bca5bd870f41f5654b5e
 
 # Create your views here.
 def Home(requests):
@@ -63,6 +68,7 @@ def CreateNewOrder(request):
     newOrder.save()
     return newOrder
 
+<<<<<<< HEAD
 
 def Authenticate(request):
     username = request.POST.get('OrderCreator')
@@ -75,3 +81,12 @@ def Authenticate(request):
     if not user.password == password :
         return HttpResponse("Cannot authenticate")
     print("authenticated")
+=======
+class SpecificResourcesList(APIView):
+    lookup_field = 'SystemId'
+
+    def get(self, request, SystemId):
+        ResourceList = Resources.objects.get(SystemId = SystemId)
+        serializer = ResourcesSerializer(ResourceList, many=False)
+        return Response(serializer.data)
+>>>>>>> 891a5835017213d85759bca5bd870f41f5654b5e

@@ -10,14 +10,14 @@
 			{% endfor %}
 		{% endif %}
 
-		<h1>Add Service:</h1>
+		<h1>Add Order:</h1>
 		<form action="" method ="POST" name="order">
 			{% csrf_token %}
 			Name of Order:<br>
 			<input type="text" name="OrderName" required="required"><br><br>
 			System Id:<br>
 			<input type="text" name="SystemId" required="required"><br>
-			<br>Type of Service:<br>
+			<br>Service Tier:<br>
 			<input type="radio" name="Medal" value="Gold" > Gold<br>
 			<input type="radio" name="Medal" value="Silver"> Silver<br>
 			<input type="radio" name="Medal" value="Bronze" required="required"> Bronze<br>
@@ -25,7 +25,7 @@
 			<input type="radio" name="ResponseTime" value="10"> 10 Minutes<br>
 			<input type="radio" name="ResponseTime" value="20"> 20 Minutes<br>
 			<input type="radio" name="ResponseTime" value="30" required="required"> 30 Minutes<br>
-			<br>Service Time:<br>
+			<br>Scheduled Support Time:<br>
 			<input type="radio" name="ServiceTime" value="1"> Mon-Fri, 8-18<br>
 			<input type="radio" name="ServiceTime" value="2"> Mon-Sun, 8-18<br>
 			<input type="radio" name="ServiceTime" value="3" required="required"> 24/7, 365/y<br><br>
