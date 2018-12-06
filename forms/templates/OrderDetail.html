@@ -7,19 +7,19 @@ p {
 	color: #87bdd8;
 }
 </style>
-<h2> {{order.OrderName}} </h2>
+<h2> Order Name: {{order.OrderName}} </h2>
 <ol>
-	<li><p> Your ordernumber: {{order.id}} </p></li>
-	<li><p> Your system id: {{order.SystemId}} </p></li>
-	<li><p> Your current medal: {{order.Medal}} </p></li>
-	<li><p> Chosen response time: {{order.ResponseTime}}</p></li>
-	<li><p> Chosen service time: {{order.ServiceTime}} </p></li>
-	<li><p> Order date: {{order.Date}} </p></li>
+	<li><p> Ordernumber: {{order.id}} </p></li>
+	<li><p> System id: {{order.SystemId}} </p></li>
+	<li><p> Service tier: {{order.Medal}} </p></li>
+	<li><p> Response time: {{order.ResponseTime}}</p></li>
+	<li><p> Scheduled Support time: {{order.ServiceTime}} </p></li>
+	<li><p> Order Created: {{order.Date}} </p></li>
 	<li><p> Most Recent: {{ order.MostRecent }} </p></li>
 </ol>
 {% if order.MostRecent == "TRUE" %}
 <ol>
-	<p><a href="{% url 'editform' order.id %}">EDIT THIS FORM</a></p>
+	<p><a href="{% url 'editform' order.id %}">EDIT THIS ORDER</a></p>
 <ol>
 {% endif %}
 
