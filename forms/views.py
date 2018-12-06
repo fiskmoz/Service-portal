@@ -5,7 +5,6 @@ from API.models import Order
 from django.utils import timezone
 from django.shortcuts import redirect
 from django.contrib import messages
-from API.models import Order
 import requests
 import json
 
@@ -52,7 +51,7 @@ def ViewForms(request):
     template = loader.get_template('ViewForms.html') ## HTML FOR VIEw forms
 
     context = {
-    'myOrders' : requests.get(url=APIurl,data = ({'OrderCreator' : request.user.username})).json(),
+    'myOrders' : requests.get(url=APIurl , data = ({'OrderCreator' : request.user.username, 'password' : request.user.password})).json(),
     'CurrentUser' : request.user.username,
     }
     return HttpResponse(template.render(context,request))

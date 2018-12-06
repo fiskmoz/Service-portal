@@ -8,6 +8,7 @@ from API.models import Order
 from .serializer import OrderSerializer
 from rest_framework import generics
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Create your views here.
 def Home(requests):
@@ -16,8 +17,10 @@ def Home(requests):
 class OrderList(APIView):
     #  Get all your orders
     def get(self, request):
+        Authenticate(request)
         OrderCreator = request.POST.get('OrderCreator', '')
         orders = Order.objects.filter(OrderCreator = OrderCreator)
+        print(orders)
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
 
@@ -59,3 +62,16 @@ def CreateNewOrder(request):
     Medal=Medal, ServiceTime=ServiceTime, ResponseTime=responseTime, MostRecent="TRUE")
     newOrder.save()
     return newOrder
+
+
+def Authenticate(request):
+    username = request.POST.get('OrderCreator')
+    password = request.POST.get('password')
+    try:
+        user = User.objects.get(username = username)
+        print("user found")
+    except User.DoesNotExist:
+        return HttpResponse("No such user")
+    if not user.password == password :
+        return HttpResponse("Cannot authenticate")
+    print("authenticated")
