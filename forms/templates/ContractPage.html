@@ -8,18 +8,18 @@ p {
 </style>
 <h2> Contract Page for order: {{OrderName}} </h2>
 The information you entered on the previous page:<br>
-Ordername:       {{OrderName}}<br>
+Order name:       {{OrderName}}<br>
 System id:       {{SystemId}}<br>
-Service package: {{Medal}}<br>
+Service Tier: {{Medal}}<br>
 Response time:   {{ResponseTime}}<br>
-Service time:    {{ServiceTime}}<br>
-Order date:      {{Date}}<br><br>
+Scheduled Response time:    {{ServiceTime}}<br>
+Order created:      {{Date}}<br><br>
 <p> Based on your system, we expect you to have:</p>
 
-<h3> Object: </h3>
+<h3> Object: {{Resources.Object}}</h3>
 
-<h3> OS: </h3>
+<h3> OS: {{Resources.OS}}</h3>
 
-<h3> Packet: </h3>
+<h3> Packet: {{Resources.Packet}}</h3>
 
 {% endblock %}

@@ -18,9 +18,10 @@ def GetPayload(request):
     Medal = request.POST.get('Medal', '')
     ServiceTime = request.POST.get('ServiceTime', '')
     responseTime = request.POST.get('ResponseTime', '')
+    Date = request.POST.get('Date', '')
     payload = ({'OrderCreator': OrderCreator, 'OrderName': OrderName,
     'SystemId' : SystemId, 'Medal' : Medal,
-    'ServiceTime': ServiceTime, 'ResponseTime': responseTime})
+    'ServiceTime': ServiceTime, 'ResponseTime': responseTime, 'Date': Date})
     return payload
 
 def NewForm(request):
@@ -72,5 +73,9 @@ def ContractPage(request):
         return HttpResponse("Not Valid")
     template = loader.get_template('ContractPage.html') # HTML for contractpage
     # Add whats required for the contractpage
-    context = GetPayload(request)
+    SystemId = request.POST.get('SystemId', '')
+    context = {
+    'myOrder' : GetPayload(request),
+    'Resources' : requests.get(url=APIurl+'Resources/'+SystemId+'/').json()
+    }
     return HttpResponse(template.render(context,request ))
