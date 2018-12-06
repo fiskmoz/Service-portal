@@ -8,6 +8,8 @@ from API.models import Order
 from .serializer import OrderSerializer
 from rest_framework import generics
 from django.utils import timezone
+from API.models import Resources
+from .serializer import ResourcesSerializer
 
 # Create your views here.
 def Home(requests):
@@ -59,3 +61,11 @@ def CreateNewOrder(request):
     Medal=Medal, ServiceTime=ServiceTime, ResponseTime=responseTime, MostRecent="TRUE")
     newOrder.save()
     return newOrder
+
+class SpecificResourcesList(APIView):
+    lookup_field = 'SystemId'
+
+    def get(self, request, SystemId):
+        ResourceList = Resources.objects.get(SystemId = SystemId)
+        serializer = ResourcesSerializer(ResourceList, many=False)
+        return Response(serializer.data)
