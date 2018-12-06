@@ -18,13 +18,9 @@ def GetPayload(request):
     ServiceTime = request.POST.get('ServiceTime', '')
     responseTime = request.POST.get('ResponseTime', '')
     Date = request.POST.get('Date', '')
-    payload = ({'OrderCreator': OrderCreator, 'OrderName': OrderName,
+    payload = {'OrderCreator': OrderCreator, 'OrderName': OrderName,
     'SystemId' : SystemId, 'Medal' : Medal,
-<<<<<<< HEAD
-    'ServiceTime': ServiceTime, 'ResponseTime': responseTime, 'Date': Date})
-=======
-    'ServiceTime': ServiceTime, 'ResponseTime': responseTime, 'password': request.user.password})
->>>>>>> 7054e605a7dd53a8c80e75466f0ec525968e862d
+    'ServiceTime': ServiceTime, 'ResponseTime': responseTime, 'password': request.user.password}
     return payload
 
 def NewForm(request):
@@ -82,6 +78,7 @@ def ContractPage(request):
     SystemId = request.POST.get('SystemId', '')
     context = {
     'myOrder' : GetPayload(request),
-    'Resources' : requests.get(url=APIurl+'Resources/'+SystemId+'/').json()
+    'Resources' : requests.get(url=APIurl+'Resources/'+SystemId+'/',
+    data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json()
     }
-    return HttpResponse(template.render(context,request ))
+    return HttpResponse(template.render(context, request ))
