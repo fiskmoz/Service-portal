@@ -8,6 +8,9 @@ from API.models import Order
 from .serializer import OrderSerializer
 from rest_framework import generics
 from django.utils import timezone
+from API.models import Resources
+from .serializer import ResourcesSerializer
+from django.contrib.auth.models import User
 
 # Create your views here.
 def Home(requests):
@@ -16,13 +19,18 @@ def Home(requests):
 class OrderList(APIView):
     #  Get all your orders
     def get(self, request):
+        if not Authenticate(request):
+            return HttpResponse("Not authenticated")
         OrderCreator = request.POST.get('OrderCreator', '')
         orders = Order.objects.filter(OrderCreator = OrderCreator)
+        print(orders)
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
 
     # Add a new order
     def post(self, request):
+        if not Authenticate(request):
+            return HttpResponse("Not authenticated")
         OrderName = request.POST.get('OrderName', '')
         OrderCreator = request.POST.get('OrderCreator', '')
         if  Order.objects.filter(OrderCreator=OrderCreator).filter(OrderName=OrderName) :
@@ -34,11 +42,15 @@ class SpecificOrderView(APIView):
     lookup_field  = 'id'
     # Get information from specific order
     def get(self, request, id):
+        if not Authenticate(request):
+            return HttpResponse("Not authenticated")
         order = Order.objects.get(id = id)
         serializer = OrderSerializer(order, many=False)
         return Response(serializer.data)
     # Update exisiting order
     def post(self, request, id ):
+        if not Authenticate(request):
+            return HttpResponse("Not authenticated")
         OldOrder = Order.objects.get(id = id)
         OldOrder.MostRecent = "FALSE"
         OldOrder.save()
@@ -49,6 +61,8 @@ class SpecificOrderView(APIView):
 
 
 def CreateNewOrder(request):
+    if not Authenticate(request):
+        return HttpResponse("Not authenticated")
     OrderName = request.POST.get('OrderName', '')
     SystemId = request.POST.get('SystemId', '')
     OrderCreator = request.POST.get('OrderCreator', '')
@@ -59,3 +73,26 @@ def CreateNewOrder(request):
     Medal=Medal, ServiceTime=ServiceTime, ResponseTime=responseTime, MostRecent="TRUE")
     newOrder.save()
     return newOrder
+
+class SpecificResourcesList(APIView):
+    lookup_field = 'SystemId'
+
+    def get(self, request, SystemId):
+        if not Authenticate(request):
+            return HttpResponse("Not authenticated")
+        ResourceList = Resources.objects.get(SystemId = SystemId)
+        serializer = ResourcesSerializer(ResourceList, many=False)
+        return Response(serializer.data)
+
+def Authenticate(request):
+    username = request.POST.get('OrderCreator')
+    password = request.POST.get('password')
+    try:
+        user = User.objects.get(username = username)
+        print("user found")
+    except User.DoesNotExist:
+        return False
+    if not user.password == password :
+        return False
+    print("authenticated")
+    return True
