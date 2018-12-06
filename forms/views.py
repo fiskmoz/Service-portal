@@ -19,7 +19,7 @@ def GetPayload(request):
     responseTime = request.POST.get('ResponseTime', '')
     payload = ({'OrderCreator': OrderCreator, 'OrderName': OrderName,
     'SystemId' : SystemId, 'Medal' : Medal,
-    'ServiceTime': ServiceTime, 'ResponseTime': responseTime})
+    'ServiceTime': ServiceTime, 'ResponseTime': responseTime, 'password': request.user.password})
     return payload
 
 def NewForm(request):
@@ -39,7 +39,8 @@ def EditForm(request, order_id):
         return HttpResponse("Please log in ")
     if not request.method == "POST":
         template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
-        context = {"order": requests.get(url=APIurl+order_id+'/').json(), }
+        context = {"order": requests.get(url=APIurl+order_id+'/',
+        data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json(), }
         return HttpResponse(template.render(context,request))
     r = requests.post(url = APIurl+order_id+'/', data = GetPayload(request))
     return redirect('home')
@@ -51,7 +52,8 @@ def ViewForms(request):
     template = loader.get_template('ViewForms.html') ## HTML FOR VIEw forms
 
     context = {
-    'myOrders' : requests.get(url=APIurl , data = ({'OrderCreator' : request.user.username, 'password' : request.user.password})).json(),
+    'myOrders' : requests.get(url=APIurl ,
+    data = ({'OrderCreator' : request.user.username, 'password' : request.user.password})).json(),
     'CurrentUser' : request.user.username,
     }
     return HttpResponse(template.render(context,request))
@@ -61,7 +63,8 @@ def OrderDetail(request, order_id):
         return HttpResponse("Please log in")
     template = loader.get_template('OrderDetail.html')
     context = {
-    "order" : requests.get(url=APIurl+order_id+'/').json(),
+    "order" : requests.get(url=APIurl+order_id+'/',
+    data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json(),
     }
     return HttpResponse(template.render(context,request ))
 
