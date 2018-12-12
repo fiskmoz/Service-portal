@@ -17,7 +17,7 @@ def Home(requests):
     return HttpResponse("You are at API home")
 
 class OrderList(APIView):
-    #  Get all your orders
+    #  Get all orders
     def get(self, request):
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
@@ -25,7 +25,7 @@ class OrderList(APIView):
         user = User.objects.get(username = caller)
 
         if not user.is_superuser == 1:
-            return HttpResponse("Not enough priveleges")
+            return HttpResponse("Not enough privileges")
 
         orders = Order.objects.all()
 
@@ -100,6 +100,7 @@ class SpecificResourcesList(APIView):
         pass
 
 class SpecificUsername(APIView):
+    # Get orders for specific user
     lookup_field = 'Username'
 
     def get(self,request,Username):
