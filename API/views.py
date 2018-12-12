@@ -174,7 +174,9 @@ def CreateNewOrder(request):
     Medal = request.POST.get('Medal', '')
     ServiceTime = request.POST.get('ServiceTime', '')
     responseTime = request.POST.get('ResponseTime', '')
-    newOrder = Order(OrderCreator=OrderCreator, OrderName=OrderName, SystemId=SystemId, Date=timezone.now(),
+    Date = timezone.now()
+    newOrder = Order(OrderCreator=OrderCreator, OrderName=OrderName,
+    SystemId=SystemId, Date=Date,
     Medal=Medal, ServiceTime=ServiceTime, ResponseTime=responseTime, MostRecent="TRUE")
     newOrder.save()
     return newOrder

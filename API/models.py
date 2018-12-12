@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib import auth
+from django.utils import timezone
 # Create your models here.
 
 # Create your models here.
@@ -10,7 +11,7 @@ class Order(models.Model):
     Medal = models.CharField(max_length = 250)
     ServiceTime = models.CharField(max_length = 250)
     ResponseTime = models.CharField(max_length = 250)
-    Date = models.CharField(max_length = 250)
+    Date = models.CharField(max_length = 250, default = timezone.now())
     MostRecent = models.CharField(max_length = 250)
     ParentOrder = models.CharField(max_length = 250, default = "ORIGINAL")
 

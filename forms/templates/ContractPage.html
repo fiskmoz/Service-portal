@@ -111,6 +111,33 @@ Date:      {{myOrder.Date}}<br><br>
 		<input type="checkbox" name="WebServerAlertResponseCodeChange" value="WebServerAlertResponseCodeChange"> Alert if response codes changes or are not as expected <br>
 		<input type="checkbox" name="WebServerMonitorRequestRate" value="WebServerMonitorRequestRate"> Monitor the request rate for key pages on your site <br>
 		<input type="checkbox" name="WebServerAlertRequestVolumeDrop" value="WebServerAlertRequestVolumeDrop"> Alert if requet volume drop significantly on your site <br><br>
+			{% if resource.Packet in 'Apache' %}
+				<h5> Apache Web Server </h5>
+				<p> Request per second - average number of clients requests per second</p>
+				<input type="checkbox" name="ApacheMonitorRequestsSec" value="ApacheMonitorRequestsSec"> Monitor requests per second to your apache webserver <br>
+				<input type="checkbox" name="ApacheAlertRPSThresh" value="ApacheAlertRPSThresh"> Alert if requests per second crosses a threshhold based on your traffic pattern <br><br>
+				<p> Response Time- how quickly your requests are being handled  </p>
+				<input type="checkbox" name="ApacheMonitorResponseTime" value="ApacheMonitorResponseTime"> Monitor the response time of your server <br>
+				<input type="checkbox" name="ApacheAlertResponseTime" value="ApacheAlertResponseTime"> Alert if reponse time exceeds a fixed threshhold <br><br>
+				<p> Active Connections - there is a hard limit of total number of connections that appache can handle </p>
+				<input type="checkbox" name="ApacheMonitorConnections" value="ApacheMonitorConnections"> Monitor ative connections <br>
+				<input type="checkbox" name="ApacheAlertConnections" value="ApacheAlertConnections"> Alert as your active connection approach the max limit <br>
+				<input type="checkbox" name="ApacheMonitorBusyWorkers" value="ApacheMonitorBusyWorkers"> Monitor the total number of busy workers  <br>
+				<input type="checkbox" name="ApacheMonitorIdleWorkers" value="ApacheMonitorIdleWorkers"> Monitor the total nubber of idle workers <br>
+				<input type="checkbox" name="ApacheMonitorAsyncWriting" value="ApacheMonitorAsyncWriting"> Monitor the number of async connections in writing state <br>
+				<input type="checkbox" name="ApacheMonitorAsyncKeepalive" value="ApacheMonitorAsyncKeepalive"> Monitor the number of async connections in keep-alive state <br>
+				<input type="checkbox" name="ApacheMonitorAyncClosing" value="ApacheMonitorAyncClosing"> Monitor the number of async connections in closing state <br><br>
+				<p> Connection backlog Queue </p>
+				<input type="checkbox" name="ApacheMonitorBacklog" value="ApacheMonitorBacklog"> Monitor the syslog for backlog-related error messages <br>
+				<input type="checkbox" name="ApacheMonitorNetstat" value="ApacheMonitorNetstat"> Monitor the output of netstat  <br>
+				<input type="checkbox" name="ApacheAlertBacklogQueue" value="ApacheAlertBacklogQueue"> Alert if a backlog queue begins to form <br><br>
+				<p> Response codes - Apache HTTP server logs the HTTP response code returned for each request</p>
+				<input type="checkbox" name="ApacheMonitorAccessLogs" value="ApacheMonitorAccessLogs"> Monitor the apache HTTP server access logs <br><br>
+				<p> Process State - Apache HTTP server spawns OS processes. It is ciritical to keep an eye on these processes to make sure they stay healthy </p>
+				<input type="checkbox" name="ApacheMonitorProcessUptime" value="ApacheMonitorProcessUptime"> Monitor the up time for each process <br>
+				<input type="checkbox" name="ApacheMonitorProcessStatus" value="ApacheMonitorProcessStatus"> Monitor the status for each process <br>
+				<input type="checkbox" name="ApacheAlertMasterProcessDead" value="ApacheAlertMasterProcessDead"> Alert if the master process leaves running state. <br><br>
+			{% endif %}
 		{% endif %}
 	{% endfor %}
 	<input type="submit">
