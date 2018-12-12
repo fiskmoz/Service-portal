@@ -90,6 +90,8 @@ class SpecificResourcesList(APIView):
         serializer = ResourcesSerializer(ResourceList, many=False)
         return Response(serializer.data)
 
+    def post(self,request):
+        pass
     def delete(self,request):
         pass
     def update(self,request):
@@ -109,6 +111,8 @@ class SpecificUsername(APIView):
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
 
+    def post(self,request):
+        pass
     def delete(self,request):
         pass
     def update(self,request):
