@@ -84,7 +84,7 @@ Date:      {{myOrder.Date}}<br><br>
 			<input type="checkbox" name="FilesysFullDiskAlert" value="FilesysFullDiskAlert"> Alert if disk space utilization close to full <br>
 			<input type="checkbox" name="FileSysFillDiskCritical" value="FileSysFillDiskCritical"> Alert if system is critically close full <br><br>
 		{% endif %}
-		{% if resource.object == "Router" %}
+		{% if resource.Object == "Router" %}
 			<h5> Network metrics </h5>
 			<p> Performance </p>
 			<input type="checkbox" name="NetworkPacketLoss" value="NetworkPacketLoss"> Monitor the packet loss <br>
@@ -97,6 +97,20 @@ Date:      {{myOrder.Date}}<br><br>
 			<input type="checkbox" name="NetworkMonitorDeviceStatus" value="NetworkMonitorDeviceStatus"> Monitor the device status <br>
 			<input type="checkbox" name="NetworkAlertProtocolFailure" value="NetworkAlertProtocolFailure"> Alert if the protcol goes down <br>
 			<input type="checkbox" name="NetworkAlertExitsRunningState" value="NetworkAlertExitsRunningState"> Alert if the device exits a running state <br><br>
+		{% endif %}
+		{% if resource.object == "Server" %}
+		<h5> General metrics for WebServers </h5>
+		<p> DNS-Expiration </p>
+		<input type="checkbox" name="WebServerMonitorDNSExpiration" value="WebServerMonitorDNSExpiration"> Monitor your DNS expiration dates <br>
+		<input type="checkbox" name="WebServerAlertDNS30Days" value="WebServerAlertDNS30Days"> Alert 30 days before the DNS expiration time to be able to renew <br><br>
+		<p> SSL Vertificate expiration </p>
+		<input type="checkbox" name="WebServerMonitorSSLExpiration" value="WebServerMonitorSSLExpiration"> Monitor your SSL expiration dates <br>
+		<input type="checkbox" name="WebServerAlertSSL30Days" value="NetworkThroughtput"> Alert 30 days before the SSL expiration time to be able to renew <br><br>
+		<p> User Activity - Monitor avaliblity of pages and user activity on the pages </p>
+		<input type="checkbox" name="WebServerMonitorPages" value="WebServerMonitorPages"> Monitor key webpages for uptime <br>
+		<input type="checkbox" name="WebServerAlertResponseCodeChange" value="WebServerAlertResponseCodeChange"> Alert if response codes changes or are not as expected <br>
+		<input type="checkbox" name="WebServerMonitorRequestRate" value="WebServerMonitorRequestRate"> Monitor the request rate for key pages on your site <br>
+		<input type="checkbox" name="WebServerAlertRequestVolumeDrop" value="WebServerAlertRequestVolumeDrop"> Alert if requet volume drop significantly on your site <br><br>
 		{% endif %}
 	{% endfor %}
 	<input type="submit">
