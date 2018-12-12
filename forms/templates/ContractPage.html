@@ -50,8 +50,24 @@ Date:      {{myOrder.Date}}<br><br>
 			<h5> DB metrics </h5>
 			<p> DB Process Status - Overall status indication </p>
 			<input type="checkbox" name="DBMonitorStatus" value="DBMonitorStatus"> Monitor the process status <br>
-			<input type="checkbox" name="readquery" value="readquery"> ReadQueries <br>
-			<input type="checkbox" name="inswriteq" value="inswriteq"> Insert or Write Queries <br>
+			<input type="checkbox" name="DBExitRunningStateAlert" value="DBExitRunningStateAlert"> Alert when the process exits a running state <br><br>
+			<p> Throughtput</p>
+			<input type="checkbox" name="DBMonitorTotalStatements" value="DBMonitorTotalStatements"> Monitor the count of all statements <br>
+			<input type="checkbox" name="DBMonitorReadSelect" value="ServerMonitorNetworkUsage"> Monitor the count of read/Select statements <br>
+			<input type="checkbox" name="DBMonitorWrites" value="DBMonitorWrites"> Monitor the count of write statements <br>
+			<input type="checkbox" name="DBStatementVolumeAlert" value="DBStatementVolumeAlert"> Alert if the volume dropps too drasticly <br><br>
+			<p> Performance </p>
+			<input type="checkbox" name="DBMonitorAverageQueryTime" value="DBMonitorAverageQueryTime"> Monitor the average query run time <br>
+			<input type="checkbox" name="DBMonitorErrorStatements" value="DBMonitorErrorStatements"> Monitor the numver of statements that generates errors <br>
+			<input type="checkbox" name="DBMonitorSlowQueries" value="DBMonitorSlowQueries"> Monitor the number of slow queries <br>
+			<input type="checkbox" name="DBAlertClimbingRunTime" value="DBAlertClimbingRunTime"> Alert if average run time increases drastically <br>
+			<input type="checkbox" name="DBAlertClimbingQueryErrors" value="DBAlertClimbingQueryErrors"> Alert if sudden increase in query errors <br>
+			<input type="checkbox" name="DBMonitorTop10Error" value="DBMonitorTop10Error"> Monitor the top 10 statements that return the most errors <br><br>
+			<p> Buffer Pool Usage </p>
+			<input type="checkbox" name="DBMonitorPoolPages" value="DBMonitorPoolPages"> Monitor the total number of buffer pool pages <br>
+			<input type="checkbox" name="DBMonitorUsedPages" value="DBMonitorUsedPages"> Monitor The ration of used to total pages in the buffer pool <br>
+			<input type="checkbox" name="DBMonitorPoolRequests" value="DBMonitorPoolRequests"> Monitor the requests made to the buffer pool <br>
+			<input type="checkbox" name="DBMonitorPoolRequestFails" value="DBMonitorPoolRequestFails"> Monitor the number of requests the buffer pool could not fulfill <br><br>
 		{% endif %}
 	{% endfor %}
 	<input type="submit">
