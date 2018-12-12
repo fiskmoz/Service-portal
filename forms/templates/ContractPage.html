@@ -21,10 +21,11 @@ Date:      {{myOrder.Date}}<br><br>
 	<ol>
 		<li> Object: {{resource.Object}}</li>
 		<li> OS: {{resource.OS}}</li>
-		<li> Packet: {{resouce.Packet}}</li>
+		<li> Packet: {{resource.Packet}}</li>
 	</ol>
-	<h5> Choose what you want monitored for this resource </h5>
+	<h4> Choose what you want monitored for this resource </h4>
 		{% if resource.Object == "Server" %}
+			<h5> Host metrics </h5>
 			<p> Server Status - Overall status indication </p>
 			<input type="checkbox" name="ServerMonitorStatus" value="MonitorServerStatus">Monitor Server Status <br>
 			<input type="checkbox" name="ServerLeaveRunningState" value="ServerLeaveRunningState"> Set alert when server leaves running state <br><br>
@@ -34,11 +35,82 @@ Date:      {{myOrder.Date}}<br><br>
 			<p> Server Network Usage </p>
 			<input type="checkbox" name="ServerMonitorNetworkUsage" value="ServerMonitorNetworkUsage"> Monitor the server netowrk usage <br>
 			<input type="checkbox" name="ServerNetworkUsageAlert" value="ServerNetworkUsageAlert"> Alert if server network usage exceeds a fixed threshhold <br><br>
+			<p> Server Disk Space </p>
+			<input type="checkbox" name="ServerMonitorDiskSpace" value="ServerMonitorDiskSpace"> Monitor the avalible disk space <br>
+			<input type="checkbox" name="ServerDiskSpaceAlert" value="ServerDiskSpaceAlert"> Alert if server disk space exceeds a fixed threshhold <br><br>
+			<p> Hosting Provider Status </p>
+			<input type="checkbox" name="ServerMonitorHostingProvider" value="ServerMonitorHostingProvider"> Monitor the hosting providers status <br>
+			<input type="checkbox" name="ServerHostingProviderAlert" value="ServerHostingProviderAlert"> Alert if provider experiences outage <br><br>
+			<p> Process State </p>
+			<input type="checkbox" name="ServerMonitorProcessStates" value="ServerMonitorProcessStates"> Monitor the up time for each process <br>
+			<input type="checkbox" name="ServerMonitorProcessStatus" value="ServerMonitorProcessStatus"> Monitor the status for each process <br>
+			<input type="checkbox" name="ServerAlertMasterProcess" value="ServerAlertMasterProcess"> Alert if the master process leaves the running state <br><br>
 		{% endif %}
 		{% if resource.Object == "DB"%}
-			<input type="checkbox" name="connections" value="connections"> Connections <br>
-			<input type="checkbox" name="readquery" value="readquery"> ReadQueries <br>
-			<input type="checkbox" name="inswriteq" value="inswriteq"> Insert or Write Queries <br>
+			<h5> DB metrics </h5>
+			<p> DB Process Status - Overall status indication </p>
+			<input type="checkbox" name="DBMonitorStatus" value="DBMonitorStatus"> Monitor the process status <br>
+			<input type="checkbox" name="DBExitRunningStateAlert" value="DBExitRunningStateAlert"> Alert when the process exits a running state <br><br>
+			<p> Throughtput</p>
+			<input type="checkbox" name="DBMonitorTotalStatements" value="DBMonitorTotalStatements"> Monitor the count of all statements <br>
+			<input type="checkbox" name="DBMonitorReadSelect" value="ServerMonitorNetworkUsage"> Monitor the count of read/Select statements <br>
+			<input type="checkbox" name="DBMonitorWrites" value="DBMonitorWrites"> Monitor the count of write statements <br>
+			<input type="checkbox" name="DBStatementVolumeAlert" value="DBStatementVolumeAlert"> Alert if the volume dropps too drasticly <br><br>
+			<p> Performance </p>
+			<input type="checkbox" name="DBMonitorAverageQueryTime" value="DBMonitorAverageQueryTime"> Monitor the average query run time <br>
+			<input type="checkbox" name="DBMonitorErrorStatements" value="DBMonitorErrorStatements"> Monitor the numver of statements that generates errors <br>
+			<input type="checkbox" name="DBMonitorSlowQueries" value="DBMonitorSlowQueries"> Monitor the number of slow queries <br>
+			<input type="checkbox" name="DBAlertClimbingRunTime" value="DBAlertClimbingRunTime"> Alert if average run time increases drastically <br>
+			<input type="checkbox" name="DBAlertClimbingQueryErrors" value="DBAlertClimbingQueryErrors"> Alert if sudden increase in query errors <br>
+			<input type="checkbox" name="DBMonitorTop10Error" value="DBMonitorTop10Error"> Monitor the top 10 statements that return the most errors <br><br>
+			<p> Buffer Pool Usage </p>
+			<input type="checkbox" name="DBMonitorPoolPages" value="DBMonitorPoolPages"> Monitor the total number of buffer pool pages <br>
+			<input type="checkbox" name="DBMonitorUsedPages" value="DBMonitorUsedPages"> Monitor The ration of used to total pages in the buffer pool <br>
+			<input type="checkbox" name="DBMonitorPoolRequests" value="DBMonitorPoolRequests"> Monitor the requests made to the buffer pool <br>
+			<input type="checkbox" name="DBMonitorPoolRequestFails" value="DBMonitorPoolRequestFails"> Monitor the number of requests the buffer pool could not fulfill <br><br>
+		{% endif %}
+		{% if resource.Object == "DB" or resource.Object == "Server" %}
+			<h5> Disk metrics </h5>
+			<p> Disk IOps completed </p>
+			<input type="checkbox" name="DiskMonitorReads" value="DiskMonitorReads"> Monitor how many reads completed <br><br>
+			<p> Disk R/W Data </p>
+			<input type="checkbox" name="DiskMonitorBytesRead" value="DiskMonitorBytesRead"> Monitor how many bytes read <br>
+			<input type="checkbox" name="DiskMonitorBytesWrite" value="DiskMonitorBytesWrite"> Monitor how many bytes written <br><br>
+			<p> Disk Miliseconds spent doing I/Os </p>
+			<input type="checkbox" name="DiskMonitorI/O" value="DiskMonitorI/O"> Monitor time spent doing I/O in miliseconds <br><br>
+			<h5> Filesystem metrics </h5>
+			<p> Filesystem Space Avalible </p>
+			<input type="checkbox" name="FilesysDiskSpace" value="FilesysDiskSpace"> Monitor the disk space utilization <br>
+			<input type="checkbox" name="FilesysFullDiskAlert" value="FilesysFullDiskAlert"> Alert if disk space utilization close to full <br>
+			<input type="checkbox" name="FileSysFillDiskCritical" value="FileSysFillDiskCritical"> Alert if system is critically close full <br><br>
+		{% endif %}
+		{% if resource.Object == "Router" %}
+			<h5> Network metrics </h5>
+			<p> Performance </p>
+			<input type="checkbox" name="NetworkPacketLoss" value="NetworkPacketLoss"> Monitor the packet loss <br>
+			<input type="checkbox" name="NetworkLatency" value="NetworkLatency"> Monitor the latency <br>
+			<input type="checkbox" name="NetworkJitter" value="NetworkJitter"> Monitor the network jitter <br>
+			<input type="checkbox" name="NetworkThroughtput" value="NetworkThroughtput"> Monitor the throughtput <br><br>
+			<p> Resource Utilization </p>
+			<input type="checkbox" name="NetworkMonitorPathChanges" value="NetworkMonitorPathChanges"> Monitor path changes and updates for routing <br>
+			<input type="checkbox" name="NetworkMonitorPortStatus" value="NetworkMonitorPortStatus"> Monitor the port statuses <br>
+			<input type="checkbox" name="NetworkMonitorDeviceStatus" value="NetworkMonitorDeviceStatus"> Monitor the device status <br>
+			<input type="checkbox" name="NetworkAlertProtocolFailure" value="NetworkAlertProtocolFailure"> Alert if the protcol goes down <br>
+			<input type="checkbox" name="NetworkAlertExitsRunningState" value="NetworkAlertExitsRunningState"> Alert if the device exits a running state <br><br>
+		{% endif %}
+		{% if resource.object == "Server" %}
+		<h5> General metrics for WebServers </h5>
+		<p> DNS-Expiration </p>
+		<input type="checkbox" name="WebServerMonitorDNSExpiration" value="WebServerMonitorDNSExpiration"> Monitor your DNS expiration dates <br>
+		<input type="checkbox" name="WebServerAlertDNS30Days" value="WebServerAlertDNS30Days"> Alert 30 days before the DNS expiration time to be able to renew <br><br>
+		<p> SSL Vertificate expiration </p>
+		<input type="checkbox" name="WebServerMonitorSSLExpiration" value="WebServerMonitorSSLExpiration"> Monitor your SSL expiration dates <br>
+		<input type="checkbox" name="WebServerAlertSSL30Days" value="NetworkThroughtput"> Alert 30 days before the SSL expiration time to be able to renew <br><br>
+		<p> User Activity - Monitor avaliblity of pages and user activity on the pages </p>
+		<input type="checkbox" name="WebServerMonitorPages" value="WebServerMonitorPages"> Monitor key webpages for uptime <br>
+		<input type="checkbox" name="WebServerAlertResponseCodeChange" value="WebServerAlertResponseCodeChange"> Alert if response codes changes or are not as expected <br>
+		<input type="checkbox" name="WebServerMonitorRequestRate" value="WebServerMonitorRequestRate"> Monitor the request rate for key pages on your site <br>
+		<input type="checkbox" name="WebServerAlertRequestVolumeDrop" value="WebServerAlertRequestVolumeDrop"> Alert if requet volume drop significantly on your site <br><br>
 		{% endif %}
 	{% endfor %}
 	<input type="submit">

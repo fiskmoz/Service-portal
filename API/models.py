@@ -14,19 +14,25 @@ class Order(models.Model):
     MostRecent = models.CharField(max_length = 250)
     ParentOrder = models.CharField(max_length = 250, default = "ORIGINAL")
 
+    def __str__(self):
+        return self.OrderCreator +': ' + self.OrderName
 
 class Agreements(models.Model):
     Order = models.ForeignKey(Order, on_delete=models.CASCADE)
     AgreementInText = models.CharField(max_length = 250)
 
-
 class SystemIdentif(models.Model):
     SystemID = models.CharField(max_length=50, default=None, unique=True)
     Owner = models.CharField(max_length=50, default =None)
 
+    def __str__(self):
+        return 'System ID: ' + self.SystemID
 
 class NewResource(models.Model):
     Object = models.CharField(max_length = 50)
     OS = models.CharField(max_length = 50)
     Packet = models.CharField(max_length = 50)
     system = models.ForeignKey(SystemIdentif, to_field='SystemID', on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        return self.Object + ' for ' + self.system
