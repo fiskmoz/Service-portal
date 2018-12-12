@@ -24,3 +24,13 @@ class Resources(models.Model):
     OS = models.CharField(max_length = 50)
     Packet = models.CharField(max_length = 50)
     SystemId = models.CharField(max_length = 50)
+
+class SystemIdentif(models.Model):
+    SystemID = models.CharField(max_length=50, default=None)
+    Owner = models.CharField(max_length=50, default =None)
+
+class NewResource(models.Model):
+    Object = models.CharField(max_length = 50)
+    OS = models.CharField(max_length = 50)
+    Packet = models.CharField(max_length = 50)
+    system = models.ForeignKey(SystemIdentif, on_delete=models.CASCADE, default=None)
