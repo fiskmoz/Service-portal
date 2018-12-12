@@ -5,16 +5,16 @@
 
 
 		<h1>Add Order:</h1>
-		<form action="" method ="POST" name="order">
+		<form action="" method ="POST" name="order" id ="orderID">
 			{% csrf_token %}
 			Name of Order:<br>
 			<input type="text" name="OrderName" required="required"><br><br>
 			System Id:<br>
-			<input type="text" name="SystemId" required="required"><br>
+			<input type="text" name="SystemId" required="required" onblur=""><br>
 			<br>Service Tier:<br>
 			<input type="radio" name="Medal" value="Gold" onclick="tier(this);" > Gold<br>
-			<input type="radio" name="Medal" value="Silver" onclick="tier(this);"> Silver<br>
-			<input type="radio" name="Medal" value="Bronze" required="required" onclick="tier(this);"> Bronze<br>
+			<input type="radio" name="Medal" value="Silver" onclick="tier(this);" > Silver<br>
+			<input type="radio" name="Medal" value="Bronze" required="required" onclick="tier(this);" > Bronze<br>
 			<br>Response Time:<br>
 			<input type="radio" name="ResponseTime" value="10 Minutes"disabled> 10 Minutes<br>
 			<input type="radio" name="ResponseTime" value="20 Minutes"disabled> 20 Minutes<br>
@@ -23,7 +23,8 @@
 			<input type="radio" name="ServiceTime" value="24/7/365"disabled> 24/7/365<br>
 			<input type="radio" name="ServiceTime" value="Monday to Sunday, 8am to 6pm"disabled> Monday to Sunday, 8am to 6pm<br>
 			<input type="radio" name="ServiceTime" value="Monday to Friday, 8am to 6pm" required="required"disabled> Monday to Friday, 8am to 6pm<br><br>
-			<input type="submit">
+			<!--<input type="submit"> -->
+			<button type="button" onclick = "checkSystemId()">Submit</button>
 		</form>
 		<ol>
 			<li> <a href="{% url 'contractpage' %}">Test for Contractpage</a> </li>
@@ -31,46 +32,71 @@
 
 <script>
 
-		function test() {
-		    alert("Hello");
-		}
-		function tier(sender) {
-		//	alert(sender.value)
-			clear("ResponseTime")
-			clear("ServiceTime")
-			if(sender.value === "Gold"){
-			//	alert("Gold")
-			document.getElementsByName("ResponseTime")[0].disabled = false;
-			document.getElementsByName("ResponseTime")[1].disabled = false;
-			document.getElementsByName("ResponseTime")[2].disabled = true;
+function test() {
+    alert("Hello");
+}
+function tier(sender) {
+//	alert(sender.value)
+	clear("ResponseTime")
+	clear("ServiceTime")
+	if(sender.value === "Gold"){
+	//	alert("Gold")
+		document.getElementsByName("ResponseTime")[0].disabled = false;
+		document.getElementsByName("ResponseTime")[1].disabled = false;
+		document.getElementsByName("ResponseTime")[2].disabled = true;
 
-			document.getElementsByName("ServiceTime")[0].disabled = false;
-			document.getElementsByName("ServiceTime")[1].disabled = false;
-			document.getElementsByName("ServiceTime")[2].disabled = true;
-			}
-			else if(sender.value === "Silver"){
-			document.getElementsByName("ResponseTime")[0].disabled = true;
-			document.getElementsByName("ResponseTime")[1].disabled = false;
-			document.getElementsByName("ResponseTime")[2].disabled = false;
+		document.getElementsByName("ServiceTime")[0].disabled = false;
+		document.getElementsByName("ServiceTime")[1].disabled = false;
+		document.getElementsByName("ServiceTime")[2].disabled = true;
+	}
+	else if(sender.value === "Silver"){
+		document.getElementsByName("ResponseTime")[0].disabled = true;
+		document.getElementsByName("ResponseTime")[1].disabled = false;
+		document.getElementsByName("ResponseTime")[2].disabled = false;
 
-			document.getElementsByName("ServiceTime")[0].disabled = true;
-			document.getElementsByName("ServiceTime")[1].disabled = false;
-			document.getElementsByName("ServiceTime")[2].disabled = false;
+		document.getElementsByName("ServiceTime")[0].disabled = true;
+		document.getElementsByName("ServiceTime")[1].disabled = false;
+		document.getElementsByName("ServiceTime")[2].disabled = false;
+	}
+	else{
+		document.getElementsByName("ResponseTime")[0].disabled = true;
+		document.getElementsByName("ResponseTime")[1].disabled = true;
+		document.getElementsByName("ResponseTime")[2].disabled = false;
+
+		document.getElementsByName("ServiceTime")[0].disabled = true;
+		document.getElementsByName("ServiceTime")[1].disabled = true;
+		document.getElementsByName("ServiceTime")[2].disabled = false;
+	}
+}
+function clear(name){
+	var ele = document.getElementsByName(name);
+	for(var i=0;i<ele.length;i++)
+			ele[i].checked = false;
+}
+
+
+ function checkSystemId(){
+	 systemID = document.getElementsByName("SystemId")[0].value
+	 const Http = new XMLHttpRequest();
+	 const url= 'http://127.0.0.1:8000/API/Exists/Systemid/' + systemID + '/' ;
+
+	 Http.open("GET", url);
+	 Http.send();
+
+	Http.onreadystatechange = function() {
+	  	if (Http.readyState === 4) {
+			if (Http.response === "true"){
+
+				document.getElementById("orderID").submit();
 			}
 			else{
-			document.getElementsByName("ResponseTime")[0].disabled = true;
-			document.getElementsByName("ResponseTime")[1].disabled = true;
-			document.getElementsByName("ResponseTime")[2].disabled = false;
-
-			document.getElementsByName("ServiceTime")[0].disabled = true;
-			document.getElementsByName("ServiceTime")[1].disabled = true;
-			document.getElementsByName("ServiceTime")[2].disabled = false;
+				alert("SystemID dosnt exist, please enter correct ID")
 			}
-		}
-		function clear(name){
-			var ele = document.getElementsByName(name);
-			for(var i=0;i<ele.length;i++)
-   				ele[i].checked = false;
-		}
+	  	}
+
+	}
+}
+
+
 </script>
 {% endblock %}
