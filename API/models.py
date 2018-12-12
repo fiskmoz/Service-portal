@@ -19,18 +19,14 @@ class Agreements(models.Model):
     Order = models.ForeignKey(Order, on_delete=models.CASCADE)
     AgreementInText = models.CharField(max_length = 250)
 
-class Resources(models.Model):
-    Object = models.CharField(max_length = 50)
-    OS = models.CharField(max_length = 50)
-    Packet = models.CharField(max_length = 50)
-    SystemId = models.CharField(max_length = 50)
 
 class SystemIdentif(models.Model):
-    SystemID = models.CharField(max_length=50, default=None)
+    SystemID = models.CharField(max_length=50, default=None, unique=True)
     Owner = models.CharField(max_length=50, default =None)
+
 
 class NewResource(models.Model):
     Object = models.CharField(max_length = 50)
     OS = models.CharField(max_length = 50)
     Packet = models.CharField(max_length = 50)
-    system = models.ForeignKey(SystemIdentif, on_delete=models.CASCADE, default=None)
+    system = models.ForeignKey(SystemIdentif, to_field='SystemID', on_delete=models.CASCADE, default=None)

@@ -8,8 +8,9 @@ from API.models import Order
 from .serializer import OrderSerializer
 from rest_framework import generics
 from django.utils import timezone
-from API.models import Resources
-from .serializer import ResourcesSerializer
+from django.template import loader
+from API.models import NewResource, SystemIdentif
+from .serializer import NewResourceSerializer, SystemIdentifSerializer
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -86,8 +87,8 @@ class SpecificResourcesList(APIView):
     def get(self, request, SystemId):
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
-        ResourceList = Resources.objects.filter(SystemId = SystemId)
-        serializer = ResourcesSerializer(ResourceList, many=True)
+        ResourceList = NewResource.objects.filter(system = SystemId)
+        serializer = NewResourceSerializer(ResourceList, many=True)
         return Response(serializer.data)
 
     def post(self,request):
