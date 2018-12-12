@@ -2,13 +2,7 @@
 
 {% block content %}
 
-		{% if messages %}					<!-- Shows messages from django, in this case if ordername already exists -->
-			{% for message in messages %}
-				<script>
-					alert('{{ message }}');
-				</script>
-			{% endfor %}
-		{% endif %}
+
 
 		<h1>Add Order:</h1>
 		<form action="" method ="POST" name="order">
@@ -18,20 +12,65 @@
 			System Id:<br>
 			<input type="text" name="SystemId" required="required"><br>
 			<br>Service Tier:<br>
-			<input type="radio" name="Medal" value="Gold" > Gold<br>
-			<input type="radio" name="Medal" value="Silver"> Silver<br>
-			<input type="radio" name="Medal" value="Bronze" required="required"> Bronze<br>
+			<input type="radio" name="Medal" value="Gold" onclick="tier(this);" > Gold<br>
+			<input type="radio" name="Medal" value="Silver" onclick="tier(this);"> Silver<br>
+			<input type="radio" name="Medal" value="Bronze" required="required" onclick="tier(this);"> Bronze<br>
 			<br>Response Time:<br>
-			<input type="radio" name="ResponseTime" value="10 Minutes"> 10 Minutes<br>
-			<input type="radio" name="ResponseTime" value="20 Minutes"> 20 Minutes<br>
-			<input type="radio" name="ResponseTime" value="30 Minutes" required="required"> 30 Minutes<br>
+			<input type="radio" name="ResponseTime" value="10 Minutes"disabled> 10 Minutes<br>
+			<input type="radio" name="ResponseTime" value="20 Minutes"disabled> 20 Minutes<br>
+			<input type="radio" name="ResponseTime" value="30 Minutes" required="required"disabled> 30 Minutes<br>
 			<br>Scheduled Support Time:<br>
-			<input type="radio" name="ServiceTime" value="24/7/365"> 24/7/365<br>
-			<input type="radio" name="ServiceTime" value="Monday to Sunday, 8am to 6pm"> Monday to Sunday, 8am to 6pm<br>
-			<input type="radio" name="ServiceTime" value="Monday to Friday, 8am to 6pm" required="required"> Monday to Friday, 8am to 6pm<br><br>
+			<input type="radio" name="ServiceTime" value="24/7/365"disabled> 24/7/365<br>
+			<input type="radio" name="ServiceTime" value="Monday to Sunday, 8am to 6pm"disabled> Monday to Sunday, 8am to 6pm<br>
+			<input type="radio" name="ServiceTime" value="Monday to Friday, 8am to 6pm" required="required"disabled> Monday to Friday, 8am to 6pm<br><br>
 			<input type="submit">
 		</form>
 		<ol>
 			<li> <a href="{% url 'contractpage' %}">Test for Contractpage</a> </li>
 		</ol>
+
+<script>
+
+		function test() {
+		    alert("Hello");
+		}
+		function tier(sender) {
+		//	alert(sender.value)
+			clear("ResponseTime")
+			clear("ServiceTime")
+			if(sender.value === "Gold"){
+			//	alert("Gold")
+			document.getElementsByName("ResponseTime")[0].disabled = false;
+			document.getElementsByName("ResponseTime")[1].disabled = false;
+			document.getElementsByName("ResponseTime")[2].disabled = true;
+
+			document.getElementsByName("ServiceTime")[0].disabled = false;
+			document.getElementsByName("ServiceTime")[1].disabled = false;
+			document.getElementsByName("ServiceTime")[2].disabled = true;
+			}
+			else if(sender.value === "Silver"){
+			document.getElementsByName("ResponseTime")[0].disabled = true;
+			document.getElementsByName("ResponseTime")[1].disabled = false;
+			document.getElementsByName("ResponseTime")[2].disabled = false;
+
+			document.getElementsByName("ServiceTime")[0].disabled = true;
+			document.getElementsByName("ServiceTime")[1].disabled = false;
+			document.getElementsByName("ServiceTime")[2].disabled = false;
+			}
+			else{
+			document.getElementsByName("ResponseTime")[0].disabled = true;
+			document.getElementsByName("ResponseTime")[1].disabled = true;
+			document.getElementsByName("ResponseTime")[2].disabled = false;
+
+			document.getElementsByName("ServiceTime")[0].disabled = true;
+			document.getElementsByName("ServiceTime")[1].disabled = true;
+			document.getElementsByName("ServiceTime")[2].disabled = false;
+			}
+		}
+		function clear(name){
+			var ele = document.getElementsByName(name);
+			for(var i=0;i<ele.length;i++)
+   				ele[i].checked = false;
+		}
+</script>
 {% endblock %}

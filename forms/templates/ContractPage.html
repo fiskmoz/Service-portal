@@ -21,10 +21,11 @@ Date:      {{myOrder.Date}}<br><br>
 	<ol>
 		<li> Object: {{resource.Object}}</li>
 		<li> OS: {{resource.OS}}</li>
-		<li> Packet: {{resouce.Packet}}</li>
+		<li> Packet: {{resource.Packet}}</li>
 	</ol>
-	<h5> Choose what you want monitored for this resource </h5>
+	<h4> Choose what you want monitored for this resource </h4>
 		{% if resource.Object == "Server" %}
+			<h5> Host metrics </h5>
 			<p> Server Status - Overall status indication </p>
 			<input type="checkbox" name="ServerMonitorStatus" value="MonitorServerStatus">Monitor Server Status <br>
 			<input type="checkbox" name="ServerLeaveRunningState" value="ServerLeaveRunningState"> Set alert when server leaves running state <br><br>
@@ -34,11 +35,39 @@ Date:      {{myOrder.Date}}<br><br>
 			<p> Server Network Usage </p>
 			<input type="checkbox" name="ServerMonitorNetworkUsage" value="ServerMonitorNetworkUsage"> Monitor the server netowrk usage <br>
 			<input type="checkbox" name="ServerNetworkUsageAlert" value="ServerNetworkUsageAlert"> Alert if server network usage exceeds a fixed threshhold <br><br>
+			<p> Server Disk Space </p>
+			<input type="checkbox" name="ServerMonitorDiskSpace" value="ServerMonitorDiskSpace"> Monitor the avalible disk space <br>
+			<input type="checkbox" name="ServerDiskSpaceAlert" value="ServerDiskSpaceAlert"> Alert if server disk space exceeds a fixed threshhold <br><br>
+			<p> Hosting Provider Status </p>
+			<input type="checkbox" name="ServerMonitorHostingProvider" value="ServerMonitorHostingProvider"> Monitor the hosting providers status <br>
+			<input type="checkbox" name="ServerHostingProviderAlert" value="ServerHostingProviderAlert"> Alert if provider experiences outage <br><br>
+			<p> Process State </p>
+			<input type="checkbox" name="ServerMonitorProcessStates" value="ServerMonitorProcessStates"> Monitor the up time for each process <br>
+			<input type="checkbox" name="ServerMonitorProcessStatus" value="ServerMonitorProcessStatus"> Monitor the status for each process <br>
+			<input type="checkbox" name="ServerAlertMasterProcess" value="ServerAlertMasterProcess"> Alert if the master process leaves the running state <br><br>
 		{% endif %}
 		{% if resource.Object == "DB"%}
-			<input type="checkbox" name="connections" value="connections"> Connections <br>
-			<input type="checkbox" name="readquery" value="readquery"> ReadQueries <br>
-			<input type="checkbox" name="inswriteq" value="inswriteq"> Insert or Write Queries <br>
+			<h5> DB metrics </h5>
+			<p> DB Process Status - Overall status indication </p>
+			<input type="checkbox" name="DBMonitorStatus" value="DBMonitorStatus"> Monitor the process status <br>
+			<input type="checkbox" name="DBExitRunningStateAlert" value="DBExitRunningStateAlert"> Alert when the process exits a running state <br><br>
+			<p> Throughtput</p>
+			<input type="checkbox" name="DBMonitorTotalStatements" value="DBMonitorTotalStatements"> Monitor the count of all statements <br>
+			<input type="checkbox" name="DBMonitorReadSelect" value="ServerMonitorNetworkUsage"> Monitor the count of read/Select statements <br>
+			<input type="checkbox" name="DBMonitorWrites" value="DBMonitorWrites"> Monitor the count of write statements <br>
+			<input type="checkbox" name="DBStatementVolumeAlert" value="DBStatementVolumeAlert"> Alert if the volume dropps too drasticly <br><br>
+			<p> Performance </p>
+			<input type="checkbox" name="DBMonitorAverageQueryTime" value="DBMonitorAverageQueryTime"> Monitor the average query run time <br>
+			<input type="checkbox" name="DBMonitorErrorStatements" value="DBMonitorErrorStatements"> Monitor the numver of statements that generates errors <br>
+			<input type="checkbox" name="DBMonitorSlowQueries" value="DBMonitorSlowQueries"> Monitor the number of slow queries <br>
+			<input type="checkbox" name="DBAlertClimbingRunTime" value="DBAlertClimbingRunTime"> Alert if average run time increases drastically <br>
+			<input type="checkbox" name="DBAlertClimbingQueryErrors" value="DBAlertClimbingQueryErrors"> Alert if sudden increase in query errors <br>
+			<input type="checkbox" name="DBMonitorTop10Error" value="DBMonitorTop10Error"> Monitor the top 10 statements that return the most errors <br><br>
+			<p> Buffer Pool Usage </p>
+			<input type="checkbox" name="DBMonitorPoolPages" value="DBMonitorPoolPages"> Monitor the total number of buffer pool pages <br>
+			<input type="checkbox" name="DBMonitorUsedPages" value="DBMonitorUsedPages"> Monitor The ration of used to total pages in the buffer pool <br>
+			<input type="checkbox" name="DBMonitorPoolRequests" value="DBMonitorPoolRequests"> Monitor the requests made to the buffer pool <br>
+			<input type="checkbox" name="DBMonitorPoolRequestFails" value="DBMonitorPoolRequestFails"> Monitor the number of requests the buffer pool could not fulfill <br><br>
 		{% endif %}
 	{% endfor %}
 	<input type="submit">

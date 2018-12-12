@@ -79,6 +79,10 @@ def ContractPage(request):
     template = loader.get_template('ContractPage.html') # HTML for contractpage
     # Add whats required for the contractpage
     SystemId = request.POST.get('SystemId', '')
+    SystemIDcheck = requests.get(url=APIurl+'Exists/Systemid/'+SystemId+'/').json()
+
+    if SystemIDcheck == False:
+        return HttpResponse("Ajja Bajja3!")
     try:
         context = {
         'myOrder' : GetPayload(request),
