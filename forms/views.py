@@ -92,4 +92,4 @@ def ContractPage(request):
         }
         return HttpResponse(template.render(context, request ))
     except json.decoder.JSONDecodeError:
-        return HttpResponse("Ajja Bajja!")
+        return HttpResponse("Ajja Bajja2!")

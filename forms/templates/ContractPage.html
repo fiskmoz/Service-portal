@@ -14,12 +14,14 @@ Service Tier: {{myOrder.Medal}}<br>
 Response time:   {{myOrder.ResponseTime}}<br>
 Scheduled Response time:    {{myOrder.ServiceTime}}<br>
 Order created:      {{myOrder.Date}}<br><br>
-<p> Based on your system, we expect you to have:</p>
-
-<h3> Object: {{Resources.Object}}</h3>
-
-<h3> OS: {{Resources.OS}}</h3>
-
-<h3> Packet: {{Resources.Packet}}</h3>
+<h2> Your system has the following resources: </h2>
+	{% for resource in Resources %}
+	<h3> Resource ID: {{ resource.id}} </h3>
+	<ol>
+		<li> Object: {{resource.Object}}</li>
+		<li> OS: {{resource.OS}}</li>
+		<li> Packet: {{resouce.Packet}}</li>
+	</ol>
+	{% endfor %}
 
 {% endblock %}

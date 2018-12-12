@@ -86,8 +86,8 @@ class SpecificResourcesList(APIView):
     def get(self, request, SystemId):
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
-        ResourceList = Resources.objects.get(SystemId = SystemId)
-        serializer = ResourcesSerializer(ResourceList, many=False)
+        ResourceList = Resources.objects.filter(SystemId = SystemId)
+        serializer = ResourcesSerializer(ResourceList, many=True)
         return Response(serializer.data)
 
     def post(self,request):
