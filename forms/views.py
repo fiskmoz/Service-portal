@@ -14,7 +14,7 @@ def GetPayload(request):
     payload = {}
     for req in request.POST:
         payload[str(req)] = request.POST.get(req)
-    payload['OrderCretor'] =  request.user.username
+    payload['OrderCreator'] =  request.user.username
     payload['password'] = request.user.password
     return payload
 
@@ -41,7 +41,9 @@ def EditForm(request, order_id):
             return HttpResponse(template.render(context,request))
         except json.decoder.JSONDecodeError:
             return HttpResponse("Ajja Bajja!")
-    r = requests.post(url = APIurl+order_id+'/', data = GetPayload(request))
+    print('skickar')
+    r = requests.post(url = APIurl + order_id +'/', data = GetPayload(request))
+    print(r)
     return redirect('home')
 
 def ViewForms(request):

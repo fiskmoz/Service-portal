@@ -35,10 +35,14 @@ class OrderList(APIView):
 
     # Add a new order
     def post(self, request):
+        print("In new order")
         if not Authenticate(request):
+            print("not auth")
             return HttpResponse("Not authenticated")
+        print("Passed auth")
         OrderName = request.POST.get('OrderName', '')
         OrderCreator = request.POST.get('OrderCreator', '')
+        print(OrderName + "    " + OrderCreator)
         if  Order.objects.filter(OrderCreator=OrderCreator).filter(OrderName=OrderName) :
             return HttpResponse("Ordername duplicate")
         CreateNewOrder(request)
@@ -61,6 +65,7 @@ class SpecificOrderView(APIView):
         serializer = OrderSerializer(order, many=False)
         return Response(serializer.data)
     # Update exisiting order
+
     def post(self, request, id ):
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
