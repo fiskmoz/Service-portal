@@ -11,16 +11,11 @@ import json
 APIurl = 'http://127.0.0.1:8000/API/'
 
 def GetPayload(request):
-    OrderCreator = request.user.username
-    OrderName = request.POST.get('OrderName', '')
-    SystemId = request.POST.get('SystemId', '')
-    Medal = request.POST.get('Medal', '')
-    ServiceTime = request.POST.get('ServiceTime', '')
-    responseTime = request.POST.get('ResponseTime', '')
-    Date = request.POST.get('Date', '')
-    payload = {'OrderCreator': OrderCreator, 'OrderName': OrderName,
-    'SystemId' : SystemId, 'Medal' : Medal,
-    'ServiceTime': ServiceTime, 'ResponseTime': responseTime, 'password': request.user.password}
+    payload = {}
+    for req in request.POST:
+        payload[str(req)] = request.POST.get(req)
+    payload['OrderCretor'] =  request.user.username
+    payload['password'] = request.user.password
     return payload
 
 def NewForm(request):
