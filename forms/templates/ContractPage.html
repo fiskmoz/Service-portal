@@ -69,6 +69,21 @@ Date:      {{myOrder.Date}}<br><br>
 			<input type="checkbox" name="DBMonitorPoolRequests" value="DBMonitorPoolRequests"> Monitor the requests made to the buffer pool <br>
 			<input type="checkbox" name="DBMonitorPoolRequestFails" value="DBMonitorPoolRequestFails"> Monitor the number of requests the buffer pool could not fulfill <br><br>
 		{% endif %}
+		{% if resource.Object == "DB or resource.Object == "Server" %}
+			<h5> Disk metrics </h5>
+			<p> Disk IOps completed </p>
+			<input type="checkbox" name="DiskMonitorReads" value="DiskMonitorReads"> Monitor how many reads completed <br><br>
+			<p> Disk R/W Data </p>
+			<input type="checkbox" name="DiskMonitorBytesRead" value="DiskMonitorBytesRead"> Monitor how many bytes read <br>
+			<input type="checkbox" name="DiskMonitorBytesWrite" value="DiskMonitorBytesWrite"> Monitor how many bytes written <br><br>
+			<p> Disk Miliseconds spent doing I/Os </p>
+			<input type="checkbox" name="DiskMonitorI/O" value="DiskMonitorI/O"> Monitor time spent doing I/O in miliseconds <br><br>
+			<h5> Filesystem metrics </h5>
+			<p> Filesystem Space Avalible </p>
+			<input type="checkbox" name="FilesysDiskSpace" value="FilesysDiskSpace"> Monitor the disk space utilization <br>
+			<input type="checkbox" name="FilesysFullDiskAlert" value="FilesysFullDiskAlert"> Alert if disk space utilization close to full <br>
+			<input type="checkbox" name="FileSysFillDiskCritical" value="FileSysFillDiskCritical"> Alert if system is critically close full <br><br>
+		% endif %}
 	{% endfor %}
 	<input type="submit">
 </form>
