@@ -43,6 +43,13 @@ class OrderList(APIView):
         CreateNewOrder(request)
         return HttpResponse("SUccess!!!")
 
+    def delete(self,request):
+        pass
+    def update(self,request):
+        pass
+    def patch(self,request):
+        pass
+
 class SpecificOrderView(APIView):
     lookup_field  = 'id'
     # Get information from specific order
@@ -64,6 +71,63 @@ class SpecificOrderView(APIView):
         NewOrder.save()
         return HttpResponse("Sucess!")
 
+    def delete(self,request):
+        pass
+    def update(self,request):
+        pass
+    def patch(self,request):
+        pass
+
+
+
+class SpecificResourcesList(APIView):
+    lookup_field = 'SystemId'
+
+    def get(self, request, SystemId):
+        if not Authenticate(request):
+            return HttpResponse("Not authenticated")
+        ResourceList = Resources.objects.get(SystemId = SystemId)
+        serializer = ResourcesSerializer(ResourceList, many=False)
+        return Response(serializer.data)
+
+    def delete(self,request):
+        pass
+    def update(self,request):
+        pass
+    def patch(self,request):
+        pass
+
+class SpecificUsername(APIView):
+    lookup_field = 'Username'
+
+    def get(self,request,Username):
+
+        if not Authenticate(request):
+            return HttpResponse("Not authenticated")
+
+        orders = Order.objects.filter(OrderCreator = Username)
+        serializer = OrderSerializer(orders, many=True)
+        return Response(serializer.data)
+
+    def delete(self,request):
+        pass
+    def update(self,request):
+        pass
+    def patch(self,request):
+        pass
+
+def Authenticate(request):
+    username = request.POST.get('OrderCreator')
+    password = request.POST.get('password')
+    try:
+        user = User.objects.get(username = username)
+        print("user found")
+    except User.DoesNotExist:
+        return False
+    if not user.password == password :
+        return False
+    print("authenticated")
+    return True
 
 def CreateNewOrder(request):
     if not Authenticate(request):
@@ -78,38 +142,3 @@ def CreateNewOrder(request):
     Medal=Medal, ServiceTime=ServiceTime, ResponseTime=responseTime, MostRecent="TRUE")
     newOrder.save()
     return newOrder
-
-class SpecificResourcesList(APIView):
-    lookup_field = 'SystemId'
-
-    def get(self, request, SystemId):
-        if not Authenticate(request):
-            return HttpResponse("Not authenticated")
-        ResourceList = Resources.objects.get(SystemId = SystemId)
-        serializer = ResourcesSerializer(ResourceList, many=False)
-        return Response(serializer.data)
-
-class SpecificUsername(APIView):
-    lookup_field = 'Username'
-
-    def get(self,request,Username):
-
-        if not Authenticate(request):
-            return HttpResponse("Not authenticated")
-
-        orders = Order.objects.filter(OrderCreator = Username)
-        serializer = OrderSerializer(orders, many=True)
-        return Response(serializer.data)
-
-def Authenticate(request):
-    username = request.POST.get('OrderCreator')
-    password = request.POST.get('password')
-    try:
-        user = User.objects.get(username = username)
-        print("user found")
-    except User.DoesNotExist:
-        return False
-    if not user.password == password :
-        return False
-    print("authenticated")
-    return True
