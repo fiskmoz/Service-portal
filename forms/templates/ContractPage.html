@@ -84,6 +84,20 @@ Date:      {{myOrder.Date}}<br><br>
 			<input type="checkbox" name="FilesysFullDiskAlert" value="FilesysFullDiskAlert"> Alert if disk space utilization close to full <br>
 			<input type="checkbox" name="FileSysFillDiskCritical" value="FileSysFillDiskCritical"> Alert if system is critically close full <br><br>
 		{% endif %}
+		{% if resource.object == "Router" %}
+			<h5> Network metrics </h5>
+			<p> Performance </p>
+			<input type="checkbox" name="NetworkPacketLoss" value="NetworkPacketLoss"> Monitor the packet loss <br>
+			<input type="checkbox" name="NetworkLatency" value="NetworkLatency"> Monitor the latency <br>
+			<input type="checkbox" name="NetworkJitter" value="NetworkJitter"> Monitor the network jitter <br>
+			<input type="checkbox" name="NetworkThroughtput" value="NetworkThroughtput"> Monitor the throughtput <br><br>
+			<p> Resource Utilization </p>
+			<input type="checkbox" name="NetworkMonitorPathChanges" value="NetworkMonitorPathChanges"> Monitor path changes and updates for routing <br>
+			<input type="checkbox" name="NetworkMonitorPortStatus" value="NetworkMonitorPortStatus"> Monitor the port statuses <br>
+			<input type="checkbox" name="NetworkMonitorDeviceStatus" value="NetworkMonitorDeviceStatus"> Monitor the device status <br>
+			<input type="checkbox" name="NetworkAlertProtocolFailure" value="NetworkAlertProtocolFailure"> Alert if the protcol goes down <br>
+			<input type="checkbox" name="NetworkAlertExitsRunningState" value="NetworkAlertExitsRunningState"> Alert if the device exits a running state <br><br>
+		{% endif %}
 	{% endfor %}
 	<input type="submit">
 </form>
