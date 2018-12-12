@@ -84,6 +84,15 @@ class SpecificResourcesList(APIView):
         serializer = ResourcesSerializer(ResourceList, many=False)
         return Response(serializer.data)
 
+class SpecificUsername(APIView):
+    lookup_field = 'Username'
+
+    def get(self,request,Username):
+
+        orders = Order.objects.filter(OrderCreator = Username)
+        serializer = OrderSerializer(orders, many=True)
+        return Response(serializer.data)
+
 def Authenticate(request):
     username = request.POST.get('OrderCreator')
     password = request.POST.get('password')
