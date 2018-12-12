@@ -7,7 +7,8 @@ urlpatterns = [
     path('', views.OrderList.as_view()),
     path('<id>/', views.SpecificOrderView.as_view()),
     path('User/<Username>/',    views.SpecificUsername.as_view()),
-    path('Resources/<SystemId>/', views.SpecificResourcesList.as_view())
+    path('Resources/<SystemId>/', views.SpecificResourcesList.as_view()),
+    path('Exists/Systemid/<SystemId>/', views.SystemIdExists.as_view())
     # path('', views.Home, name='home')
 ]
 

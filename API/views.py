@@ -18,7 +18,7 @@ def Home(requests):
     return HttpResponse("You are at API home")
 
 class OrderList(APIView):
-    #  Get all your orders
+    #  Get all orders
     def get(self, request):
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
@@ -26,7 +26,7 @@ class OrderList(APIView):
         user = User.objects.get(username = caller)
 
         if not user.is_superuser == 1:
-            return HttpResponse("Not enough priveleges")
+            return HttpResponse("Not enough privileges")
 
         orders = Order.objects.all()
 
@@ -88,6 +88,7 @@ class SpecificResourcesList(APIView):
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
         ResourceList = NewResource.objects.filter(system = SystemId)
+
         serializer = NewResourceSerializer(ResourceList, many=True)
         return Response(serializer.data)
 
@@ -100,7 +101,32 @@ class SpecificResourcesList(APIView):
     def patch(self,request):
         pass
 
+class SystemIdExists(APIView):
+    lookup_field = 'SystemId'
+
+    def get(self,request,SystemId):
+
+#        if not Authenticate(request):
+#            return HttpResponse("Not authenticated")
+
+        ResourceList = SystemIdentif.objects.filter(SystemID = SystemId)
+        serializer = SystemIdentifSerializer(ResourceList, many=True)
+        if not ResourceList:
+            return Response(False)
+        return Response(True)
+
+    def post(self,request):
+        pass
+    def delete(self,request):
+        pass
+    def update(self,request):
+        pass
+    def patch(self,request):
+        pass
+
+
 class SpecificUsername(APIView):
+    # Get orders for specific user
     lookup_field = 'Username'
 
     def get(self,request,Username):
