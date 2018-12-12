@@ -2,9 +2,7 @@
 {% extends 'base.html' %}
 <!-- Loads the static files-->
 {% block title %}Home{% endblock %}
-
 {% block content %}
-</style>
 {% if user.is_authenticated %}
   <h2> Hi {{ user.username }}! </h2>
   <ol>
