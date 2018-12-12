@@ -56,13 +56,13 @@ def ViewForms(request):
     template = loader.get_template('ViewForms.html') ## HTML FOR VIEw forms
     try:
         context = {
-        'myOrders' : requests.get(url=APIurl ,
+        'myOrders' : requests.get(url=APIurl + 'User/'+ request.user.username + '/' ,
         data = ({'OrderCreator' : request.user.username, 'password' : request.user.password})).json(),
-        'CurrentUser' : request.user.username,
+        #'CurrentUser' : request.user.username,
         }
         return HttpResponse(template.render(context,request))
     except json.decoder.JSONDecodeError:
-        return HttpResponse("Ajja Bajja!")
+        return HttpResponse("Ajja Bajja!!!")
 
 def OrderDetail(request, order_id):
     if not request.user.is_authenticated:

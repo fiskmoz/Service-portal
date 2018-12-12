@@ -21,9 +21,14 @@ class OrderList(APIView):
     def get(self, request):
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
-        OrderCreator = request.POST.get('OrderCreator', '')
-        orders = Order.objects.filter(OrderCreator = OrderCreator)
-        print(orders)
+
+        user = User.objects.get(username = caller)
+
+        if not user.is_superuser == 1:
+            return HttpResponse("Not enough priveleges")
+
+        orders = Order.objects.all()
+
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
 
@@ -88,6 +93,9 @@ class SpecificUsername(APIView):
     lookup_field = 'Username'
 
     def get(self,request,Username):
+
+        if not Authenticate(request):
+            return HttpResponse("Not authenticated")
 
         orders = Order.objects.filter(OrderCreator = Username)
         serializer = OrderSerializer(orders, many=True)
