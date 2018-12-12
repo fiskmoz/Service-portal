@@ -21,10 +21,11 @@ Date:      {{myOrder.Date}}<br><br>
 	<ol>
 		<li> Object: {{resource.Object}}</li>
 		<li> OS: {{resource.OS}}</li>
-		<li> Packet: {{resouce.Packet}}</li>
+		<li> Packet: {{resource.Packet}}</li>
 	</ol>
-	<h5> Choose what you want monitored for this resource </h5>
+	<h4> Choose what you want monitored for this resource </h4>
 		{% if resource.Object == "Server" %}
+			<h5> Host metrics </h5>
 			<p> Server Status - Overall status indication </p>
 			<input type="checkbox" name="ServerMonitorStatus" value="MonitorServerStatus">Monitor Server Status <br>
 			<input type="checkbox" name="ServerLeaveRunningState" value="ServerLeaveRunningState"> Set alert when server leaves running state <br><br>
@@ -34,9 +35,21 @@ Date:      {{myOrder.Date}}<br><br>
 			<p> Server Network Usage </p>
 			<input type="checkbox" name="ServerMonitorNetworkUsage" value="ServerMonitorNetworkUsage"> Monitor the server netowrk usage <br>
 			<input type="checkbox" name="ServerNetworkUsageAlert" value="ServerNetworkUsageAlert"> Alert if server network usage exceeds a fixed threshhold <br><br>
+			<p> Server Disk Space </p>
+			<input type="checkbox" name="ServerMonitorDiskSpace" value="ServerMonitorDiskSpace"> Monitor the avalible disk space <br>
+			<input type="checkbox" name="ServerDiskSpaceAlert" value="ServerDiskSpaceAlert"> Alert if server disk space exceeds a fixed threshhold <br><br>
+			<p> Hosting Provider Status </p>
+			<input type="checkbox" name="ServerMonitorHostingProvider" value="ServerMonitorHostingProvider"> Monitor the hosting providers status <br>
+			<input type="checkbox" name="ServerHostingProviderAlert" value="ServerHostingProviderAlert"> Alert if provider experiences outage <br><br>
+			<p> Process State </p>
+			<input type="checkbox" name="ServerMonitorProcessStates" value="ServerMonitorProcessStates"> Monitor the up time for each process <br>
+			<input type="checkbox" name="ServerMonitorProcessStatus" value="ServerMonitorProcessStatus"> Monitor the status for each process <br>
+			<input type="checkbox" name="ServerAlertMasterProcess" value="ServerAlertMasterProcess"> Alert if the master process leaves the running state <br><br>
 		{% endif %}
 		{% if resource.Object == "DB"%}
-			<input type="checkbox" name="connections" value="connections"> Connections <br>
+			<h5> DB metrics </h5>
+			<p> DB Process Status - Overall status indication </p>
+			<input type="checkbox" name="DBMonitorStatus" value="DBMonitorStatus"> Monitor the process status <br>
 			<input type="checkbox" name="readquery" value="readquery"> ReadQueries <br>
 			<input type="checkbox" name="inswriteq" value="inswriteq"> Insert or Write Queries <br>
 		{% endif %}
