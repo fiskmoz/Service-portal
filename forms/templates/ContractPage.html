@@ -13,8 +13,9 @@ System id:       {{myOrder.SystemId}}<br>
 Service Tier: {{myOrder.Medal}}<br>
 Response time:   {{myOrder.ResponseTime}}<br>
 Scheduled Response time:    {{myOrder.ServiceTime}}<br>
-Order created:      {{myOrder.Date}}<br><br>
+Date:      {{myOrder.Date}}<br><br>
 <h2> Your system has the following resources: </h2>
+<form>
 	{% for resource in Resources %}
 	<h3> Resource ID: {{ resource.id}} </h3>
 	<ol>
@@ -22,6 +23,24 @@ Order created:      {{myOrder.Date}}<br><br>
 		<li> OS: {{resource.OS}}</li>
 		<li> Packet: {{resouce.Packet}}</li>
 	</ol>
+	<h5> Choose what you want monitored for this resource </h5>
+		{% if resource.Object == "Server" %}
+			<p> Server Status - Overall status indication </p>
+			<input type="checkbox" name="ServerMonitorStatus" value="MonitorServerStatus">Monitor Server Status <br>
+			<input type="checkbox" name="ServerLeaveRunningState" value="ServerLeaveRunningState"> Set alert when server leaves running state <br><br>
+			<p> Server Load Average </p>
+			<input type="checkbox" name="ServerMonitorAverage" value="ServerMonitorAverage"> Monitor the server load average <br>
+			<input type="checkbox" name="ServerLoadAlert" value="ServerLoadAlert"> Alert when load average exceeds a fiexed threshhold <br><br>
+			<p> Server Network Usage </p>
+			<input type="checkbox" name="ServerMonitorNetworkUsage" value="ServerMonitorNetworkUsage"> Monitor the server netowrk usage <br>
+			<input type="checkbox" name="ServerNetworkUsageAlert" value="ServerNetworkUsageAlert"> Alert if server network usage exceeds a fixed threshhold <br><br>
+		{% endif %}
+		{% if resource.Object == "DB"%}
+			<input type="checkbox" name="connections" value="connections"> Connections <br>
+			<input type="checkbox" name="readquery" value="readquery"> ReadQueries <br>
+			<input type="checkbox" name="inswriteq" value="inswriteq"> Insert or Write Queries <br>
+		{% endif %}
 	{% endfor %}
-
+	<input type="submit">
+</form>
 {% endblock %}
