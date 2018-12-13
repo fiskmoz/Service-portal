@@ -115,6 +115,14 @@ class CompleteOrderList(APIView):
         serializer = CompleteOrderSerializer(OrderList, many=True)
         return Response(serializer.data)
 
+    def post(self,request):
+        pass
+    def delete(self,request):
+        pass
+    def update(self,request):
+        pass
+    def patch(self,request):
+        pass
 
 class SystemIdExists(APIView):
     lookup_field = 'SystemId'
@@ -190,3 +198,16 @@ def CreateNewOrder(request):
     Medal=Medal, ServiceTime=ServiceTime, ResponseTime=responseTime, MostRecent="TRUE")
     newOrder.save()
     return newOrder
+
+def CreateCompleteOrder(request):
+    if not Authenticate(request):
+        return HttpResponse("Not Authenticated")
+    SystemID = request.POST.get('SystemID', '')
+    ResourceID = request.POST.get('ResourceID', '')
+    OrderName = request.POST.get('OrderName', '')
+    CheckBoxType = request.POST.get('CheckBoxType', '')
+    Info = request.POST.get('Info', '')
+    newCompleteOrder = CompleteOrder(SystemID = SystemID, ResourceID = ResourceID,
+    OrderName = OrderName, CheckBoxType = CheckBoxType, Info = Info)
+    newCompleteOrder.save()
+    return newCompleteOrder
