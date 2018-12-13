@@ -34,6 +34,6 @@ class NewResource(models.Model):
     OS = models.CharField(max_length = 50)
     Packet = models.CharField(max_length = 50)
     system = models.ForeignKey(SystemIdentif, to_field='SystemID', on_delete=models.CASCADE, default=None)
-
-    def __str__(self):
-        return self.Object + ' for ' + self.system
+    # 
+    # def __str__(self):
+    #     return self.Object + ' for ' + self.system
