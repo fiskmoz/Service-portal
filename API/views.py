@@ -116,7 +116,11 @@ class CompleteOrderList(APIView):
         return Response(serializer.data)
 
     def post(self,request):
-        pass
+        if not Authenticate(request):
+            return HttpResponse("Not Authenticated")
+
+        CreateCompleteOrder(request)
+        return HttpResponse("Hahahahahahaha")
     def delete(self,request):
         pass
     def update(self,request):
