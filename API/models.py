@@ -37,7 +37,7 @@ class NewResource(models.Model):
     system = models.ForeignKey(SystemIdentif, to_field='SystemID', on_delete=models.CASCADE, default=None)
 
     def __str__(self):
-        return self.Object
+        return self.ResourceID
 
 class CompleteOrder(models.Model):
     SystemID = models.ForeignKey(SystemIdentif, to_field='SystemID', on_delete=models.CASCADE, default=None)
