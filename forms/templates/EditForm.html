@@ -18,19 +18,19 @@
 			<input type="text" name="SystemId" required="required" value="{{order.SystemId}}" readonly><br><br>
 			Service Tier:<br>
 			{% if order.Medal == 'Gold' %}
-				<input type="radio" name="Medal" value="Gold" checked="checked"> Gold<br>
+				<input type="radio" name="Medal" value="Gold" checked="checked" onclick="tier(this);"> Gold<br>
 			{% else %}
-				<input type="radio" name="Medal" value="Gold"> Gold<br>
+				<input type="radio" name="Medal" value="Gold" onclick="tier(this);"> Gold<br>
 			{% endif %}
 			{% if order.Medal == 'Silver' %}
-				<input type="radio" name="Medal" value="Silver" checked="checked"> Silver<br>
+				<input type="radio" name="Medal" value="Silver" checked="checked" onclick="tier(this);" > Silver<br>
 			{% else %}
-				<input type="radio" name="Medal" value="Silver"> Silver<br>
+				<input type="radio" name="Medal" value="Silver" onclick="tier(this);" > Silver<br>
 			{% endif %}
 			{% if order.Medal == 'Bronze' %}
-				<input type="radio" name="Medal" value="Bronze" checked="checked"> Bronze<br>
+				<input type="radio" name="Medal" value="Bronze" checked="checked" onclick="tier(this);" > Bronze<br>
 			{% else %}
-				<input type="radio" name="Medal" value="Bronze"> Bronze<br>
+				<input type="radio" name="Medal" value="Bronze" onclick="tier(this);" > Bronze<br>
 			{% endif %}
 			<br>Response Time:<br>
 			{% if order.ResponseTime == "10 Minutes" %}
