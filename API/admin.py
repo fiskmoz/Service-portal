@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Order
-from .models import SystemIdentif, NewResource
+from .models import SystemIdentif, NewResource, CompleteOrder
 
 # Register your models here.
 # admin.site.register(Order)
@@ -24,3 +24,9 @@ class NewResourceAdmin(admin.ModelAdmin):
   search_fields = ['system', 'Object', 'OS', 'Packet']
   list_display = ('system', 'Object','OS','Packet')
   list_filter = ('system',)
+
+@admin.register(CompleteOrder)
+class CompleteOrderAdmin(admin.ModelAdmin):
+    search_fields = ['']
+    list_display = ('SystemID', 'ResourceID', 'CheckBoxType')
+    list_filter = ('ResourceID',)
