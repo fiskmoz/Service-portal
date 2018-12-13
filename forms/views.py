@@ -24,7 +24,9 @@ def NewForm(request):
         return HttpResponse("please log in ")
     if not request.method == "POST":
         template = loader.get_template('CreateForm.html')
-        context = {"my_name": "tempname"}
+        context = {"username" : request.user.username,
+        "password" : request.user.password
+        }
         return HttpResponse(template.render(context,request))
     r = requests.post(url = APIurl, data = GetPayload(request))
     return ContractPage(request)

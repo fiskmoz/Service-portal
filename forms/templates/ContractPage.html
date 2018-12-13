@@ -24,7 +24,7 @@ Date:      {{myOrder.Date}}<br><br>
 		<li> Packet: {{resource.Packet}}</li>
 	</ol>
 	<h4> Choose what you want monitored for this resource </h4>
-		{% if resource.Object == "Server" %}
+		{% if 'Server' in resource.Object %}
 			<h5> Host metrics </h5>
 			<p> Server Status - Overall status indication </p>
 			<input type="checkbox" name="ServerMonitorStatus" value="MonitorServerStatus">Monitor Server Status <br>
@@ -46,7 +46,7 @@ Date:      {{myOrder.Date}}<br><br>
 			<input type="checkbox" name="ServerMonitorProcessStatus" value="ServerMonitorProcessStatus"> Monitor the status for each process <br>
 			<input type="checkbox" name="ServerAlertMasterProcess" value="ServerAlertMasterProcess"> Alert if the master process leaves the running state <br><br>
 		{% endif %}
-		{% if resource.Object == "DB"%}
+		{% if 'DB' in resource.Object or 'Database' in resource.Object %}
 			<h5> DB metrics </h5>
 			<p> DB Process Status - Overall status indication </p>
 			<input type="checkbox" name="DBMonitorStatus" value="DBMonitorStatus"> Monitor the process status <br>
@@ -69,7 +69,7 @@ Date:      {{myOrder.Date}}<br><br>
 			<input type="checkbox" name="DBMonitorPoolRequests" value="DBMonitorPoolRequests"> Monitor the requests made to the buffer pool <br>
 			<input type="checkbox" name="DBMonitorPoolRequestFails" value="DBMonitorPoolRequestFails"> Monitor the number of requests the buffer pool could not fulfill <br><br>
 		{% endif %}
-		{% if resource.Object == "DB" or resource.Object == "Server" %}
+		{% if 'DB' in resource.Object or 'Database' in resource.Object or 'Server' in resource.Object %}
 			<h5> Disk metrics </h5>
 			<p> Disk IOps completed </p>
 			<input type="checkbox" name="DiskMonitorReads" value="DiskMonitorReads"> Monitor how many reads completed <br><br>
@@ -84,7 +84,7 @@ Date:      {{myOrder.Date}}<br><br>
 			<input type="checkbox" name="FilesysFullDiskAlert" value="FilesysFullDiskAlert"> Alert if disk space utilization close to full <br>
 			<input type="checkbox" name="FileSysFillDiskCritical" value="FileSysFillDiskCritical"> Alert if system is critically close full <br><br>
 		{% endif %}
-		{% if resource.Object == "Router" %}
+		{% if 'Router' in resource.Object %}
 			<h5> Network metrics </h5>
 			<p> Performance </p>
 			<input type="checkbox" name="NetworkPacketLoss" value="NetworkPacketLoss"> Monitor the packet loss <br>
@@ -98,7 +98,7 @@ Date:      {{myOrder.Date}}<br><br>
 			<input type="checkbox" name="NetworkAlertProtocolFailure" value="NetworkAlertProtocolFailure"> Alert if the protcol goes down <br>
 			<input type="checkbox" name="NetworkAlertExitsRunningState" value="NetworkAlertExitsRunningState"> Alert if the device exits a running state <br><br>
 		{% endif %}
-		{% if resource.object == "Server" %}
+		{% if 'Server' in resource.object %}
 		<h5> General metrics for WebServers </h5>
 		<p> DNS-Expiration </p>
 		<input type="checkbox" name="WebServerMonitorDNSExpiration" value="WebServerMonitorDNSExpiration"> Monitor your DNS expiration dates <br>
@@ -111,7 +111,7 @@ Date:      {{myOrder.Date}}<br><br>
 		<input type="checkbox" name="WebServerAlertResponseCodeChange" value="WebServerAlertResponseCodeChange"> Alert if response codes changes or are not as expected <br>
 		<input type="checkbox" name="WebServerMonitorRequestRate" value="WebServerMonitorRequestRate"> Monitor the request rate for key pages on your site <br>
 		<input type="checkbox" name="WebServerAlertRequestVolumeDrop" value="WebServerAlertRequestVolumeDrop"> Alert if requet volume drop significantly on your site <br><br>
-			{% if resource.Packet in 'Apache' %}
+			{% if 'Apache' in resource.Packet %}
 				<h5> Apache Web Server </h5>
 				<p> Request per second - average number of clients requests per second</p>
 				<input type="checkbox" name="ApacheMonitorRequestsSec" value="ApacheMonitorRequestsSec"> Monitor requests per second to your apache webserver <br>
