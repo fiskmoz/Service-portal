@@ -1,7 +1,9 @@
 {% extends 'admin/base.html' %}
 {% load staticfiles %}
 
-
+{% block dashboard %}
+.background-color: black;
+{% endblock %}
 {% block branding %}
 <h1><img src="{% static 'forms/images/websiteicon.png' %}" width = "50" height ="50"> Administration</h1>
 {% endblock %}
