@@ -9,8 +9,8 @@ from .serializer import OrderSerializer
 from rest_framework import generics
 from django.utils import timezone
 from django.template import loader
-from API.models import NewResource, SystemIdentif
-from .serializer import NewResourceSerializer, SystemIdentifSerializer
+from API.models import NewResource, SystemIdentif, CompleteOrder
+from .serializer import NewResourceSerializer, SystemIdentifSerializer, CompleteOrderSerializer
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -105,6 +105,16 @@ class SpecificResourcesList(APIView):
         pass
     def patch(self,request):
         pass
+
+class CompleteOrderList(APIView):
+    lookup_field = 'ResourceID'
+
+    def get(self, request, ResourceID):
+        OrderList = CompleteOrder.objects.filter(ResourceID = ResourceID)
+
+        serializer = CompleteOrderSerializer(OrderList, many=True)
+        return Response(serializer.data)
+
 
 class SystemIdExists(APIView):
     lookup_field = 'SystemId'
