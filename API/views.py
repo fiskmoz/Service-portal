@@ -134,7 +134,7 @@ class SystemIdExists(APIView):
     def get(self,request,SystemId):
 
 #        if not Authenticate(request):
-#            return HttpResponse("Not authenticated")
+#           return HttpResponse("Not authenticated")
 
         ResourceList = SystemIdentif.objects.filter(SystemID = SystemId)
         serializer = SystemIdentifSerializer(ResourceList, many=True)

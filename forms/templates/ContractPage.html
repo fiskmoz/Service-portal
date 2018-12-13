@@ -98,7 +98,7 @@ Date:      {{myOrder.Date}}<br><br>
 			<input type="checkbox" name="NetworkAlertProtocolFailure" value="NetworkAlertProtocolFailure"> Alert if the protcol goes down <br>
 			<input type="checkbox" name="NetworkAlertExitsRunningState" value="NetworkAlertExitsRunningState"> Alert if the device exits a running state <br><br>
 		{% endif %}
-		{% if 'Server' in resource.object %}
+		{% if 'Server' in resource.Object %}
 		<h5> General metrics for WebServers </h5>
 		<p> DNS-Expiration </p>
 		<input type="checkbox" name="WebServerMonitorDNSExpiration" value="WebServerMonitorDNSExpiration"> Monitor your DNS expiration dates <br>
@@ -116,11 +116,11 @@ Date:      {{myOrder.Date}}<br><br>
 				<p> Request per second - average number of clients requests per second</p>
 				<input type="checkbox" name="ApacheMonitorRequestsSec" value="ApacheMonitorRequestsSec"> Monitor requests per second to your apache webserver <br>
 				<input type="checkbox" name="ApacheAlertRPSThresh" value="ApacheAlertRPSThresh"> Alert if requests per second crosses a threshhold based on your traffic pattern <br><br>
-				<p> Response Time- how quickly your requests are being handled  </p>
+				<p> Response Time - how quickly your requests are being handled  </p>
 				<input type="checkbox" name="ApacheMonitorResponseTime" value="ApacheMonitorResponseTime"> Monitor the response time of your server <br>
 				<input type="checkbox" name="ApacheAlertResponseTime" value="ApacheAlertResponseTime"> Alert if reponse time exceeds a fixed threshhold <br><br>
 				<p> Active Connections - there is a hard limit of total number of connections that appache can handle </p>
-				<input type="checkbox" name="ApacheMonitorConnections" value="ApacheMonitorConnections"> Monitor ative connections <br>
+				<input type="checkbox" name="ApacheMonitorConnections" value="ApacheMonitorConnections"> Monitor active connections <br>
 				<input type="checkbox" name="ApacheAlertConnections" value="ApacheAlertConnections"> Alert as your active connection approach the max limit <br>
 				<input type="checkbox" name="ApacheMonitorBusyWorkers" value="ApacheMonitorBusyWorkers"> Monitor the total number of busy workers  <br>
 				<input type="checkbox" name="ApacheMonitorIdleWorkers" value="ApacheMonitorIdleWorkers"> Monitor the total nubber of idle workers <br>
@@ -137,6 +137,45 @@ Date:      {{myOrder.Date}}<br><br>
 				<input type="checkbox" name="ApacheMonitorProcessUptime" value="ApacheMonitorProcessUptime"> Monitor the up time for each process <br>
 				<input type="checkbox" name="ApacheMonitorProcessStatus" value="ApacheMonitorProcessStatus"> Monitor the status for each process <br>
 				<input type="checkbox" name="ApacheAlertMasterProcessDead" value="ApacheAlertMasterProcessDead"> Alert if the master process leaves running state. <br><br>
+			{% endif %}
+			{% if 'IIS' in resource.Packet %}
+				<h5> Microsoft Internet Information Service </h5>
+				<p> Request per second - at which rate IIS is doing its job</p>
+				<input type="checkbox" name="IISMonitorRequestsSec" value="IISMonitorRequestsSec"> Monitor requests per second by sampling requests <br>
+				<input type="checkbox" name="IISAlertRPSThresh" value="IISAlertRPSThresh"> Alert if requests per second crosses a threshhold based on your traffic pattern <br><br>
+				<p>Active Connections - there is a hard limit on the total number of connections that IIS can handle</p>
+				<input type="checkbox" name="IISMonitorConnections" value="IISMonitorConnections"> Monitor the current connections by reading the network <br>
+				<input type="checkbox" name="IISAlertConnections" value="IISAlertConnections"> Alert as your active connection approach the maximum connection limit <br>
+				<input type="checkbox" name="IISMonitorConnectionsByRequests" value="IISMonitorConnectionsByRequests"> Monitor the current connections by reading the requests <br><br>
+			{% endif %}
+			{% if 'NGINX' in resource.Packet %}
+				<h5> NGINX Web Server </h5>
+				<p> Request per second - at which rate nginx is doing its job</p>
+				<input type="checkbox" name="NGINXMonitorRequestsSec" value="NGINXMonitorRequestsSec"> Monitor requests per second by sampling requests <br>
+				<input type="checkbox" name="NGINXAlertRPSThresh" value="NGINXAlertRPSThresh"> Alert if requests per second crosses a threshhold based on your traffic pattern <br><br>
+				<p> Response Time – how quickly requests are being handled</p>
+				<input type="checkbox" name="NGINXMonitorResponseTime" value="NGINXMonitorResponseTime"> Monitor response time<br>
+				<input type="checkbox" name="NGINXAlertRPTThresh" value="NGINXAlertRPTThresh"> Alert if response time exceeds a fixed threshold<br><br>
+				<p>Active Connections - there is a hard limit on the total number of connections that NGINX can handle</p>
+				<input type="checkbox" name="NGINXMonitorConnections" value="NGINXMonitorConnections"> Monitor active connections <br>
+				<input type="checkbox" name="NGINXAlertConnections" value="NGINXAlertConnections"> Alert as your active connection approach the max limit <br>
+				<input type="checkbox" name="NGINXMonitorBothConnections" value="NGINXMonitorBothConnections"> Monitor both connections accepted and connections handled <br>
+				<input type="checkbox" name="NGINXAlertHandled<Accepts" value="NGINXAlertHandled<Accepts"> Set an alert if handled falls below accepts<br><br>
+				<p> Connection backlog Queue </p>
+				<input type="checkbox" name="NGINXMonitorBacklog" value="NGINXMonitorBacklog"> Monitor the syslog for backlog-related error messages <br>
+				<input type="checkbox" name="NGINXMonitorNetstat" value="NGINXMonitorNetstat"> Monitor the output of netstat  <br>
+				<input type="checkbox" name="NGINXAlertBacklogQueue" value="NGINXAlertBacklogQueue"> Alert if a backlog queue begins to form <br><br>
+				<p> Response codes - NGINX logs the HTTP response code returned for each request</p>
+				<input type="checkbox" name="NGINXMonitorAccessLogs" value="NGINXMonitorAccessLogs"> Monitor the NGINX access logs for the relative distribution<br>
+				<input type="checkbox" name="NGINXAlert5ResponsesThresh" value="NGINXAlert5ResponsesThresh">Set an alert if the fraction of 5xx responses rises above a fixed threshold<br>
+				<input type="checkbox" name="NGINXAlert4ResponsesThresh" value="NGINXAlert4ResponsesThresh">Set an alert if the fraction of 4xx responses rises above a fixed threshold<br><br>
+				<p>Process Open File Handles</p>
+				<input type="checkbox" name="NGINXMonitorOpenFiles" value="NGINXMonitorOpenFiles">Monitor the number of open file handles for each process<br>
+				<input type="checkbox" name="NGINXAlertOpenFilesLimit" value="NGINXAlertOpenFilesLimit">Set an alert when the number of open file handles reaches 70% of the smallest limit<br><br>
+				<p>Process State</p>
+				<input type="checkbox" name="NGINXMonitorUpTime" value="NGINXMonitorUpTime">Monitor the up time for each process through a process monitoring agent<br>
+				<input type="checkbox" name="NGINXMonitorEachProcess" value="NGINXMonitorEachProcess">Monitor each process<br>
+				<input type="checkbox" name="NGINXAlertMasterProcess" value="NGINXAlertMasterProcess">Set an alert if the master process leaves the running state<br><br>
 			{% endif %}
 		{% endif %}
 	{% endfor %}
