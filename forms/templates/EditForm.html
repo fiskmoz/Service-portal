@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
+
+<script src="{% static "forms/js/tier.js" %}"></script>
+<script src="{% static "forms/js/editBoot.js" %}"></script>
+
+<body onload="tier('{{order.Medal}}')">
+
+
 		<h2>Edit Order</h2>
 		<form action="" method ="POST" name="order">
 			{% csrf_token %}
@@ -58,4 +66,7 @@
 			{% endif %}
 			<input type="submit">
 		</form>
+
+
+</body>
 {% endblock %}

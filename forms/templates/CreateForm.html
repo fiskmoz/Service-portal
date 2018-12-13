@@ -2,7 +2,8 @@
 
 {% block content %}
 {% load static %}
-
+<script src="{% static "forms/js/tier.js" %}"></script>
+<script src="{% static "forms/js/checkSystemId.js" %}"></script>
 
 		<h1>Add Order:</h1>
 		<form action="" method ="POST" name="order" id ="orderID">
@@ -30,7 +31,6 @@
 			<li> <a href="{% url 'contractpage' %}">Test for Contractpage</a> </li>
 		</ol>
 
-<script src="{% static "forms/js/tier.js" %}"></script>
-<script src="{% static "forms/js/checkSystemId.js" %}"></script>
+
 
 {% endblock %}
