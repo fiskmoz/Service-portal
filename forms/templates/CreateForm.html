@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+{% load static %}
 
 
 		<h1>Add Order:</h1>
@@ -10,7 +10,7 @@
 			Name of Order:<br>
 			<input type="text" name="OrderName" required="required"><br><br>
 			System Id:<br>
-			<input type="text" name="SystemId" required="required" onblur=""><br>
+			<input type="text" name="SystemId" required="required" onblur="" id = "SystemId"><br>
 			<br>Service Tier:<br>
 			<input type="radio" name="Medal" value="Gold" onclick="tier(this);" > Gold<br>
 			<input type="radio" name="Medal" value="Silver" onclick="tier(this);" > Silver<br>
@@ -30,73 +30,7 @@
 			<li> <a href="{% url 'contractpage' %}">Test for Contractpage</a> </li>
 		</ol>
 
-<script>
+<script src="{% static "forms/js/tier.js" %}"></script>
+<script src="{% static "forms/js/checkSystemId.js" %}"></script>
 
-function test() {
-    alert("Hello");
-}
-function tier(sender) {
-//	alert(sender.value)
-	clear("ResponseTime")
-	clear("ServiceTime")
-	if(sender.value === "Gold"){
-	//	alert("Gold")
-		document.getElementsByName("ResponseTime")[0].disabled = false;
-		document.getElementsByName("ResponseTime")[1].disabled = false;
-		document.getElementsByName("ResponseTime")[2].disabled = true;
-
-		document.getElementsByName("ServiceTime")[0].disabled = false;
-		document.getElementsByName("ServiceTime")[1].disabled = false;
-		document.getElementsByName("ServiceTime")[2].disabled = true;
-	}
-	else if(sender.value === "Silver"){
-		document.getElementsByName("ResponseTime")[0].disabled = true;
-		document.getElementsByName("ResponseTime")[1].disabled = false;
-		document.getElementsByName("ResponseTime")[2].disabled = false;
-
-		document.getElementsByName("ServiceTime")[0].disabled = true;
-		document.getElementsByName("ServiceTime")[1].disabled = false;
-		document.getElementsByName("ServiceTime")[2].disabled = false;
-	}
-	else{
-		document.getElementsByName("ResponseTime")[0].disabled = true;
-		document.getElementsByName("ResponseTime")[1].disabled = true;
-		document.getElementsByName("ResponseTime")[2].disabled = false;
-
-		document.getElementsByName("ServiceTime")[0].disabled = true;
-		document.getElementsByName("ServiceTime")[1].disabled = true;
-		document.getElementsByName("ServiceTime")[2].disabled = false;
-	}
-}
-function clear(name){
-	var ele = document.getElementsByName(name);
-	for(var i=0;i<ele.length;i++)
-			ele[i].checked = false;
-}
-
-
- function checkSystemId(){
-	 systemID = document.getElementsByName("SystemId")[0].value
-	 const Http = new XMLHttpRequest();
-	 const url= 'http://127.0.0.1:8000/API/Exists/Systemid/' + systemID + '/' ;
-
-	 Http.open("GET", url);
-	 Http.send();
-
-	Http.onreadystatechange = function() {
-	  	if (Http.readyState === 4) {
-			if (Http.response === "true"){
-
-				document.getElementById("orderID").submit();
-			}
-			else{
-				alert("SystemID dosnt exist, please enter correct ID")
-			}
-	  	}
-
-	}
-}
-
-
-</script>
 {% endblock %}
