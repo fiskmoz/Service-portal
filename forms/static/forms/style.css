@@ -18,3 +18,20 @@ ol li {
 ol li:last-child {
 	border-bottom: : none
 }
+
+input[type="checkbox"] {
+    width: 22px;
+		height: 22px;
+		margin:-2px 10px 0 0;
+		cursor: pointer;
+		vertical-align:middle;
+}
+
+input[type="radio"]{
+  width: 22px;
+  height: 22px;
+  margin:-2px 10px 0 0;
+  cursor: pointer;
+  vertical-align:middle;
+  border-radius: 50px;
+}

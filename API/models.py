@@ -33,7 +33,15 @@ class NewResource(models.Model):
     Object = models.CharField(max_length = 50)
     OS = models.CharField(max_length = 50)
     Packet = models.CharField(max_length = 50)
+    ResourceID = models.CharField(max_length = 50, default = None, unique=True, null=True, blank=True)
     system = models.ForeignKey(SystemIdentif, to_field='SystemID', on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return self.Object
+
+class CompleteOrder(models.Model):
+    SystemID = models.ForeignKey(SystemIdentif, to_field='SystemID', on_delete=models.CASCADE, default=None)
+    ResourceID = models.ForeignKey(NewResource, to_field='ResourceID', on_delete=models.CASCADE, default=None)
+    OrderName = models.ForeignKey(Order, on_delete=models.CASCADE, default=None)
+    CheckBoxType = models.CharField(max_length = 250)
+    Info = models.BooleanField(default=None)
