@@ -14,165 +14,165 @@ Service Tier: {{myOrder.Medal}}<br>
 Response time:   {{myOrder.ResponseTime}}<br>
 Scheduled Response time:    {{myOrder.ServiceTime}}<br>
 Date:      {{myOrder.Date}}<br><br>
-<h2> Your system has the following resources: </h2>
+<h2>Your system has the following resources:</h2>
 <form>
 	{% for resource in Resources %}
-	<h3> Resource ID: {{ resource.id}} </h3>
+	<h3>Resource ID: {{ resource.id}}</h3>
 	<ol>
-		<li> Object: {{resource.Object}}</li>
-		<li> OS: {{resource.OS}}</li>
-		<li> Packet: {{resource.Packet}}</li>
+		<li>Object: {{resource.Object}}</li>
+		<li>OS: {{resource.OS}}</li>
+		<li>Packet: {{resource.Packet}}</li>
 	</ol>
-	<h4> Choose what you want monitored for this resource </h4>
+	<h4>Choose what you want monitored for this resource</h4>
 		{% if 'Server' in resource.Object %}
-			<h5> Host metrics </h5>
-			<p> Server Status - Overall status indication </p>
-			<input type="checkbox" name="ServerMonitorStatus" value="MonitorServerStatus">Monitor Server Status <br>
-			<input type="checkbox" name="ServerLeaveRunningState" value="ServerLeaveRunningState"> Set alert when server leaves running state <br><br>
-			<p> Server Load Average </p>
-			<input type="checkbox" name="ServerMonitorAverage" value="ServerMonitorAverage"> Monitor the server load average <br>
-			<input type="checkbox" name="ServerLoadAlert" value="ServerLoadAlert"> Alert when load average exceeds a fiexed threshhold <br><br>
-			<p> Server Network Usage </p>
-			<input type="checkbox" name="ServerMonitorNetworkUsage" value="ServerMonitorNetworkUsage"> Monitor the server netowrk usage <br>
-			<input type="checkbox" name="ServerNetworkUsageAlert" value="ServerNetworkUsageAlert"> Alert if server network usage exceeds a fixed threshhold <br><br>
-			<p> Server Disk Space </p>
-			<input type="checkbox" name="ServerMonitorDiskSpace" value="ServerMonitorDiskSpace"> Monitor the avalible disk space <br>
-			<input type="checkbox" name="ServerDiskSpaceAlert" value="ServerDiskSpaceAlert"> Alert if server disk space exceeds a fixed threshhold <br><br>
-			<p> Hosting Provider Status </p>
-			<input type="checkbox" name="ServerMonitorHostingProvider" value="ServerMonitorHostingProvider"> Monitor the hosting providers status <br>
-			<input type="checkbox" name="ServerHostingProviderAlert" value="ServerHostingProviderAlert"> Alert if provider experiences outage <br><br>
-			<p> Process State </p>
-			<input type="checkbox" name="ServerMonitorProcessStates" value="ServerMonitorProcessStates"> Monitor the up time for each process <br>
-			<input type="checkbox" name="ServerMonitorProcessStatus" value="ServerMonitorProcessStatus"> Monitor the status for each process <br>
-			<input type="checkbox" name="ServerAlertMasterProcess" value="ServerAlertMasterProcess"> Alert if the master process leaves the running state <br><br>
+			<h5>Host metrics</h5>
+			Server Status - Overall status indication:<br>
+			<input type="checkbox" name="ServerMonitorStatus" value="MonitorServerStatus">Monitor Server Status<br>
+			<input type="checkbox" name="ServerLeaveRunningState" value="ServerLeaveRunningState">Set alert when server leaves running state<br><br>
+			Server Load Average:<br>
+			<input type="checkbox" name="ServerMonitorAverage" value="ServerMonitorAverage">Monitor the server load average<br>
+			<input type="checkbox" name="ServerLoadAlert" value="ServerLoadAlert">Alert when load average exceeds a fixed threshold<br><br>
+			Server Network Usage:<br>
+			<input type="checkbox" name="ServerMonitorNetworkUsage" value="ServerMonitorNetworkUsage">Monitor the server network usage<br>
+			<input type="checkbox" name="ServerNetworkUsageAlert" value="ServerNetworkUsageAlert">Alert if server network usage exceeds a fixed threshold<br><br>
+			Server Disk Space:<br>
+			<input type="checkbox" name="ServerMonitorDiskSpace" value="ServerMonitorDiskSpace">Monitor the avalible disk space<br>
+			<input type="checkbox" name="ServerDiskSpaceAlert" value="ServerDiskSpaceAlert">Alert if server disk space exceeds a fixed threshold<br><br>
+			Hosting Provider Status:<br>
+			<input type="checkbox" name="ServerMonitorHostingProvider" value="ServerMonitorHostingProvider">Monitor the hosting providers status<br>
+			<input type="checkbox" name="ServerHostingProviderAlert" value="ServerHostingProviderAlert">Alert if provider experiences outage<br><br>
+			Process State:<br>
+			<input type="checkbox" name="ServerMonitorProcessStates" value="ServerMonitorProcessStates">Monitor the up time for each process<br>
+			<input type="checkbox" name="ServerMonitorProcessStatus" value="ServerMonitorProcessStatus">Monitor the status for each process<br>
+			<input type="checkbox" name="ServerAlertMasterProcess" value="ServerAlertMasterProcess">Alert if the master process leaves the running state<br><br>
 		{% endif %}
 		{% if 'DB' in resource.Object or 'Database' in resource.Object %}
-			<h5> DB metrics </h5>
-			<p> DB Process Status - Overall status indication </p>
-			<input type="checkbox" name="DBMonitorStatus" value="DBMonitorStatus"> Monitor the process status <br>
-			<input type="checkbox" name="DBExitRunningStateAlert" value="DBExitRunningStateAlert"> Alert when the process exits a running state <br><br>
-			<p> Throughtput</p>
-			<input type="checkbox" name="DBMonitorTotalStatements" value="DBMonitorTotalStatements"> Monitor the count of all statements <br>
-			<input type="checkbox" name="DBMonitorReadSelect" value="ServerMonitorNetworkUsage"> Monitor the count of read/Select statements <br>
-			<input type="checkbox" name="DBMonitorWrites" value="DBMonitorWrites"> Monitor the count of write statements <br>
-			<input type="checkbox" name="DBStatementVolumeAlert" value="DBStatementVolumeAlert"> Alert if the volume dropps too drasticly <br><br>
-			<p> Performance </p>
-			<input type="checkbox" name="DBMonitorAverageQueryTime" value="DBMonitorAverageQueryTime"> Monitor the average query run time <br>
-			<input type="checkbox" name="DBMonitorErrorStatements" value="DBMonitorErrorStatements"> Monitor the numver of statements that generates errors <br>
-			<input type="checkbox" name="DBMonitorSlowQueries" value="DBMonitorSlowQueries"> Monitor the number of slow queries <br>
-			<input type="checkbox" name="DBAlertClimbingRunTime" value="DBAlertClimbingRunTime"> Alert if average run time increases drastically <br>
-			<input type="checkbox" name="DBAlertClimbingQueryErrors" value="DBAlertClimbingQueryErrors"> Alert if sudden increase in query errors <br>
-			<input type="checkbox" name="DBMonitorTop10Error" value="DBMonitorTop10Error"> Monitor the top 10 statements that return the most errors <br><br>
-			<p> Buffer Pool Usage </p>
-			<input type="checkbox" name="DBMonitorPoolPages" value="DBMonitorPoolPages"> Monitor the total number of buffer pool pages <br>
-			<input type="checkbox" name="DBMonitorUsedPages" value="DBMonitorUsedPages"> Monitor The ration of used to total pages in the buffer pool <br>
-			<input type="checkbox" name="DBMonitorPoolRequests" value="DBMonitorPoolRequests"> Monitor the requests made to the buffer pool <br>
-			<input type="checkbox" name="DBMonitorPoolRequestFails" value="DBMonitorPoolRequestFails"> Monitor the number of requests the buffer pool could not fulfill <br><br>
+			<h5>DB metrics</h5>
+			DB Process Status - Overall status indication:<br>
+			<input type="checkbox" name="DBMonitorStatus" value="DBMonitorStatus">Monitor the process status<br>
+			<input type="checkbox" name="DBExitRunningStateAlert" value="DBExitRunningStateAlert">Alert when the process exits a running state<br><br>
+			Throughtput:<br>
+			<input type="checkbox" name="DBMonitorTotalStatements" value="DBMonitorTotalStatements">Monitor the count of all statements<br>
+			<input type="checkbox" name="DBMonitorReadSelect" value="ServerMonitorNetworkUsage">Monitor the count of read/select statements<br>
+			<input type="checkbox" name="DBMonitorWrites" value="DBMonitorWrites">Monitor the count of write statements<br>
+			<input type="checkbox" name="DBStatementVolumeAlert" value="DBStatementVolumeAlert">Alert if the volume drops too drastically<br><br>
+			Performance:<br>
+			<input type="checkbox" name="DBMonitorAverageQueryTime" value="DBMonitorAverageQueryTime">Monitor the average query run time<br>
+			<input type="checkbox" name="DBMonitorErrorStatements" value="DBMonitorErrorStatements">Monitor the number of statements that generates errors<br>
+			<input type="checkbox" name="DBMonitorSlowQueries" value="DBMonitorSlowQueries">Monitor the number of slow queries<br>
+			<input type="checkbox" name="DBAlertClimbingRunTime" value="DBAlertClimbingRunTime">Alert if average run time increases drastically<br>
+			<input type="checkbox" name="DBAlertClimbingQueryErrors" value="DBAlertClimbingQueryErrors">Alert if sudden increase in query errors<br>
+			<input type="checkbox" name="DBMonitorTop10Error" value="DBMonitorTop10Error">Monitor the top 10 statements that return the most errors<br><br>
+			Buffer Pool Usage:<br>
+			<input type="checkbox" name="DBMonitorPoolPages" value="DBMonitorPoolPages">Monitor the total number of buffer pool pages<br>
+			<input type="checkbox" name="DBMonitorUsedPages" value="DBMonitorUsedPages">Monitor the ratio of used to total pages in the buffer pool<br>
+			<input type="checkbox" name="DBMonitorPoolRequests" value="DBMonitorPoolRequests">Monitor the requests made to the buffer pool<br>
+			<input type="checkbox" name="DBMonitorPoolRequestFails" value="DBMonitorPoolRequestFails">Monitor the number of requests the buffer pool could not fulfill<br><br>
 		{% endif %}
 		{% if 'DB' in resource.Object or 'Database' in resource.Object or 'Server' in resource.Object %}
-			<h5> Disk metrics </h5>
-			<p> Disk IOps completed </p>
-			<input type="checkbox" name="DiskMonitorReads" value="DiskMonitorReads"> Monitor how many reads completed <br><br>
-			<p> Disk R/W Data </p>
-			<input type="checkbox" name="DiskMonitorBytesRead" value="DiskMonitorBytesRead"> Monitor how many bytes read <br>
-			<input type="checkbox" name="DiskMonitorBytesWrite" value="DiskMonitorBytesWrite"> Monitor how many bytes written <br><br>
-			<p> Disk Miliseconds spent doing I/Os </p>
-			<input type="checkbox" name="DiskMonitorI/O" value="DiskMonitorI/O"> Monitor time spent doing I/O in miliseconds <br><br>
-			<h5> Filesystem metrics </h5>
-			<p> Filesystem Space Avalible </p>
-			<input type="checkbox" name="FilesysDiskSpace" value="FilesysDiskSpace"> Monitor the disk space utilization <br>
-			<input type="checkbox" name="FilesysFullDiskAlert" value="FilesysFullDiskAlert"> Alert if disk space utilization close to full <br>
-			<input type="checkbox" name="FileSysFillDiskCritical" value="FileSysFillDiskCritical"> Alert if system is critically close full <br><br>
+			<h5>Disk metrics</h5>
+			Disk IOps completed:<br>
+			<input type="checkbox" name="DiskMonitorReads" value="DiskMonitorReads">Monitor how many reads completed<br><br>
+			Disk R/W Data:<br>
+			<input type="checkbox" name="DiskMonitorBytesRead" value="DiskMonitorBytesRead">Monitor how many bytes read<br>
+			<input type="checkbox" name="DiskMonitorBytesWrite" value="DiskMonitorBytesWrite">Monitor how many bytes written<br><br>
+			Disk Miliseconds spent doing I/Os:<br>
+			<input type="checkbox" name="DiskMonitorI/O" value="DiskMonitorI/O">Monitor time spent doing I/O in milliseconds<br><br>
+			Filesystem metrics:<br>
+			Filesystem Space Avalible:<br>
+			<input type="checkbox" name="FilesysDiskSpace" value="FilesysDiskSpace">Monitor the disk space utilization<br>
+			<input type="checkbox" name="FilesysFullDiskAlert" value="FilesysFullDiskAlert">Alert if disk space utilization close to full<br>
+			<input type="checkbox" name="FileSysFillDiskCritical" value="FileSysFillDiskCritical">Alert if system is critically close full<br><br>
 		{% endif %}
 		{% if 'Router' in resource.Object %}
-			<h5> Network metrics </h5>
-			<p> Performance </p>
-			<input type="checkbox" name="NetworkPacketLoss" value="NetworkPacketLoss"> Monitor the packet loss <br>
-			<input type="checkbox" name="NetworkLatency" value="NetworkLatency"> Monitor the latency <br>
-			<input type="checkbox" name="NetworkJitter" value="NetworkJitter"> Monitor the network jitter <br>
-			<input type="checkbox" name="NetworkThroughtput" value="NetworkThroughtput"> Monitor the throughtput <br><br>
-			<p> Resource Utilization </p>
-			<input type="checkbox" name="NetworkMonitorPathChanges" value="NetworkMonitorPathChanges"> Monitor path changes and updates for routing <br>
-			<input type="checkbox" name="NetworkMonitorPortStatus" value="NetworkMonitorPortStatus"> Monitor the port statuses <br>
-			<input type="checkbox" name="NetworkMonitorDeviceStatus" value="NetworkMonitorDeviceStatus"> Monitor the device status <br>
-			<input type="checkbox" name="NetworkAlertProtocolFailure" value="NetworkAlertProtocolFailure"> Alert if the protcol goes down <br>
-			<input type="checkbox" name="NetworkAlertExitsRunningState" value="NetworkAlertExitsRunningState"> Alert if the device exits a running state <br><br>
+			<h5>Network metrics</h5>
+			Performance:<br>
+			<input type="checkbox" name="NetworkPacketLoss" value="NetworkPacketLoss">Monitor the packet loss<br>
+			<input type="checkbox" name="NetworkLatency" value="NetworkLatency">Monitor the latency<br>
+			<input type="checkbox" name="NetworkJitter" value="NetworkJitter">Monitor the network jitter<br>
+			<input type="checkbox" name="NetworkThroughtput" value="NetworkThroughtput">Monitor the throughtput<br><br>
+			Resource Utilization:<br>
+			<input type="checkbox" name="NetworkMonitorPathChanges" value="NetworkMonitorPathChanges">Monitor path changes and updates for routing<br>
+			<input type="checkbox" name="NetworkMonitorPortStatus" value="NetworkMonitorPortStatus">Monitor the port statuses<br>
+			<input type="checkbox" name="NetworkMonitorDeviceStatus" value="NetworkMonitorDeviceStatus">Monitor the device status<br>
+			<input type="checkbox" name="NetworkAlertProtocolFailure" value="NetworkAlertProtocolFailure">Alert if the protocol goes down<br>
+			<input type="checkbox" name="NetworkAlertExitsRunningState" value="NetworkAlertExitsRunningState">Alert if the device exits a running state<br><br>
 		{% endif %}
 		{% if 'Server' in resource.Object %}
-		<h5> General metrics for WebServers </h5>
-		<p> DNS-Expiration </p>
-		<input type="checkbox" name="WebServerMonitorDNSExpiration" value="WebServerMonitorDNSExpiration"> Monitor your DNS expiration dates <br>
-		<input type="checkbox" name="WebServerAlertDNS30Days" value="WebServerAlertDNS30Days"> Alert 30 days before the DNS expiration time to be able to renew <br><br>
-		<p> SSL Vertificate expiration </p>
-		<input type="checkbox" name="WebServerMonitorSSLExpiration" value="WebServerMonitorSSLExpiration"> Monitor your SSL expiration dates <br>
-		<input type="checkbox" name="WebServerAlertSSL30Days" value="NetworkThroughtput"> Alert 30 days before the SSL expiration time to be able to renew <br><br>
-		<p> User Activity - Monitor avaliblity of pages and user activity on the pages </p>
-		<input type="checkbox" name="WebServerMonitorPages" value="WebServerMonitorPages"> Monitor key webpages for uptime <br>
-		<input type="checkbox" name="WebServerAlertResponseCodeChange" value="WebServerAlertResponseCodeChange"> Alert if response codes changes or are not as expected <br>
-		<input type="checkbox" name="WebServerMonitorRequestRate" value="WebServerMonitorRequestRate"> Monitor the request rate for key pages on your site <br>
-		<input type="checkbox" name="WebServerAlertRequestVolumeDrop" value="WebServerAlertRequestVolumeDrop"> Alert if requet volume drop significantly on your site <br><br>
+		<h5>General metrics for WebServers</h5>
+		DNS-Expiration:<br>
+		<input type="checkbox" name="WebServerMonitorDNSExpiration" value="WebServerMonitorDNSExpiration">Monitor your DNS expiration dates<br>
+		<input type="checkbox" name="WebServerAlertDNS30Days" value="WebServerAlertDNS30Days">Alert 30 days before the DNS expiration time to be able to renew<br><br>
+		SSL Vertificate expiration:<br>
+		<input type="checkbox" name="WebServerMonitorSSLExpiration" value="WebServerMonitorSSLExpiration">Monitor your SSL expiration dates<br>
+		<input type="checkbox" name="WebServerAlertSSL30Days" value="NetworkThroughtput">Alert 30 days before the SSL expiration time to be able to renew<br><br>
+		User Activity - Monitor avaliblity of pages and user activity on the pages:<br>
+		<input type="checkbox" name="WebServerMonitorPages" value="WebServerMonitorPages">Monitor key webpages for uptime<br>
+		<input type="checkbox" name="WebServerAlertResponseCodeChange" value="WebServerAlertResponseCodeChange">Alert if response codes changes or are not as expected<br>
+		<input type="checkbox" name="WebServerMonitorRequestRate" value="WebServerMonitorRequestRate">Monitor the request rate for key pages on your site<br>
+		<input type="checkbox" name="WebServerAlertRequestVolumeDrop" value="WebServerAlertRequestVolumeDrop">Alert if request volume drop significantly on your site<br><br>
 			{% if 'Apache' in resource.Packet %}
-				<h5> Apache Web Server </h5>
-				<p> Request per second - average number of clients requests per second</p>
-				<input type="checkbox" name="ApacheMonitorRequestsSec" value="ApacheMonitorRequestsSec"> Monitor requests per second to your apache webserver <br>
-				<input type="checkbox" name="ApacheAlertRPSThresh" value="ApacheAlertRPSThresh"> Alert if requests per second crosses a threshhold based on your traffic pattern <br><br>
-				<p> Response Time - how quickly your requests are being handled  </p>
-				<input type="checkbox" name="ApacheMonitorResponseTime" value="ApacheMonitorResponseTime"> Monitor the response time of your server <br>
-				<input type="checkbox" name="ApacheAlertResponseTime" value="ApacheAlertResponseTime"> Alert if reponse time exceeds a fixed threshhold <br><br>
-				<p> Active Connections - there is a hard limit of total number of connections that appache can handle </p>
-				<input type="checkbox" name="ApacheMonitorConnections" value="ApacheMonitorConnections"> Monitor active connections <br>
-				<input type="checkbox" name="ApacheAlertConnections" value="ApacheAlertConnections"> Alert as your active connection approach the max limit <br>
-				<input type="checkbox" name="ApacheMonitorBusyWorkers" value="ApacheMonitorBusyWorkers"> Monitor the total number of busy workers  <br>
-				<input type="checkbox" name="ApacheMonitorIdleWorkers" value="ApacheMonitorIdleWorkers"> Monitor the total nubber of idle workers <br>
-				<input type="checkbox" name="ApacheMonitorAsyncWriting" value="ApacheMonitorAsyncWriting"> Monitor the number of async connections in writing state <br>
-				<input type="checkbox" name="ApacheMonitorAsyncKeepalive" value="ApacheMonitorAsyncKeepalive"> Monitor the number of async connections in keep-alive state <br>
-				<input type="checkbox" name="ApacheMonitorAyncClosing" value="ApacheMonitorAyncClosing"> Monitor the number of async connections in closing state <br><br>
-				<p> Connection backlog Queue </p>
-				<input type="checkbox" name="ApacheMonitorBacklog" value="ApacheMonitorBacklog"> Monitor the syslog for backlog-related error messages <br>
-				<input type="checkbox" name="ApacheMonitorNetstat" value="ApacheMonitorNetstat"> Monitor the output of netstat  <br>
-				<input type="checkbox" name="ApacheAlertBacklogQueue" value="ApacheAlertBacklogQueue"> Alert if a backlog queue begins to form <br><br>
-				<p> Response codes - Apache HTTP server logs the HTTP response code returned for each request</p>
-				<input type="checkbox" name="ApacheMonitorAccessLogs" value="ApacheMonitorAccessLogs"> Monitor the apache HTTP server access logs <br><br>
-				<p> Process State - Apache HTTP server spawns OS processes. It is ciritical to keep an eye on these processes to make sure they stay healthy </p>
-				<input type="checkbox" name="ApacheMonitorProcessUptime" value="ApacheMonitorProcessUptime"> Monitor the up time for each process <br>
-				<input type="checkbox" name="ApacheMonitorProcessStatus" value="ApacheMonitorProcessStatus"> Monitor the status for each process <br>
-				<input type="checkbox" name="ApacheAlertMasterProcessDead" value="ApacheAlertMasterProcessDead"> Alert if the master process leaves running state. <br><br>
+				<h5>Apache Web Server</h5>
+				Request per second - average number of clients requests per second:<br>
+				<input type="checkbox" name="ApacheMonitorRequestsSec" value="ApacheMonitorRequestsSec">Monitor requests per second to your apache webserver<br>
+				<input type="checkbox" name="ApacheAlertRPSThresh" value="ApacheAlertRPSThresh">Alert if requests per second exceeds a threshold based on your traffic pattern<br><br>
+				Response Time - how quickly your requests are being handled:<br>
+				<input type="checkbox" name="ApacheMonitorResponseTime" value="ApacheMonitorResponseTime">Monitor the response time of your server<br>
+				<input type="checkbox" name="ApacheAlertResponseTime" value="ApacheAlertResponseTime">Alert if response time exceeds a fixed threshold<br><br>
+				Active Connections - there is a hard limit of total number of connections that appache can handle:<br>
+				<input type="checkbox" name="ApacheMonitorConnections" value="ApacheMonitorConnections">Monitor active connections<br>
+				<input type="checkbox" name="ApacheAlertConnections" value="ApacheAlertConnections">Alert as your active connection approach the max limit<br>
+				<input type="checkbox" name="ApacheMonitorBusyWorkers" value="ApacheMonitorBusyWorkers">Monitor the total number of busy workers<br>
+				<input type="checkbox" name="ApacheMonitorIdleWorkers" value="ApacheMonitorIdleWorkers">Monitor the total nubber of idle workers<br>
+				<input type="checkbox" name="ApacheMonitorAsyncWriting" value="ApacheMonitorAsyncWriting">Monitor the number of async connections in writing state<br>
+				<input type="checkbox" name="ApacheMonitorAsyncKeepalive" value="ApacheMonitorAsyncKeepalive">Monitor the number of async connections in keep-alive state<br>
+				<input type="checkbox" name="ApacheMonitorAyncClosing" value="ApacheMonitorAyncClosing">Monitor the number of async connections in closing state<br><br>
+				Connection backlog Queue:<br>
+				<input type="checkbox" name="ApacheMonitorBacklog" value="ApacheMonitorBacklog">Monitor the syslog for backlog-related error messages<br>
+				<input type="checkbox" name="ApacheMonitorNetstat" value="ApacheMonitorNetstat">Monitor the output of netstat<br>
+				<input type="checkbox" name="ApacheAlertBacklogQueue" value="ApacheAlertBacklogQueue">Alert if a backlog queue begins to form<br><br>
+				Response Codes - Apache HTTP server logs the HTTP response code returned for each request:<br>
+				<input type="checkbox" name="ApacheMonitorAccessLogs" value="ApacheMonitorAccessLogs">Monitor the apache HTTP server access logs<br><br>
+				Process State - Apache HTTP server spawns OS processes. It is critical to keep an eye on these processes to make sure they stay healthy:<br>
+				<input type="checkbox" name="ApacheMonitorProcessUptime" value="ApacheMonitorProcessUptime">Monitor the up time for each process<br>
+				<input type="checkbox" name="ApacheMonitorProcessStatus" value="ApacheMonitorProcessStatus">Monitor the status for each process<br>
+				<input type="checkbox" name="ApacheAlertMasterProcessDead" value="ApacheAlertMasterProcessDead">Alert if the master process leaves running state<br><br>
 			{% endif %}
 			{% if 'IIS' in resource.Packet %}
-				<h5> Microsoft Internet Information Service </h5>
-				<p> Request per second - at which rate IIS is doing its job</p>
-				<input type="checkbox" name="IISMonitorRequestsSec" value="IISMonitorRequestsSec"> Monitor requests per second by sampling requests <br>
-				<input type="checkbox" name="IISAlertRPSThresh" value="IISAlertRPSThresh"> Alert if requests per second crosses a threshhold based on your traffic pattern <br><br>
-				<p>Active Connections - there is a hard limit on the total number of connections that IIS can handle</p>
-				<input type="checkbox" name="IISMonitorConnections" value="IISMonitorConnections"> Monitor the current connections by reading the network <br>
-				<input type="checkbox" name="IISAlertConnections" value="IISAlertConnections"> Alert as your active connection approach the maximum connection limit <br>
-				<input type="checkbox" name="IISMonitorConnectionsByRequests" value="IISMonitorConnectionsByRequests"> Monitor the current connections by reading the requests <br><br>
+				<h5>Microsoft Internet Information Service</h5>
+				Request Per Second - at which rate IIS is doing its job:<br>
+				<input type="checkbox" name="IISMonitorRequestsSec" value="IISMonitorRequestsSec">Monitor requests per second by sampling requests<br>
+				<input type="checkbox" name="IISAlertRPSThresh" value="IISAlertRPSThresh">Alert if requests per second crosses a threshhold based on your traffic pattern<br><br>
+				Active Connections - there is a hard limit on the total number of connections that IIS can handle:<br>
+				<input type="checkbox" name="IISMonitorConnections" value="IISMonitorConnections">Monitor the current connections by reading the network<br>
+				<input type="checkbox" name="IISAlertConnections" value="IISAlertConnections">Alert as your active connection approach the maximum connection limit<br>
+				<input type="checkbox" name="IISMonitorConnectionsByRequests" value="IISMonitorConnectionsByRequests">Monitor the current connections by reading the requests<br><br>
 			{% endif %}
 			{% if 'NGINX' in resource.Packet %}
-				<h5> NGINX Web Server </h5>
-				<p> Request per second - at which rate nginx is doing its job</p>
-				<input type="checkbox" name="NGINXMonitorRequestsSec" value="NGINXMonitorRequestsSec"> Monitor requests per second by sampling requests <br>
-				<input type="checkbox" name="NGINXAlertRPSThresh" value="NGINXAlertRPSThresh"> Alert if requests per second crosses a threshhold based on your traffic pattern <br><br>
-				<p> Response Time – how quickly requests are being handled</p>
-				<input type="checkbox" name="NGINXMonitorResponseTime" value="NGINXMonitorResponseTime"> Monitor response time<br>
-				<input type="checkbox" name="NGINXAlertRPTThresh" value="NGINXAlertRPTThresh"> Alert if response time exceeds a fixed threshold<br><br>
-				<p>Active Connections - there is a hard limit on the total number of connections that NGINX can handle</p>
-				<input type="checkbox" name="NGINXMonitorConnections" value="NGINXMonitorConnections"> Monitor active connections <br>
-				<input type="checkbox" name="NGINXAlertConnections" value="NGINXAlertConnections"> Alert as your active connection approach the max limit <br>
-				<input type="checkbox" name="NGINXMonitorBothConnections" value="NGINXMonitorBothConnections"> Monitor both connections accepted and connections handled <br>
-				<input type="checkbox" name="NGINXAlertHandled<Accepts" value="NGINXAlertHandled<Accepts"> Set an alert if handled falls below accepts<br><br>
-				<p> Connection backlog Queue </p>
-				<input type="checkbox" name="NGINXMonitorBacklog" value="NGINXMonitorBacklog"> Monitor the syslog for backlog-related error messages <br>
-				<input type="checkbox" name="NGINXMonitorNetstat" value="NGINXMonitorNetstat"> Monitor the output of netstat  <br>
-				<input type="checkbox" name="NGINXAlertBacklogQueue" value="NGINXAlertBacklogQueue"> Alert if a backlog queue begins to form <br><br>
-				<p> Response codes - NGINX logs the HTTP response code returned for each request</p>
-				<input type="checkbox" name="NGINXMonitorAccessLogs" value="NGINXMonitorAccessLogs"> Monitor the NGINX access logs for the relative distribution<br>
-				<input type="checkbox" name="NGINXAlert5ResponsesThresh" value="NGINXAlert5ResponsesThresh">Set an alert if the fraction of 5xx responses rises above a fixed threshold<br>
-				<input type="checkbox" name="NGINXAlert4ResponsesThresh" value="NGINXAlert4ResponsesThresh">Set an alert if the fraction of 4xx responses rises above a fixed threshold<br><br>
-				<p>Process Open File Handles</p>
+				<h5>NGINX Web Server</h5>
+				Request Per Second - at which rate nginx is doing its job:<br>
+				<input type="checkbox" name="NGINXMonitorRequestsSec" value="NGINXMonitorRequestsSec">Monitor requests per second by sampling requests<br>
+				<input type="checkbox" name="NGINXAlertRPSThresh" value="NGINXAlertRPSThresh">Alert if requests per second exceeds a threshold based on your traffic pattern<br><br>
+				Response Time – how quickly requests are being handled:<br>
+				<input type="checkbox" name="NGINXMonitorResponseTime" value="NGINXMonitorResponseTime">Monitor response time<br>
+				<input type="checkbox" name="NGINXAlertRPTThresh" value="NGINXAlertRPTThresh">Alert if response time exceeds a fixed threshold<br><br>
+				Active Connections - there is a hard limit on the total number of connections that NGINX can handle:<br>
+				<input type="checkbox" name="NGINXMonitorConnections" value="NGINXMonitorConnections">Monitor active connections<br>
+				<input type="checkbox" name="NGINXAlertConnections" value="NGINXAlertConnections">Alert as your active connection approach the max limit<br>
+				<input type="checkbox" name="NGINXMonitorBothConnections" value="NGINXMonitorBothConnections">Monitor both connections accepted and connections handled<br>
+				<input type="checkbox" name="NGINXAlertHandled<Accepts" value="NGINXAlertHandled<Accepts">Alert if handled falls below accepts<br><br>
+				Connection Backlog Queue:<br>
+				<input type="checkbox" name="NGINXMonitorBacklog" value="NGINXMonitorBacklog">Monitor the syslog for backlog-related error messages<br>
+				<input type="checkbox" name="NGINXMonitorNetstat" value="NGINXMonitorNetstat">Monitor the output of netstat<br>
+				<input type="checkbox" name="NGINXAlertBacklogQueue" value="NGINXAlertBacklogQueue">Alert if a backlog queue begins to form<br><br>
+				Response Codes - NGINX logs the HTTP response code returned for each request:<br>
+				<input type="checkbox" name="NGINXMonitorAccessLogs" value="NGINXMonitorAccessLogs">Monitor the NGINX access logs for the relative distribution<br>
+				<input type="checkbox" name="NGINXAlert5ResponsesThresh" value="NGINXAlert5ResponsesThresh">Alert if the fraction of 5xx responses rises above a fixed threshold<br>
+				<input type="checkbox" name="NGINXAlert4ResponsesThresh" value="NGINXAlert4ResponsesThresh">Alert if the fraction of 4xx responses rises above a fixed threshold<br><br>
+				Process Open File Handles:<br>
 				<input type="checkbox" name="NGINXMonitorOpenFiles" value="NGINXMonitorOpenFiles">Monitor the number of open file handles for each process<br>
 				<input type="checkbox" name="NGINXAlertOpenFilesLimit" value="NGINXAlertOpenFilesLimit">Set an alert when the number of open file handles reaches 70% of the smallest limit<br><br>
-				<p>Process State</p>
+				Process State:<br>
 				<input type="checkbox" name="NGINXMonitorUpTime" value="NGINXMonitorUpTime">Monitor the up time for each process through a process monitoring agent<br>
 				<input type="checkbox" name="NGINXMonitorEachProcess" value="NGINXMonitorEachProcess">Monitor each process<br>
 				<input type="checkbox" name="NGINXAlertMasterProcess" value="NGINXAlertMasterProcess">Set an alert if the master process leaves the running state<br><br>
