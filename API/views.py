@@ -9,8 +9,8 @@ from .serializer import OrderSerializer
 from rest_framework import generics
 from django.utils import timezone
 from django.template import loader
-from API.models import NewResource, SystemIdentif, CompleteOrder
-from .serializer import NewResourceSerializer, SystemIdentifSerializer, CompleteOrderSerializer
+from API.models import NewResource, SystemIdentif, Agreements
+from .serializer import NewResourceSerializer, SystemIdentifSerializer, AgreementsSerializer
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -106,21 +106,19 @@ class SpecificResourcesList(APIView):
     def patch(self,request):
         pass
 
-class CompleteOrderList(APIView):
-    lookup_field = 'ResourceID'
+class AgreementsList(APIView):
+    lookup_field = 'OrderName'
 
-    def get(self, request, ResourceID):
-        OrderList = CompleteOrder.objects.filter(ResourceID = ResourceID)
+    def get(self, request, OrderName):
+        OrderList = Agreements.objects.filter(OrderName = OrderName)
 
-        serializer = CompleteOrderSerializer(OrderList, many=True)
+        serializer = AgreementsSerializer(OrderList, many=True)
         return Response(serializer.data)
 
-    def post(self,request):
+    def post(self,request, OrderName):
         if not Authenticate(request):
             return HttpResponse("Not Authenticated")
-
-        CreateCompleteOrder(request)
-        return HttpResponse("Hahahahahahaha")
+        return GenerateAgreements(request)
     def delete(self,request):
         pass
     def update(self,request):
@@ -203,15 +201,18 @@ def CreateNewOrder(request):
     newOrder.save()
     return newOrder
 
-def CreateCompleteOrder(request):
+def GenerateAgreements(request):
     if not Authenticate(request):
         return HttpResponse("Not Authenticated")
-    SystemID = request.POST.get('SystemID', '')
-    ResourceID = request.POST.get('ResourceID', '')
-    OrderName = request.POST.get('OrderName', '')
-    CheckBoxType = request.POST.get('CheckBoxType', '')
-    Info = request.POST.get('Info', '')
-    newCompleteOrder = CompleteOrder(SystemID = SystemID, ResourceID = ResourceID,
-    OrderName = OrderName, CheckBoxType = CheckBoxType, Info = Info)
-    newCompleteOrder.save()
-    return newCompleteOrder
+    theOrder = CreateNewOrder(request)
+    orderName = request.POST.get('OrderName', '')
+    print(request.POST)
+    for index, box in enumerate(request.POST):
+        if 'OrderCreator' in box :
+            break
+        if index > 0:
+            resourceID = NewResource.objects.get(ResourceID = request.POST.get(box))
+            checkBoxType = str(box).replace(request.POST.get(box),'')
+            newAgreement = Agreements(ResourceID = resourceID, OrderName = theOrder, CheckBoxType = checkBoxType)
+            newAgreement.save()
+    return HttpResponse('Order Placed Successfully!')
