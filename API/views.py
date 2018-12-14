@@ -4,7 +4,6 @@ from django.http import HttpResponseNotFound
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializer import OrderSerializer
 from rest_framework import generics
 from django.utils import timezone
 from django.template import loader
