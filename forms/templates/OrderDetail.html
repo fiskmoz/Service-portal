@@ -12,6 +12,20 @@
 	<li><p> Order Created: {{order.Date}} </p></li>
 	<li><p> Most Recent: {{ order.MostRecent }} </p></li>
 </ol>
+<h3> Resources and agreements for this order: </h3>
+{% for resource in resources %}
+<h5> Resource ID:  {{ resource.ResourceID }} </h5>
+<h5> Resource Object:  {{ resource.Object }} </h5>
+<h5> Resource OS:  {{ resource.OS }} </h5>
+<h5> Resource Packet:  {{ resource.Packet }} </h5>
+<ol>
+	{% for agreement in agreements %}
+		{% if agreement.ResourceID in resource.ResourceID %}
+			<li><p>  {{ agreement.CheckBoxType }}</p></li>
+		{% endif %}
+	{% endfor %}
+</ol>
+{% endfor %}
 {% if order.MostRecent == "TRUE" %}
 <ol>
 	<p><a href="{% url 'editform' order.id %}">Edit this order</a></p>
