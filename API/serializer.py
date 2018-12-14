@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Order
 from .models import NewResource
-from .models import SystemIdentif, CompleteOrder
+from .models import SystemIdentif, Agreements
 
 class OrderSerializer(serializers.ModelSerializer):
 
@@ -22,9 +22,9 @@ class SystemIdentifSerializer(serializers.ModelSerializer):
         model = SystemIdentif
         fields = ('__all__')
 
-class CompleteOrderSerializer(serializers.ModelSerializer):
+class AgreementsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CompleteOrder
+        model = Agreements
         fields = ('__all__')
 
 # Converts to JSON

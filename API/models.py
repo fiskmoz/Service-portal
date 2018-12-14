@@ -18,9 +18,7 @@ class Order(models.Model):
     def __str__(self):
         return self.OrderCreator +': ' + self.OrderName
 
-class Agreements(models.Model):
-    Order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    AgreementInText = models.CharField(max_length = 250)
+
 
 class SystemIdentif(models.Model):
     SystemID = models.CharField(max_length=50, default=None, unique=True)
@@ -36,12 +34,10 @@ class NewResource(models.Model):
     ResourceID = models.CharField(max_length = 50, default = None, unique=True, null=True, blank=True)
     system = models.ForeignKey(SystemIdentif, to_field='SystemID', on_delete=models.CASCADE, default=None)
 
-    def __str__(self):
-        return self.ResourceID
+    # def __str__(self):
+    #     return self.ResourceID
 
-class CompleteOrder(models.Model):
-    SystemID = models.ForeignKey(SystemIdentif, to_field='SystemID', on_delete=models.CASCADE, default=None)
+class Agreements(models.Model):
     ResourceID = models.ForeignKey(NewResource, to_field='ResourceID', on_delete=models.CASCADE, default=None)
     OrderName = models.ForeignKey(Order, on_delete=models.CASCADE, default=None)
     CheckBoxType = models.CharField(max_length = 250)
-    Info = models.BooleanField(default=None)

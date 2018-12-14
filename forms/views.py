@@ -10,15 +10,6 @@ import json
 
 APIurl = 'http://127.0.0.1:8000/API/'
 
-def GetPayload(request):
-    payload = {}
-    for req in request.POST:
-        payload[str(req)] = request.POST.get(req)
-    payload['OrderCreator'] =  request.user.username
-    payload['password'] = request.user.password
-    print(payload)
-    return payload
-
 def NewForm(request):
     # Sanity checks
     if not request.user.is_authenticated:
@@ -90,19 +81,32 @@ def ContractPage(request):
             return HttpResponse("Invalid system ID")
         template = loader.get_template('ContractPage.html')
         payload = {}
-        payload['OrderName'] = request.session['OrderName']
-        payload['SystemId'] = request.session['SystemId']
-        payload['Medal'] = request.session['Medal']
-        payload['ResponseTime'] = request.session['ResponseTime']
-        payload['ServiceTime'] = request.session['ServiceTime']
         try:
             context = {
-            'myOrder' :   payload,
+            'myOrder' :   GetSessionPayload(payload, request),
             'Resources' : requests.get(url=APIurl+'Resources/'+SystemId+'/',
             data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json()
             }
             return HttpResponse(template.render(context, request ))
         except json.decoder.JSONDecodeError:
             return HttpResponse("JSON DECODE ERROR D: ")
-    r = requests.post(url = APIurl + 'Completeorder/'+ request.session['SystemId'] +'/' , data = GetPayload(request))
+    payload = GetPayload(request)
+    r = requests.post(url = APIurl + request.session['OrderName']+ '/contract' + '/' , data = GetSessionPayload(GetPayload(request), request))
     return redirect('home')
+
+def GetSessionPayload(payload, request):
+    payload['OrderName'] = request.session['OrderName']
+    payload['SystemId'] = request.session['SystemId']
+    payload['Medal'] = request.session['Medal']
+    payload['ResponseTime'] = request.session['ResponseTime']
+    payload['ServiceTime'] = request.session['ServiceTime']
+    print (payload)
+    return payload
+    
+def GetPayload(request):
+    payload = {}
+    for req in request.POST:
+        payload[str(req)] = request.POST.get(req)
+    payload['OrderCreator'] =  request.user.username
+    payload['password'] = request.user.password
+    return payload
