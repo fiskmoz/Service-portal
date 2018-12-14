@@ -4,13 +4,12 @@ from django.http import HttpResponseNotFound
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from API.models import Order
 from .serializer import OrderSerializer
 from rest_framework import generics
 from django.utils import timezone
 from django.template import loader
-from API.models import NewResource, SystemIdentif, Agreements
-from .serializer import NewResourceSerializer, SystemIdentifSerializer, AgreementsSerializer
+from API.models import NewResource, SystemIdentif, Agreements, Order
+from .serializer import NewResourceSerializer, SystemIdentifSerializer, AgreementsSerializer, OrderSerializer
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -105,6 +104,18 @@ class SpecificResourcesList(APIView):
         pass
     def patch(self,request):
         pass
+
+class OrderExists(APIView):
+
+    def get(self,request,Username,Ordername):
+
+
+        OrderList = Order.objects.filter(OrderCreator=Username).filter(OrderName=Ordername)
+        #serializer = OrderSerializer(OrderList, many=True)
+        if not OrderList:
+            return Response(False)
+        return Response(True)
+
 
 class AgreementsList(APIView):
     lookup_field = 'OrderName'
