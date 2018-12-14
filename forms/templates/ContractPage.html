@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
+<script src="{% static "forms/js/countCheckboxes.js" %}"></script>
 <style>
 p {
 	color: black;
@@ -180,6 +182,6 @@ Date:      {{myOrder.Date}}<br><br>
 			{% endif %}
 		{% endif %}
 	{% endfor %}
-	<input type="submit">
+	<input type="button" value="Submit" onclick=countCheckboxes('{{myOrder.Medal}}')>
 </form>
 {% endblock %}
