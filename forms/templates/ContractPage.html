@@ -15,7 +15,7 @@ Response time:   {{myOrder.ResponseTime}}<br>
 Scheduled Response time:    {{myOrder.ServiceTime}}<br>
 Date:      {{myOrder.Date}}<br><br>
 <h2>Your system has the following resources:</h2>
-<form>
+<form action="" method = "POST" name="contract" id ="OrderID">
 	{% for resource in Resources %}
 	<h3>Resource ID: {{ resource.id}}</h3>
 	<ol>

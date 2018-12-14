@@ -16,6 +16,7 @@ def GetPayload(request):
         payload[str(req)] = request.POST.get(req)
     payload['OrderCreator'] =  request.user.username
     payload['password'] = request.user.password
+    print(payload)
     return payload
 
 def NewForm(request):
@@ -28,8 +29,11 @@ def NewForm(request):
         "password" : request.user.password
         }
         return HttpResponse(template.render(context,request))
-    r = requests.post(url = APIurl, data = GetPayload(request))
-    return ContractPage(request)
+    payload = GetPayload(request)
+    r = requests.post(url = APIurl, data = payload)
+    for req in request.POST:
+        request.session[str(req)] = request.POST.get(req)
+    return redirect('Create/contract')
 
 def EditForm(request, order_id):
     #Sanity Checks
@@ -45,7 +49,6 @@ def EditForm(request, order_id):
             return HttpResponse("Ajja Bajja!")
     print('skickar')
     r = requests.post(url = APIurl + order_id +'/', data = GetPayload(request))
-    print(r)
     return redirect('home')
 
 def ViewForms(request):
@@ -80,19 +83,26 @@ def ContractPage(request):
     #Sanity Check
     if not request.user.is_authenticated:
         return HttpResponse("Not Valid")
-    template = loader.get_template('ContractPage.html') # HTML for contractpage
-    # Add whats required for the contractpage
-    SystemId = request.POST.get('SystemId', '')
-    SystemIDcheck = requests.get(url=APIurl+'Exists/Systemid/'+SystemId+'/').json()
-
-    if SystemIDcheck == False:
-        return HttpResponse("Ajja Bajja3!")
-    try:
-        context = {
-        'myOrder' : GetPayload(request),
-        'Resources' : requests.get(url=APIurl+'Resources/'+SystemId+'/',
-        data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json()
-        }
-        return HttpResponse(template.render(context, request ))
-    except json.decoder.JSONDecodeError:
-        return HttpResponse("Ajja Bajja2!")
+    if not request.method == "POST":
+        SystemId = request.session.get('SystemId', '')
+        SystemIDcheck = requests.get(url=APIurl+'Exists/Systemid/'+SystemId+'/').json()
+        if SystemIDcheck == False:
+            return HttpResponse("Invalid system ID")
+        template = loader.get_template('ContractPage.html')
+        payload = {}
+        payload['OrderName'] = request.session['OrderName']
+        payload['SystemId'] = request.session['SystemId']
+        payload['Medal'] = request.session['Medal']
+        payload['ResponseTime'] = request.session['ResponseTime']
+        payload['ServiceTime'] = request.session['ServiceTime']
+        try:
+            context = {
+            'myOrder' :   payload,
+            'Resources' : requests.get(url=APIurl+'Resources/'+SystemId+'/',
+            data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json()
+            }
+            return HttpResponse(template.render(context, request ))
+        except json.decoder.JSONDecodeError:
+            return HttpResponse("JSON DECODE ERROR D: ")
+    r = requests.post(url = APIurl + 'Completeorder/'+ request.session['SystemId'] +'/' , data = GetPayload(request))
+    return redirect('home')
