@@ -21,7 +21,7 @@ def NewForm(request):
         }
         return HttpResponse(template.render(context,request))
     payload = GetPayload(request)
-    r = requests.post(url = APIurl, data = payload)
+    # r = requests.post(url = APIurl, data = payload)
     for req in request.POST:
         request.session[str(req)] = request.POST.get(req)
     return redirect('Create/contract')
@@ -57,14 +57,16 @@ def ViewForms(request):
     except json.decoder.JSONDecodeError:
         return HttpResponse("Ajja Bajja!!!")
 
-def OrderDetail(request, order_id):
+def OrderDetail(request, OrderName):
     if not request.user.is_authenticated:
         return HttpResponse("Please log in")
     template = loader.get_template('OrderDetail.html')
     try:
         context = {
-        "order" : requests.get(url=APIurl+order_id+'/',
+        "order" : requests.get(url=APIurl+OrderName+'/',
         data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json(),
+        # "agreements" : requests.get(url= APIurl+OrderName+'/contract/',
+        # data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json(),
         }
         return HttpResponse(template.render(context,request ))
     except json.decoder.JSONDecodeError:
@@ -102,7 +104,7 @@ def GetSessionPayload(payload, request):
     payload['ServiceTime'] = request.session['ServiceTime']
     print (payload)
     return payload
-    
+
 def GetPayload(request):
     payload = {}
     for req in request.POST:

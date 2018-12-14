@@ -56,24 +56,24 @@ class OrderList(APIView):
         pass
 
 class SpecificOrderView(APIView):
-    lookup_field  = 'id'
+    lookup_field  = 'OrderName'
     # Get information from specific order
-    def get(self, request, id):
+    def get(self, request, OrderName):
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
-        order = Order.objects.get(id = id)
+        order = Order.objects.get(OrderName = OrderName)
         serializer = OrderSerializer(order, many=False)
         return Response(serializer.data)
     # Update exisiting order
 
-    def post(self, request, id ):
+    def post(self, request, OrderName ):
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
-        OldOrder = Order.objects.get(id = id)
+        OldOrder = Order.objects.get(OrderName = OrderName)
         OldOrder.MostRecent = "FALSE"
         OldOrder.save()
         NewOrder = CreateNewOrder(request)
-        NewOrder.ParentOrder = id
+        NewOrder.ParentOrder = OrderName
         NewOrder.save()
         return HttpResponse("Sucess!")
 

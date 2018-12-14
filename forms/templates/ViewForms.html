@@ -7,7 +7,7 @@
 <ol>
 	{% for order in myOrders %}
 	  {% if order.MostRecent == "TRUE" %}
-				<li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }}</a> <p> Date: {{ order.Date }}</p></li>
+				<li><a href="{% url 'orderdetail' order.OrderName %}"> {{ order.OrderName }}</a> <p> Date: {{ order.Date }}</p></li>
 		{% endif %}
 	{% endfor %}
 </ol>
@@ -16,7 +16,7 @@
 <ol>
 	{% for order in myOrders %}
 	  {% if order.MostRecent == "FALSE" %}
-				<li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }}</a> <p> {{order.Date}} </p></li>
+				<li><a href="{% url 'orderdetail' order.OrderName %}"> {{ order.OrderName }}</a> <p> {{order.Date}} </p></li>
 		{% endif %}
 	{% endfor %}
 </ol>

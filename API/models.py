@@ -6,7 +6,7 @@ from django.utils import timezone
 # Create your models here.
 class Order(models.Model):
     OrderCreator = models.CharField(max_length = 250, default = "NOBODY")
-    OrderName = models.CharField(max_length = 250, default = 'defaultordername')
+    OrderName = models.CharField(max_length = 250, unique = True)
     SystemId = models.CharField(max_length = 250, default = "UNDEFINED")
     Medal = models.CharField(max_length = 250)
     ServiceTime = models.CharField(max_length = 250)
@@ -39,5 +39,5 @@ class NewResource(models.Model):
 
 class Agreements(models.Model):
     ResourceID = models.ForeignKey(NewResource, to_field='ResourceID', on_delete=models.CASCADE, default=None)
-    OrderName = models.ForeignKey(Order, on_delete=models.CASCADE, default=None)
+    OrderName = models.ForeignKey(Order, to_field = 'OrderName', on_delete=models.CASCADE, default=None)
     CheckBoxType = models.CharField(max_length = 250)
