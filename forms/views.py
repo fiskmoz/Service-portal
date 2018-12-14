@@ -61,12 +61,14 @@ def OrderDetail(request, OrderName):
     if not request.user.is_authenticated:
         return HttpResponse("Please log in")
     template = loader.get_template('OrderDetail.html')
+    Order = requests.get(url=APIurl+OrderName+'/', data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json()
     try:
         context = {
-        "order" : requests.get(url=APIurl+OrderName+'/',
+        "order" : Order,
+        "agreements" : requests.get(url= APIurl+OrderName+'/contract/',
         data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json(),
-        # "agreements" : requests.get(url= APIurl+OrderName+'/contract/',
-        # data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json(),
+        "resources" : requests.get(url= APIurl+'Resources/'+ Order.get('SystemId','') + '/' ,
+        data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json(),
         }
         return HttpResponse(template.render(context,request ))
     except json.decoder.JSONDecodeError:
