@@ -20,7 +20,7 @@ def Home(requests):
 
 class UpdateStatus(APIView):
 
-    def get(self,request,Ordernumber,status):
+    def post(self,request,Ordernumber,status):
         """
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
@@ -29,13 +29,20 @@ class UpdateStatus(APIView):
         if not user.is_superuser == 1:
             return HttpResponse("Not enough privileges")
         """
-
         order = Order.objects.get(pk = Ordernumber)
+        print(status)
+        if status == "Accept":
 
-        order.Status = status
-        order.save()
-        serializer = OrderSerializer(order, many=False)
-        return Response(serializer.data)
+            order.Status = 'Active'
+            order.save()
+            if not order.ParentOrder == "ORIGINAL":
+                oldorder = Order.object.get(pk = order.ParentOrder)
+                oldorder.status = 'Inactive'
+                oldorder.save()
+        elif status == "Deny":
+            order.Status = 'Inactive'
+            order.save()
+        return HttpResponse("Success")
 
 class OrderList(APIView):
     #  Get all orders

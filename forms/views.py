@@ -10,6 +10,10 @@ import json
 
 APIurl = 'http://127.0.0.1:8000/API/'
 
+# def AcceptOrder(request,Order_id):
+#
+#     if request.method == "POST":
+#         requests.post(url=APIurl+'Admin/' + order_id + '/', data=GetPayload(request))
 
 def PendingOrders(request):
     # Sanity Check
@@ -85,6 +89,16 @@ def ViewForms(request):
 def OrderDetail(request, Order_id):
     if not request.user.is_authenticated:
         return HttpResponse("Please log in")
+    for mep in request.POST:
+        print(mep)
+
+    value = request.POST.get('buttonvalue')
+    if request.method == "POST":
+        requests.post(url=APIurl+'Admin/' + Order_id + '/'+ value, data=GetPayload(request))
+        return redirect('home')
+    # if request.method == "edit":
+    # #    requests.post(url=APIurl+'Admin/' + Order_id + '/Deny', data=GetPayload(request))
+    #     return redirect('home')
     template = loader.get_template('OrderDetail.html')
     Order = requests.get(url=APIurl + Order_id + '/', data=(
         {'OrderCreator': request.user.username, 'password': request.user.password})).json()
