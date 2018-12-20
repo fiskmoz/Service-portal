@@ -11,6 +11,25 @@ import json
 APIurl = 'http://127.0.0.1:8000/API/'
 
 
+def PendingOrders(request):
+    # Sanity Check
+    if not request.user.is_authenticated:
+        return HttpResponse("Please log in ")
+    #if request.method == "POST":
+    #    requests.post(url=APIurl+'Admin/' + order_id + '/', data=GetPayload(request))
+    template = loader.get_template('PendingList.html')  # HTML FOR VIEw forms
+
+    try:
+        context = {
+            'myOrders': requests.get(url=APIurl,
+                                     data=({'OrderCreator': request.user.username, 'password': request.user.password})).json(),
+            # 'CurrentUser' : request.user.username,
+        }
+        return HttpResponse(template.render(context, request))
+    except json.decoder.JSONDecodeError:
+        return HttpResponse("Ajja Bajja!!!")
+
+
 def NewForm(request):
     # Sanity checks
     if not request.user.is_authenticated:
