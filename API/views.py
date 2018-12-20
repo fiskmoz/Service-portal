@@ -251,11 +251,11 @@ def GenerateAgreements(request):
     for index, box in enumerate(request.POST):
         if 'OrderCreator' in box:
             break
-        if index > 0:
+        if index > 5:
             resourceID = NewResource.objects.get(
-                ResourceID=request.POST.get(box))
+            ResourceID=request.POST.get(box))
             checkBoxType = str(box).replace(request.POST.get(box), '')
             newAgreement = Agreements(
-                ResourceID=resourceID, orderID=str(theOrder), CheckBoxType=checkBoxType)
+                ResourceID=resourceID, orderID=theOrder, CheckBoxType=checkBoxType)
             newAgreement.save()
     return HttpResponse('Order Placed Successfully!')

@@ -46,5 +46,5 @@ class Agreements(models.Model):
     ResourceID = models.ForeignKey(
         NewResource, to_field='ResourceID', on_delete=models.CASCADE, default=None)
     orderID = models.ForeignKey(
-        Order, to_field='id', on_delete=models.CASCADE, default=None)
+        Order, on_delete=models.CASCADE, default=None)
     CheckBoxType = models.CharField(max_length=250)

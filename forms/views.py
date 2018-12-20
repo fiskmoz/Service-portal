@@ -43,7 +43,7 @@ def EditForm(request, Order_id):
             return HttpResponse(template.render(context, request))
         except json.decoder.JSONDecodeError:
             return HttpResponse("Ajja Bajja!")
-    r = requests.post(url=APIurl + Order_id + '/contract/', data=GetPayload(request))
+    r = requests.post(url=APIurl, data=GetPayload(request))
     return redirect('home')
 
 
@@ -93,10 +93,9 @@ def ContractPage(request):
         if SystemIDcheck == False:
             return HttpResponse("Invalid system ID")
         template = loader.get_template('ContractPage.html')
-        payload = {}
         try:
             context = {
-                'myOrder':   GetSessionPayload(payload, request),
+                'myOrder':   GetSessionPayload(request),
                 'Resources': requests.get(url=APIurl + 'Resources/' + SystemId + '/',
                                           data=({'OrderCreator': request.user.username, 'password': request.user.password})).json()
             }
@@ -104,11 +103,12 @@ def ContractPage(request):
         except json.decoder.JSONDecodeError:
             return HttpResponse("JSON DECODE ERROR D: ")
     payload = GetPayload(request)
-    r = requests.post(url=APIurl, data=GetSessionPayload(GetPayload(request), request))
+    r = requests.post(url=APIurl, data= {**GetSessionPayload(request), **GetPayload(request)})
     return redirect('home')
 
 
-def GetSessionPayload(payload, request):
+def GetSessionPayload(request):
+    payload = {}
     payload['OrderName'] = request.session['OrderName']
     payload['SystemId'] = request.session['SystemId']
     payload['Medal'] = request.session['Medal']
