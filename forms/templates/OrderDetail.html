@@ -40,9 +40,17 @@
   {% endfor %}
 </ol>
 {% endfor %}
-{% if order.Status == "Active" %}
+{% if user.is_superuser == 1 and order.Status == "Pending" %}
+<form action="" method = "post">
+    {% csrf_token %}
+    <input type="submit" name = "buttonvalue" value="Accept"/>
+    <input type="submit" name = "buttonvalue" value="Deny"/>
+</form>
+
+{% elif order.Status == "Active" %}
 <form action="{% url 'editform' order.id %}">
     <input type="submit" value="Edit this form" />
 </form>
 {% endif %}
-{% endblock %}
+
+    {% endblock %}

@@ -28,7 +28,7 @@
 <h2> Your inactive orders: </h2>
 <ol>
   {% for order in myOrders %}
-  {% if order.status == "Inactive" %}
+  {% if order.Status == "Inactive" %}
   <li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }}</a>
     <p> {{order.Date}} </p>
   </li>
