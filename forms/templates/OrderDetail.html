@@ -22,9 +22,7 @@
   <li>
     <p> Order Created: {{order.Date}} </p>
   </li>
-  <li>
-    <p> Most Recent: {{ order.MostRecent }} </p>
-  </li>
+
 </ol>
 <h3> Resources and agreements for this order: </h3>
 {% for resource in resources %}
@@ -42,7 +40,7 @@
   {% endfor %}
 </ol>
 {% endfor %}
-{% if order.MostRecent == "TRUE" %}
+{% if order.MostRecent == "Active" %}
 <ol>
   <p><a href="{% url 'editform' order.id %}">Edit this order</a></p>
   <ol>

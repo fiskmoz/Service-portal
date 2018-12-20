@@ -6,7 +6,18 @@
 <h2> Your active orders: </h2>
 <ol>
   {% for order in myOrders %}
-  {% if order.MostRecent == "TRUE" %}
+  {% if order.Status == "Active" %}
+  <li><a href="{% url 'orderdetail' order.OrderName %}"> {{ order.OrderName }}</a>
+    <p> Date: {{ order.Date }}</p>
+  </li>
+  {% endif %}
+  {% endfor %}
+</ol>
+
+<h2> Your pending orders: </h2>
+<ol>
+  {% for order in myOrders %}
+  {% if order.Status == "Pending" %}
   <li><a href="{% url 'orderdetail' order.OrderName %}"> {{ order.OrderName }}</a>
     <p> Date: {{ order.Date }}</p>
   </li>
@@ -17,7 +28,7 @@
 <h2> Your inactive orders: </h2>
 <ol>
   {% for order in myOrders %}
-  {% if order.MostRecent == "FALSE" %}
+  {% if order.status == "Inactive" %}
   <li><a href="{% url 'orderdetail' order.OrderName %}"> {{ order.OrderName }}</a>
     <p> {{order.Date}} </p>
   </li>

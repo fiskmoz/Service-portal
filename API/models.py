@@ -14,7 +14,7 @@ class Order(models.Model):
     ServiceTime = models.CharField(max_length=250)
     ResponseTime = models.CharField(max_length=250)
     Date = models.CharField(max_length=250, default=timezone.now())
-    MostRecent = models.CharField(max_length=250)
+    Status = models.CharField(max_length=250)
     ParentOrder = models.CharField(max_length=250, default="ORIGINAL")
 
     def __str__(self):
