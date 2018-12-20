@@ -22,9 +22,7 @@
   <li>
     <p> Order Created: {{order.Date}} </p>
   </li>
-  <li>
-    <p> Most Recent: {{ order.MostRecent }} </p>
-  </li>
+
 </ol>
 {% for resource in resources %}
 <h4> Resource ID: {{ resource.ResourceID }} </h4>
@@ -42,10 +40,10 @@
   {% endfor %}
 </ol>
 {% endfor %}
-{% if order.MostRecent == "TRUE" %}
+{% if order.MostRecent == "Active" %}
 <form action="{% url 'editform' order.id %}">
     <input type="submit" value="Edit this form" />
 </form>
-{% endif %}
+    {% endif %}
 
-{% endblock %}
+    {% endblock %}

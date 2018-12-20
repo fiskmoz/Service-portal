@@ -8,14 +8,13 @@
 	color: black;
 }
 </style>
-<h2> Contract Page for order: {{OrderName}} </h2>
+<h2> Contract Page for order: {{myOrder.OrderName}} </h2>
 The information you entered on the previous page:<br>
 Order name: {{myOrder.OrderName}}<br>
 System id: {{myOrder.SystemId}}<br>
 Service Tier: {{myOrder.Medal}}<br>
 Response time: {{myOrder.ResponseTime}}<br>
-Scheduled Response time: {{myOrder.ServiceTime}}<br>
-Date: {{myOrder.Date}}<br><br>
+Scheduled Response time: {{myOrder.ServiceTime}}<br><br>
 <h2>Your system has the following resources:</h2>
 <form action="" method="POST" name="contract" id="OrderID">
   {% csrf_token %}

@@ -18,6 +18,25 @@ def Home(requests):
     return HttpResponse("You are at API home")
 
 
+class UpdateStatus(APIView):
+
+    def get(self,request,Ordernumber,status):
+        """
+        if not Authenticate(request):
+            return HttpResponse("Not authenticated")
+
+        user = User.objects.get(username=caller)
+        if not user.is_superuser == 1:
+            return HttpResponse("Not enough privileges")
+        """
+
+        order = Order.objects.get(pk = Ordernumber)
+
+        order.Status = status
+        order.save()
+        serializer = OrderSerializer(order, many=False)
+        return Response(serializer.data)
+
 class OrderList(APIView):
     #  Get all orders
     def get(self, request):
@@ -74,13 +93,13 @@ class SpecificOrderView(APIView):
     def post(self, request, OrderName):
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
-        OldOrder = Order.objects.get(OrderName=OrderName)
-        OldOrder.MostRecent = "FALSE"
-        OldOrder.save()
+    #    OldOrder = Order.objects.get(OrderName=OrderName)
+    #    OldOrder.MostRecent = "FALSE"
+    #    OldOrder.save()
         NewOrder = CreateNewOrder(request)
         NewOrder.ParentOrder = OrderName
         NewOrder.save()
-        return HttpResponse("Sucess!")
+        return HttpResponse("Success!")
 
     def delete(self, request):
         pass
@@ -231,7 +250,7 @@ def CreateNewOrder(request):
     Date = timezone.now()
     newOrder = Order(OrderCreator=OrderCreator, OrderName=OrderName,
                      SystemId=SystemId, Date=Date,
-                     Medal=Medal, ServiceTime=ServiceTime, ResponseTime=responseTime, MostRecent="TRUE")
+                     Medal=Medal, ServiceTime=ServiceTime, ResponseTime=responseTime, Status="Pending")
     newOrder.save()
     return newOrder
 
