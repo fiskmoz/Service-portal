@@ -24,4 +24,6 @@ function countCheckboxes(Medal){
       alert("Order sent");
       document.contract.submit();
     }
+    if(count <= silverLimit && Medal != 'Bronze')
+      alert("It is recommended you choose more services to monitor");
 }
