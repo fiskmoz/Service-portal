@@ -15,8 +15,9 @@
 </ol>
 {% else %}
 <h2>You are not logged in</h2>
-<ol>
-  <li> <a href="{% url 'login' %}">Please log in</a></li>
-  <ol>
-    {% endif %}
-    {% endblock %}
+
+<form action="{% url 'login' %}">
+    <input type="submit" value="To the login page!" />
+</form>
+{% endif %}
+{% endblock %}
