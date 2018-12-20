@@ -26,12 +26,12 @@
     <p> Most Recent: {{ order.MostRecent }} </p>
   </li>
 </ol>
-<h3> Resources and agreements for this order: </h3>
 {% for resource in resources %}
-<h5> Resource ID: {{ resource.ResourceID }} </h5>
-<h5> Resource Object: {{ resource.Object }} </h5>
-<h5> Resource OS: {{ resource.OS }} </h5>
-<h5> Resource Packet: {{ resource.Packet }} </h5>
+<h4> Resource ID: {{ resource.ResourceID }} </h4>
+<p> Resource Object: {{ resource.Object }} </p>
+<p> Resource OS: {{ resource.OS }} </p>
+<p> Resource Packet: {{ resource.Packet }} </p>
+<h5> Agreements for this resource: </h5>
 <ol>
   {% for agreement in agreements %}
   {% if agreement.ResourceID in resource.ResourceID %}
@@ -43,9 +43,9 @@
 </ol>
 {% endfor %}
 {% if order.MostRecent == "TRUE" %}
-<ol>
-  <p><a href="{% url 'editform' order.id %}">Edit this order</a></p>
-  <ol>
-    {% endif %}
+<form action="{% url 'editform' order.id %}">
+    <input type="submit" value="Edit this form" />
+</form>
+{% endif %}
 
-    {% endblock %}
+{% endblock %}

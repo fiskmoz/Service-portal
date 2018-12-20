@@ -7,7 +7,6 @@ body{
 
 ol {
 	list-style: Circle;
-	background: #e6b3ff;
 	padding: 0;
 	border: 1px solid #ddd;
 }
@@ -19,6 +18,32 @@ ol li {
 
 ol li:last-child {
 	border-bottom: : none
+}
+
+input[type="button"]{
+  background-color: #8ec3eb;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+input[type=submit]{
+  background-color: #8ec3eb;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 input[type="checkbox"] {
