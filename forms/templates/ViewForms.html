@@ -7,7 +7,7 @@
 <ol>
   {% for order in myOrders %}
   {% if order.Status == "Active" %}
-  <li><a href="{% url 'orderdetail' order.OrderName %}"> {{ order.OrderName }}</a>
+  <li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }}</a>
     <p> Date: {{ order.Date }}</p>
   </li>
   {% endif %}
@@ -18,7 +18,7 @@
 <ol>
   {% for order in myOrders %}
   {% if order.Status == "Pending" %}
-  <li><a href="{% url 'orderdetail' order.OrderName %}"> {{ order.OrderName }}</a>
+  <li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }}</a>
     <p> Date: {{ order.Date }}</p>
   </li>
   {% endif %}
@@ -29,7 +29,7 @@
 <ol>
   {% for order in myOrders %}
   {% if order.status == "Inactive" %}
-  <li><a href="{% url 'orderdetail' order.OrderName %}"> {{ order.OrderName }}</a>
+  <li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }}</a>
     <p> {{order.Date}} </p>
   </li>
   {% endif %}

@@ -28,20 +28,22 @@ def NewForm(request):
     return redirect('Create/contract')
 
 
-def EditForm(request, order_id):
+def EditForm(request, Order_id):
     # Sanity Checks
     if not request.user.is_authenticated:
         return HttpResponse("Please log in ")
     if not request.method == "POST":
         template = loader.get_template('EditForm.html')  # HTML FOR EDIT FORMS
+        Order = requests.get(url=APIurl + Order_id + '/',
+        data=({'OrderCreator': request.user.username, 'password': request.user.password})).json();
         try:
-            context = {"order": requests.get(url=APIurl + order_id + '/',
-                                             data=({'OrderCreator': request.user.username, 'password': request.user.password})).json(), }
+            context = {"order": Order,
+            "Resources": requests.get(url=APIurl + 'Resources/' + Order.get('SystemId') + '/',
+                                    data=({'OrderCreator': request.user.username, 'password': request.user.password})).json(),}
             return HttpResponse(template.render(context, request))
         except json.decoder.JSONDecodeError:
             return HttpResponse("Ajja Bajja!")
-    print('skickar')
-    r = requests.post(url=APIurl + order_id + '/', data=GetPayload(request))
+    r = requests.post(url=APIurl + Order_id + '/contract/', data=GetPayload(request))
     return redirect('home')
 
 
@@ -61,23 +63,23 @@ def ViewForms(request):
         return HttpResponse("Ajja Bajja!!!")
 
 
-def OrderDetail(request, OrderName):
+def OrderDetail(request, Order_id):
     if not request.user.is_authenticated:
         return HttpResponse("Please log in")
     template = loader.get_template('OrderDetail.html')
-    Order = requests.get(url=APIurl + OrderName + '/', data=(
+    Order = requests.get(url=APIurl + Order_id + '/', data=(
         {'OrderCreator': request.user.username, 'password': request.user.password})).json()
     try:
         context = {
             "order": Order,
-            "agreements": requests.get(url=APIurl + OrderName + '/contract/',
+            "agreements": requests.get(url=APIurl + Order_id + '/contract/',
                                        data=({'OrderCreator': request.user.username, 'password': request.user.password})).json(),
             "resources": requests.get(url=APIurl + 'Resources/' + Order.get('SystemId', '') + '/',
                                       data=({'OrderCreator': request.user.username, 'password': request.user.password})).json(),
         }
         return HttpResponse(template.render(context, request))
     except json.decoder.JSONDecodeError:
-        return HttpResponse("Ajja Bajja!")
+        return HttpResponse("JsonDecodeError")
 
 
 def ContractPage(request):

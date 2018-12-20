@@ -5,11 +5,11 @@ from API import views
 
 urlpatterns = [
     path('', views.OrderList.as_view()),
-    path('<OrderName>/', views.SpecificOrderView.as_view()),
+    path('<Order_id>/', views.SpecificOrderView.as_view()),
     path('User/<Username>/',    views.SpecificUsername.as_view()),
     path('Resources/<SystemId>/', views.SpecificResourcesList.as_view()),
     path('Exists/Systemid/<SystemId>/', views.SystemIdExists.as_view()),
-    path('<OrderName>/contract/', views.AgreementsList.as_view()),
+    path('<Order_id>/contract/', views.AgreementsList.as_view()),
     path('User/<Username>/<Ordername>/', views.OrderExists.as_view()),
     path('Admin/<Ordernumber>/<status>',views.UpdateStatus.as_view())
     # path('', views.Home, name='home')

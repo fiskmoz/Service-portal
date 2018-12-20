@@ -40,10 +40,9 @@
   {% endfor %}
 </ol>
 {% endfor %}
-{% if order.MostRecent == "Active" %}
+{% if order.Status == "Active" %}
 <form action="{% url 'editform' order.id %}">
     <input type="submit" value="Edit this form" />
 </form>
-    {% endif %}
-
-    {% endblock %}
+{% endif %}
+{% endblock %}
