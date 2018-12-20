@@ -55,18 +55,7 @@ class OrderList(APIView):
 
     # Add a new order
     def post(self, request):
-        print("In new order")
-        if not Authenticate(request):
-            print("not auth")
-            return HttpResponse("Not authenticated")
-        print("Passed auth")
-        OrderName = request.POST.get('OrderName', '')
-        OrderCreator = request.POST.get('OrderCreator', '')
-        print(OrderName + "    " + OrderCreator)
-        if Order.objects.filter(OrderCreator=OrderCreator).filter(OrderName=OrderName):
-            return HttpResponse("Ordername duplicate")
-        CreateNewOrder(request)
-        return HttpResponse("SUccess!!!")
+        return GenerateAgreements(request)
 
     def delete(self, request):
         pass
@@ -151,13 +140,13 @@ class AgreementsList(APIView):
     lookup_field = 'Order_id'
 
     def get(self, request, Order_id):
-        OrderList = Agreements.objects.filter(id=Order_id)
+        OrderList = Agreements.objects.filter(orderID=Order_id)
 
         serializer = AgreementsSerializer(OrderList, many=True)
         return Response(serializer.data)
 
     def post(self, request, Order_id):
-        return GenerateAgreements(request)
+        pass
 
     def delete(self, request):
         pass
@@ -257,7 +246,6 @@ def GenerateAgreements(request):
     if not Authenticate(request):
         return HttpResponse("Not Authenticated")
     orderName = request.POST.get('OrderName', '')
-    oldOrder = Order.objects.filter(OrderName=orderName)
     theOrder = CreateNewOrder(request)
     print(request.POST)
     for index, box in enumerate(request.POST):
@@ -268,6 +256,6 @@ def GenerateAgreements(request):
                 ResourceID=request.POST.get(box))
             checkBoxType = str(box).replace(request.POST.get(box), '')
             newAgreement = Agreements(
-                ResourceID=resourceID, OrderName=theOrder, CheckBoxType=checkBoxType)
+                ResourceID=resourceID, orderID=str(theOrder), CheckBoxType=checkBoxType)
             newAgreement.save()
     return HttpResponse('Order Placed Successfully!')

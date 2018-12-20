@@ -18,7 +18,7 @@ class Order(models.Model):
     ParentOrder = models.CharField(max_length=250, default="ORIGINAL")
 
     def __str__(self):
-        return self.OrderCreator + ': ' + self.OrderName
+        return str(self.id)
 
 
 class SystemIdentif(models.Model):

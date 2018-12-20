@@ -104,8 +104,7 @@ def ContractPage(request):
         except json.decoder.JSONDecodeError:
             return HttpResponse("JSON DECODE ERROR D: ")
     payload = GetPayload(request)
-    r = requests.post(url=APIurl + request.session['OrderName'] + '/contract' +
-                      '/', data=GetSessionPayload(GetPayload(request), request))
+    r = requests.post(url=APIurl, data=GetSessionPayload(GetPayload(request), request))
     return redirect('home')
 
 
