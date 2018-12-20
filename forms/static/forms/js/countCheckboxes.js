@@ -25,7 +25,7 @@ function countCheckboxes(Medal){
       document.getElementById('OrderID').submit();
     }
     if(count <= silverLimit && Medal != 'Bronze')
-      alert("With the current settings of your order, It is recommended you choose more services to monitor");
+      alert("With the current setting of "+Medal+", It is recommended you choose more services to monitor");
 }
 
 function sendOrder(){

@@ -228,7 +228,7 @@
     {% endif %}
     {% endfor %}
     <input type="button" value="Submit" onclick="countCheckboxes(getTier())">
+    <script> setTier2('{{order.Medal}}') </script>
   </form>
 </body>
-<script> setTier("{{order.Medal}}") </script>
 {% endblock %}
