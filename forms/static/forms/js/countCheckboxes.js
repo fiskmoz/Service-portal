@@ -9,21 +9,29 @@ function countCheckboxes(Medal){
     var goldLimit = amountOfCheckboxes / 2;
     var silverLimit = amountOfCheckboxes / 5;
     if(count >= goldLimit && Medal == 'Gold'){
-      alert("Order sent");
+      sendOrder();
       document.getElementById('OrderID').submit();
     }
     if(count >= goldLimit && Medal != 'Gold')
-      alert("With the current settings of your order, it is recommended you have chosen Service Tier Gold");
+      alertUSer('Gold');
     if(count < goldLimit && count > silverLimit && Medal == 'Silver'){
-      alert("Order sent");
+      sendOrder();
       document.getElementById('OrderID').submit();
     }
     if(count < goldLimit && count > silverLimit && Medal != 'Silver')
-      alert("With the current settings of your order, It is recommended you have chosen Service Tier Silver");
+      alertUSer('Silver');
     if(count <= silverLimit && Medal == 'Bronze'){
-      alert("Order sent");
+      sendOrder();
       document.getElementById('OrderID').submit();
     }
     if(count <= silverLimit && Medal != 'Bronze')
       alert("With the current settings of your order, It is recommended you choose more services to monitor");
+}
+
+function sendOrder(){
+  alert("Order sent");
+}
+
+function alertUser(medal){
+  alert("With the current settings of your order, It is recommended you have chosen Service Tier " + medal);
 }
