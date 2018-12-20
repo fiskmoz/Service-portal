@@ -13,17 +13,17 @@ function countCheckboxes(Medal){
       document.contract.submit();
     }
     if(count >= goldLimit && Medal != 'Gold')
-      alert("It is recommended you have chosen Service Tier Gold");
+      alert("With the current settings of your order, it is recommended you have chosen Service Tier Gold");
     if(count < goldLimit && count > silverLimit && Medal == 'Silver'){
       alert("Order sent");
       document.contract.submit();
     }
     if(count < goldLimit && count > silverLimit && Medal != 'Silver')
-      alert("It is recommended you have chosen Service Tier Silver");
+      alert("With the current settings of your order, It is recommended you have chosen Service Tier Silver");
     if(count <= silverLimit && Medal == 'Bronze'){
       alert("Order sent");
       document.contract.submit();
     }
     if(count <= silverLimit && Medal != 'Bronze')
-      alert("It is recommended you choose more services to monitor");
+      alert("With the current settings of your order, It is recommended you choose more services to monitor");
 }
