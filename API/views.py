@@ -43,6 +43,7 @@ class OrderList(APIView):
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
 
+        caller = request.POST.get('OrderCreator')
         user = User.objects.get(username=caller)
 
         if not user.is_superuser == 1:
@@ -151,7 +152,7 @@ class AgreementsList(APIView):
     lookup_field = 'Order_id'
 
     def get(self, request, Order_id):
-        OrderList = Agreements.objects.filter(orderID=Order_id)
+        OrderList = Agreements.objects.filter(orderID = Order_id)
 
         serializer = AgreementsSerializer(OrderList, many=True)
         return Response(serializer.data)
