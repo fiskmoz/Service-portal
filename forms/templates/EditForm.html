@@ -227,8 +227,19 @@
     {% endif %}
     {% endif %}
     {% endfor %}
-    <input type="button" value="Submit" onclick="countCheckboxes(getTier())">
-    <script> setTier2('{{order.Medal}}') </script>
+    <input type="button" value="Submit" onclick="validate()">
+    <script>
+    var int = 0;
+    function validate()
+    {
+      if (int < 2)
+      {
+        setTier2('{{order.Medal}}')
+        int = 2;
+      }
+      countCheckboxes(getTier())
+    }
+    </script>
   </form>
 </body>
 {% endblock %}
