@@ -79,25 +79,25 @@ class OrderList(APIView):
 
 
 class SpecificOrderView(APIView):
-    lookup_field = 'OrderName'
+    lookup_field = 'id'
     # Get information from specific order
 
-    def get(self, request, OrderName):
+    def get(self, request, Order_id):
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
-        order = Order.objects.get(OrderName=OrderName)
+        order = Order.objects.get(id=Order_id)
         serializer = OrderSerializer(order, many=False)
         return Response(serializer.data)
     # Update exisiting order
 
-    def post(self, request, OrderName):
+    def post(self, request, Order_id):
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
     #    OldOrder = Order.objects.get(OrderName=OrderName)
     #    OldOrder.MostRecent = "FALSE"
     #    OldOrder.save()
         NewOrder = CreateNewOrder(request)
-        NewOrder.ParentOrder = OrderName
+        NewOrder.ParentOrder = Order_id
         NewOrder.save()
         return HttpResponse("Success!")
 
@@ -148,17 +148,15 @@ class OrderExists(APIView):
 
 
 class AgreementsList(APIView):
-    lookup_field = 'OrderName'
+    lookup_field = 'Order_id'
 
-    def get(self, request, OrderName):
-        OrderList = Agreements.objects.filter(OrderName=OrderName)
+    def get(self, request, Order_id):
+        OrderList = Agreements.objects.filter(id=Order_id)
 
         serializer = AgreementsSerializer(OrderList, many=True)
         return Response(serializer.data)
 
-    def post(self, request, OrderName):
-        if not Authenticate(request):
-            return HttpResponse("Not Authenticated")
+    def post(self, request, Order_id):
         return GenerateAgreements(request)
 
     def delete(self, request):
@@ -258,8 +256,9 @@ def CreateNewOrder(request):
 def GenerateAgreements(request):
     if not Authenticate(request):
         return HttpResponse("Not Authenticated")
-    theOrder = CreateNewOrder(request)
     orderName = request.POST.get('OrderName', '')
+    oldOrder = Order.objects.filter(OrderName=orderName)
+    theOrder = CreateNewOrder(request)
     print(request.POST)
     for index, box in enumerate(request.POST):
         if 'OrderCreator' in box:

@@ -46,4 +46,18 @@ function tier(sender) {
 		document.getElementsByName("ServiceTime")[0].checked = false;
 		document.getElementsByName("ServiceTime")[1].checked = false;
 	}
+	setTier(sender);
+}
+
+var currentTier = "Gold";
+
+function setTier(sender){
+	currentTier = sender.value;
+}
+function setTier2(value){
+	currentTier = value;
+}
+function getTier()
+{
+	return currentTier;
 }
