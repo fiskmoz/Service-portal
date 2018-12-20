@@ -63,7 +63,8 @@ class OrderList(APIView):
 
     # Add a new order
     def post(self, request):
-        return GenerateAgreements(request)
+        GenerateAgreements(request)
+        return HttpResponse('Add successfull')
 
     def delete(self, request):
         pass
@@ -93,10 +94,10 @@ class SpecificOrderView(APIView):
     #    OldOrder = Order.objects.get(OrderName=OrderName)
     #    OldOrder.MostRecent = "FALSE"
     #    OldOrder.save()
-        NewOrder = CreateNewOrder(request)
+        NewOrder = GenerateAgreements(request)
         NewOrder.ParentOrder = Order_id
         NewOrder.save()
-        return HttpResponse("Success!")
+        return HttpResponse("edit successfull!")
 
     def delete(self, request):
         pass
@@ -266,4 +267,4 @@ def GenerateAgreements(request):
             newAgreement = Agreements(
                 ResourceID=resourceID, orderID=theOrder, CheckBoxType=checkBoxType)
             newAgreement.save()
-    return HttpResponse('Order Placed Successfully!')
+    return theOrder
