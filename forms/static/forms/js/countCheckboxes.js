@@ -13,13 +13,13 @@ function countCheckboxes(Medal){
       document.getElementById('OrderID').submit();
     }
     if(count >= goldLimit && Medal != 'Gold')
-      alertUSer('Gold');
+      alertUser('Gold');
     if(count < goldLimit && count > silverLimit && Medal == 'Silver'){
       sendOrder();
       document.getElementById('OrderID').submit();
     }
     if(count < goldLimit && count > silverLimit && Medal != 'Silver')
-      alertUSer('Silver');
+      alertUser('Silver');
     if(count <= silverLimit && Medal == 'Bronze'){
       sendOrder();
       document.getElementById('OrderID').submit();
