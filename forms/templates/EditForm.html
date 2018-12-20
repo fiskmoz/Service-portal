@@ -3,68 +3,68 @@
 {% block content %}
 {% load static %}
 
-<script src="{% static "forms/js/tier.js" %}"></script>
+<script src="{% static " forms/js/tier.js" %}"></script>
 
 <body onload="tier('{{order.Medal}}')">
 
 
-		<h2>Edit Order</h2>
-		<form action="" method ="POST" name="order">
-			{% csrf_token %}
-			Name of order:<br>
-			<input type="text" name="OrderName" required="required" value="{{order.OrderName}}" readonly><br><br>
-			System Id:<br>
-			<input type="text" name="SystemId" required="required" value="{{order.SystemId}}" readonly><br><br>
-			Service Tier:<br>
-			{% if order.Medal == 'Gold' %}
-				<input type="radio" name="Medal" value="Gold" checked="checked" onclick="tier(this);"> Gold<br>
-			{% else %}
-				<input type="radio" name="Medal" value="Gold" onclick="tier(this);"> Gold<br>
-			{% endif %}
-			{% if order.Medal == 'Silver' %}
-				<input type="radio" name="Medal" value="Silver" checked="checked" onclick="tier(this);" > Silver<br>
-			{% else %}
-				<input type="radio" name="Medal" value="Silver" onclick="tier(this);" > Silver<br>
-			{% endif %}
-			{% if order.Medal == 'Bronze' %}
-				<input type="radio" name="Medal" value="Bronze" checked="checked" onclick="tier(this);" > Bronze<br>
-			{% else %}
-				<input type="radio" name="Medal" value="Bronze" onclick="tier(this);" > Bronze<br>
-			{% endif %}
-			<br>Response Time:<br>
-			{% if order.ResponseTime == "10 Minutes" %}
-				<input type="radio" name="ResponseTime" value="10 Minutes" checked="checked"> 10 Minutes<br>
-			{% else %}
-				<input type="radio" name="ResponseTime" value="10 Minutes"> 10 Minutes<br>
-			{% endif %}
-			{% if order.ResponseTime == "20 Minutes" %}
-				<input type="radio" name="ResponseTime" value="20 Minutes" checked="checked"> 20 Minutes<br>
-			{% else %}
-				<input type="radio" name="ResponseTime" value="20 Minutes"> 20 Minutes<br>
-			{% endif %}
-			{% if order.ResponseTime == "30 Minutes" %}
-				<input type="radio" name="ResponseTime" value="30 Minutes" checked="checked"> 30 Minutes<br>
-			{% else %}
-				<input type="radio" name="ResponseTime" value="30 Minutes"> 30 Minutes<br>
-			{% endif %}
-			<br>Scheduled Support Time:<br>
-			{% if order.ServiceTime == "24/7/365" %}
-				<input type="radio" name="ServiceTime" value="24/7/365" checked="checked"> 24/7/365<br>
-			{% else %}
-				<input type="radio" name="ServiceTime" value="24/7/365"> 24/7/365<br>
-			{% endif %}
-			{% if order.ServiceTime == "Monday to Sunday, 8am to 6pm" %}
-				<input type="radio" name="ServiceTime" value="Monday to Sunday, 8am to 6pm" checked="checked"> Monday to Sunday, 8am to 6pm<br>
-			{% else %}
-				<input type="radio" name="ServiceTime" value="Monday to Sunday, 8am to 6pm"> Monday to Sunday, 8am to 6pm<br>
-			{% endif %}
-			{% if order.ServiceTime == "Monday to Friday, 8am to 6pm" %}
-				<input type="radio" name="ServiceTime" value="Monday to Friday, 8am to 6pm" checked="checked"> Monday to Friday, 8am to 6pm<br>
-			{% else %}
-				<input type="radio" name="ServiceTime" value="Monday to Friday, 8am to 6pm"> Monday to Friday, 8am to 6pm<br>
-			{% endif %}
-			<input type="submit">
-		</form>
+  <h2>Edit Order</h2>
+  <form action="" method="POST" name="order">
+    {% csrf_token %}
+    Name of order:<br>
+    <input type="text" name="OrderName" required="required" value="{{order.OrderName}}" readonly><br><br>
+    System Id:<br>
+    <input type="text" name="SystemId" required="required" value="{{order.SystemId}}" readonly><br><br>
+    Service Tier:<br>
+    {% if order.Medal == 'Gold' %}
+    <input type="radio" name="Medal" value="Gold" checked="checked" onclick="tier(this);"> Gold<br>
+    {% else %}
+    <input type="radio" name="Medal" value="Gold" onclick="tier(this);"> Gold<br>
+    {% endif %}
+    {% if order.Medal == 'Silver' %}
+    <input type="radio" name="Medal" value="Silver" checked="checked" onclick="tier(this);"> Silver<br>
+    {% else %}
+    <input type="radio" name="Medal" value="Silver" onclick="tier(this);"> Silver<br>
+    {% endif %}
+    {% if order.Medal == 'Bronze' %}
+    <input type="radio" name="Medal" value="Bronze" checked="checked" onclick="tier(this);"> Bronze<br>
+    {% else %}
+    <input type="radio" name="Medal" value="Bronze" onclick="tier(this);"> Bronze<br>
+    {% endif %}
+    <br>Response Time:<br>
+    {% if order.ResponseTime == "10 Minutes" %}
+    <input type="radio" name="ResponseTime" value="10 Minutes" checked="checked"> 10 Minutes<br>
+    {% else %}
+    <input type="radio" name="ResponseTime" value="10 Minutes"> 10 Minutes<br>
+    {% endif %}
+    {% if order.ResponseTime == "20 Minutes" %}
+    <input type="radio" name="ResponseTime" value="20 Minutes" checked="checked"> 20 Minutes<br>
+    {% else %}
+    <input type="radio" name="ResponseTime" value="20 Minutes"> 20 Minutes<br>
+    {% endif %}
+    {% if order.ResponseTime == "30 Minutes" %}
+    <input type="radio" name="ResponseTime" value="30 Minutes" checked="checked"> 30 Minutes<br>
+    {% else %}
+    <input type="radio" name="ResponseTime" value="30 Minutes"> 30 Minutes<br>
+    {% endif %}
+    <br>Scheduled Support Time:<br>
+    {% if order.ServiceTime == "24/7/365" %}
+    <input type="radio" name="ServiceTime" value="24/7/365" checked="checked"> 24/7/365<br>
+    {% else %}
+    <input type="radio" name="ServiceTime" value="24/7/365"> 24/7/365<br>
+    {% endif %}
+    {% if order.ServiceTime == "Monday to Sunday, 8am to 6pm" %}
+    <input type="radio" name="ServiceTime" value="Monday to Sunday, 8am to 6pm" checked="checked"> Monday to Sunday, 8am to 6pm<br>
+    {% else %}
+    <input type="radio" name="ServiceTime" value="Monday to Sunday, 8am to 6pm"> Monday to Sunday, 8am to 6pm<br>
+    {% endif %}
+    {% if order.ServiceTime == "Monday to Friday, 8am to 6pm" %}
+    <input type="radio" name="ServiceTime" value="Monday to Friday, 8am to 6pm" checked="checked"> Monday to Friday, 8am to 6pm<br>
+    {% else %}
+    <input type="radio" name="ServiceTime" value="Monday to Friday, 8am to 6pm"> Monday to Friday, 8am to 6pm<br>
+    {% endif %}
+    <input type="submit">
+  </form>
 
 
 </body>

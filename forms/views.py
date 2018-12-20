@@ -10,93 +10,102 @@ import json
 
 APIurl = 'http://127.0.0.1:8000/API/'
 
+
 def NewForm(request):
     # Sanity checks
     if not request.user.is_authenticated:
         return HttpResponse("please log in ")
     if not request.method == "POST":
         template = loader.get_template('CreateForm.html')
-        context = {"username" : request.user.username,
-        "password" : request.user.password
-        }
-        return HttpResponse(template.render(context,request))
+        context = {"username": request.user.username,
+                   "password": request.user.password
+                   }
+        return HttpResponse(template.render(context, request))
     payload = GetPayload(request)
     # r = requests.post(url = APIurl, data = payload)
     for req in request.POST:
         request.session[str(req)] = request.POST.get(req)
     return redirect('Create/contract')
 
+
 def EditForm(request, order_id):
-    #Sanity Checks
+    # Sanity Checks
     if not request.user.is_authenticated:
         return HttpResponse("Please log in ")
     if not request.method == "POST":
-        template = loader.get_template('EditForm.html') ## HTML FOR EDIT FORMS
+        template = loader.get_template('EditForm.html')  # HTML FOR EDIT FORMS
         try:
-            context = {"order": requests.get(url=APIurl+order_id+'/',
-            data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json(), }
-            return HttpResponse(template.render(context,request))
+            context = {"order": requests.get(url=APIurl + order_id + '/',
+                                             data=({'OrderCreator': request.user.username, 'password': request.user.password})).json(), }
+            return HttpResponse(template.render(context, request))
         except json.decoder.JSONDecodeError:
             return HttpResponse("Ajja Bajja!")
     print('skickar')
-    r = requests.post(url = APIurl + order_id +'/', data = GetPayload(request))
+    r = requests.post(url=APIurl + order_id + '/', data=GetPayload(request))
     return redirect('home')
 
+
 def ViewForms(request):
-    #Sanity Check
+    # Sanity Check
     if not request.user.is_authenticated:
         return HttpResponse("Please log in ")
-    template = loader.get_template('ViewForms.html') ## HTML FOR VIEw forms
+    template = loader.get_template('ViewForms.html')  # HTML FOR VIEw forms
     try:
         context = {
-        'myOrders' : requests.get(url=APIurl + 'User/'+ request.user.username + '/' ,
-        data = ({'OrderCreator' : request.user.username, 'password' : request.user.password})).json(),
-        #'CurrentUser' : request.user.username,
+            'myOrders': requests.get(url=APIurl + 'User/' + request.user.username + '/',
+                                     data=({'OrderCreator': request.user.username, 'password': request.user.password})).json(),
+            # 'CurrentUser' : request.user.username,
         }
-        return HttpResponse(template.render(context,request))
+        return HttpResponse(template.render(context, request))
     except json.decoder.JSONDecodeError:
         return HttpResponse("Ajja Bajja!!!")
+
 
 def OrderDetail(request, OrderName):
     if not request.user.is_authenticated:
         return HttpResponse("Please log in")
     template = loader.get_template('OrderDetail.html')
-    Order = requests.get(url=APIurl+OrderName+'/', data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json()
+    Order = requests.get(url=APIurl + OrderName + '/', data=(
+        {'OrderCreator': request.user.username, 'password': request.user.password})).json()
     try:
         context = {
-        "order" : Order,
-        "agreements" : requests.get(url= APIurl+OrderName+'/contract/',
-        data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json(),
-        "resources" : requests.get(url= APIurl+'Resources/'+ Order.get('SystemId','') + '/' ,
-        data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json(),
+            "order": Order,
+            "agreements": requests.get(url=APIurl + OrderName + '/contract/',
+                                       data=({'OrderCreator': request.user.username, 'password': request.user.password})).json(),
+            "resources": requests.get(url=APIurl + 'Resources/' + Order.get('SystemId', '') + '/',
+                                      data=({'OrderCreator': request.user.username, 'password': request.user.password})).json(),
         }
-        return HttpResponse(template.render(context,request ))
+        return HttpResponse(template.render(context, request))
     except json.decoder.JSONDecodeError:
         return HttpResponse("Ajja Bajja!")
 
+
 def ContractPage(request):
-    #Sanity Check
+    # Sanity Check
     if not request.user.is_authenticated:
         return HttpResponse("Not Valid")
     if not request.method == "POST":
         SystemId = request.session.get('SystemId', '')
-        SystemIDcheck = requests.get(url=APIurl+'Exists/Systemid/'+SystemId+'/').json()
+        SystemIDcheck = requests.get(
+            url=APIurl + 'Exists/Systemid/' + SystemId + '/').json()
         if SystemIDcheck == False:
             return HttpResponse("Invalid system ID")
         template = loader.get_template('ContractPage.html')
         payload = {}
         try:
             context = {
-            'myOrder' :   GetSessionPayload(payload, request),
-            'Resources' : requests.get(url=APIurl+'Resources/'+SystemId+'/',
-            data =  ({'OrderCreator' : request.user.username , 'password': request.user.password})).json()
+                'myOrder':   GetSessionPayload(payload, request),
+                'Resources': requests.get(url=APIurl + 'Resources/' + SystemId + '/',
+                                          data=({'OrderCreator': request.user.username, 'password': request.user.password})).json()
             }
-            return HttpResponse(template.render(context, request ))
+            return HttpResponse(template.render(context, request))
         except json.decoder.JSONDecodeError:
             return HttpResponse("JSON DECODE ERROR D: ")
     payload = GetPayload(request)
-    r = requests.post(url = APIurl + request.session['OrderName']+ '/contract' + '/' , data = GetSessionPayload(GetPayload(request), request))
+    r = requests.post(url=APIurl + request.session['OrderName'] + '/contract' +
+                      '/', data=GetSessionPayload(GetPayload(request), request))
     return redirect('home')
+
 
 def GetSessionPayload(payload, request):
     payload['OrderName'] = request.session['OrderName']
@@ -104,13 +113,14 @@ def GetSessionPayload(payload, request):
     payload['Medal'] = request.session['Medal']
     payload['ResponseTime'] = request.session['ResponseTime']
     payload['ServiceTime'] = request.session['ServiceTime']
-    print (payload)
+    print(payload)
     return payload
+
 
 def GetPayload(request):
     payload = {}
     for req in request.POST:
         payload[str(req)] = request.POST.get(req)
-    payload['OrderCreator'] =  request.user.username
+    payload['OrderCreator'] = request.user.username
     payload['password'] = request.user.password
     return payload

@@ -4,32 +4,48 @@
 
 <h2> Order Name: {{order.OrderName}} </h2>
 <ol>
-	<li><p> Ordernumber: {{order.id}} </p></li>
-	<li><p> System id: {{order.SystemId}} </p></li>
-	<li><p> Service tier: {{order.Medal}} </p></li>
-	<li><p> Response time: {{order.ResponseTime}}</p></li>
-	<li><p> Scheduled Support time: {{order.ServiceTime}} </p></li>
-	<li><p> Order Created: {{order.Date}} </p></li>
-	<li><p> Most Recent: {{ order.MostRecent }} </p></li>
+  <li>
+    <p> Ordernumber: {{order.id}} </p>
+  </li>
+  <li>
+    <p> System id: {{order.SystemId}} </p>
+  </li>
+  <li>
+    <p> Service tier: {{order.Medal}} </p>
+  </li>
+  <li>
+    <p> Response time: {{order.ResponseTime}}</p>
+  </li>
+  <li>
+    <p> Scheduled Support time: {{order.ServiceTime}} </p>
+  </li>
+  <li>
+    <p> Order Created: {{order.Date}} </p>
+  </li>
+  <li>
+    <p> Most Recent: {{ order.MostRecent }} </p>
+  </li>
 </ol>
 <h3> Resources and agreements for this order: </h3>
 {% for resource in resources %}
-<h5> Resource ID:  {{ resource.ResourceID }} </h5>
-<h5> Resource Object:  {{ resource.Object }} </h5>
-<h5> Resource OS:  {{ resource.OS }} </h5>
-<h5> Resource Packet:  {{ resource.Packet }} </h5>
+<h5> Resource ID: {{ resource.ResourceID }} </h5>
+<h5> Resource Object: {{ resource.Object }} </h5>
+<h5> Resource OS: {{ resource.OS }} </h5>
+<h5> Resource Packet: {{ resource.Packet }} </h5>
 <ol>
-	{% for agreement in agreements %}
-		{% if agreement.ResourceID in resource.ResourceID %}
-			<li><p>  {{ agreement.CheckBoxType }}</p></li>
-		{% endif %}
-	{% endfor %}
+  {% for agreement in agreements %}
+  {% if agreement.ResourceID in resource.ResourceID %}
+  <li>
+    <p> {{ agreement.CheckBoxType }}</p>
+  </li>
+  {% endif %}
+  {% endfor %}
 </ol>
 {% endfor %}
 {% if order.MostRecent == "TRUE" %}
 <ol>
-	<p><a href="{% url 'editform' order.id %}">Edit this order</a></p>
-<ol>
-{% endif %}
+  <p><a href="{% url 'editform' order.id %}">Edit this order</a></p>
+  <ol>
+    {% endif %}
 
-{% endblock %}
+    {% endblock %}

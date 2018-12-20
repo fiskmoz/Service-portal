@@ -2,36 +2,36 @@
 
 {% block content %}
 {% load static %}
-<script src="{% static "forms/js/tier.js" %}"></script>
-<script src="{% static "forms/js/checkSystemId.js" %}"></script>
-<script src="{% static "forms/js/checkOrderName.js" %}"></script>
+<script src="{% static " forms/js/tier.js" %}"></script>
+<script src="{% static " forms/js/checkSystemId.js" %}"></script>
+<script src="{% static " forms/js/checkOrderName.js" %}"></script>
 
-		<h1>Add Order:</h1>
-		<form action="" method ="POST" name="order" id ="orderID">
-			{% csrf_token %}
-			Name of Order:<br>
-			<input type="text" name="OrderName" required="required" id = "OrderName"><br><br>
-			System Id:<br>
-			<input type="text" name="SystemId" required="required" onblur="" id = "SystemId"><br>
-			<br>Service Tier:<br>
-			<input type="radio" name="Medal" value="Gold" onclick="tier(this);" > Gold<br>
-			<input type="radio" name="Medal" value="Silver" onclick="tier(this);" > Silver<br>
-			<input type="radio" name="Medal" value="Bronze" required="required" onclick="tier(this);" > Bronze<br>
-			<br>Response Time:<br>
-			<input type="radio" name="ResponseTime" value="10 Minutes"disabled> 10 Minutes<br>
-			<input type="radio" name="ResponseTime" value="20 Minutes"disabled> 20 Minutes<br>
-			<input type="radio" name="ResponseTime" value="30 Minutes" required="required"disabled> 30 Minutes<br>
-			<br>Scheduled Support Time:<br>
-			<input type="radio" name="ServiceTime" value="24/7/365"disabled> 24/7/365<br>
-			<input type="radio" name="ServiceTime" value="Monday to Sunday, 8am to 6pm"disabled> Monday to Sunday, 8am to 6pm<br>
-			<input type="radio" name="ServiceTime" value="Monday to Friday, 8am to 6pm" required="required"disabled> Monday to Friday, 8am to 6pm<br><br>
-			<!--<input type="submit"> -->
-			<button type="button" onclick = "checkOrderName('{{username}}')">Submit</button>
-		<!--		<button type="button" onclick = "checkSystemId()">Submit</button> -->
-		</form>
-		<ol>
-			<li> <a href="{% url 'contractpage' %}">Test for Contractpage</a> </li>
-		</ol>
+<h1>Add Order:</h1>
+<form action="" method="POST" name="order" id="orderID">
+  {% csrf_token %}
+  Name of Order:<br>
+  <input type="text" name="OrderName" required="required" id="OrderName"><br><br>
+  System Id:<br>
+  <input type="text" name="SystemId" required="required" onblur="" id="SystemId"><br>
+  <br>Service Tier:<br>
+  <input type="radio" name="Medal" value="Gold" onclick="tier(this);"> Gold<br>
+  <input type="radio" name="Medal" value="Silver" onclick="tier(this);"> Silver<br>
+  <input type="radio" name="Medal" value="Bronze" required="required" onclick="tier(this);"> Bronze<br>
+  <br>Response Time:<br>
+  <input type="radio" name="ResponseTime" value="10 Minutes" disabled> 10 Minutes<br>
+  <input type="radio" name="ResponseTime" value="20 Minutes" disabled> 20 Minutes<br>
+  <input type="radio" name="ResponseTime" value="30 Minutes" required="required" disabled> 30 Minutes<br>
+  <br>Scheduled Support Time:<br>
+  <input type="radio" name="ServiceTime" value="24/7/365" disabled> 24/7/365<br>
+  <input type="radio" name="ServiceTime" value="Monday to Sunday, 8am to 6pm" disabled> Monday to Sunday, 8am to 6pm<br>
+  <input type="radio" name="ServiceTime" value="Monday to Friday, 8am to 6pm" required="required" disabled> Monday to Friday, 8am to 6pm<br><br>
+  <!--<input type="submit"> -->
+  <button type="button" onclick="checkOrderName('{{username}}')">Submit</button>
+  <!--		<button type="button" onclick = "checkSystemId()">Submit</button> -->
+</form>
+<ol>
+  <li> <a href="{% url 'contractpage' %}">Test for Contractpage</a> </li>
+</ol>
 
 
 
