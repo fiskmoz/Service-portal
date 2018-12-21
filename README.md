@@ -11,11 +11,17 @@ You need to have installed:
 Getting started in CMD or Terminal:
 
 Create a user!
+
 py manage.py createsuperuser
+
 Create/Update the database!
+
 py manage.py migrate
+
 Run the server! 
+
 py manage.py runserver
 
 Site will be locally hosted on: 
+
 http://127.0.0.1:8000/  (Localhost)
