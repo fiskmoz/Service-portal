@@ -11,15 +11,15 @@
 
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}Telia Service Portal{% endblock %}</title>
-  <link rel="shortcut icon" href="{% static 'forms/images/favicon.ico' %}" />
+  <title>{% block title %} Service Portal{% endblock %}</title>
+  <link rel="shortcut icon" href="{% static 'forms/images/Home-512.png' %}" />
   <link rel="stylesheet" type="text/css" href="{% static 'forms/style.css' %}">
 </head>
 
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a href="{% url 'home' %}" class="navbar-left"><img src="{% static 'forms/images/websiteicon.png' %}" width="50" height="50"></a>
+    <a href="{% url 'home' %}" class="navbar-left"><img src="{% static 'forms/images/Home-512.png' %}" width="50" height="50"></a>
     <a href="{% url 'home' %}" class="navbar-brand">Super Secret Service Portal</a>
     <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
       <span class="navbar-toggler-icon"></span>

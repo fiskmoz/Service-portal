@@ -227,18 +227,9 @@
     {% endif %}
     {% endif %}
     {% endfor %}
-    <input type="button" value="Submit" onclick="validate()">
+    <input type="button" value="Submit" onclick="countCheckboxes(getTier())">
     <script>
-    var int = 0;
-    function validate()
-    {
-      if (int < 2)
-      {
-        setTier2('{{order.Medal}}')
-        int = 2;
-      }
-      countCheckboxes(getTier())
-    }
+    setTier2('{{order.Medal}}');
     </script>
   </form>
 </body>
