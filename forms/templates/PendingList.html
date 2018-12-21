@@ -3,19 +3,7 @@
 {% block content %}
 
 <!-- THIS IS ACTUAL HTML CODE FOR PAGE -->
-<h2> Your active orders: </h2>
-<ol>
-  {% for order in myOrders %}
-  {% if order.Status == "Active" %}
-  <li><a href="{% url 'orderdetail' order.id %}"> {{ order.OrderName }}</a>
-    <p> User: {{order.OrderCreator}}</p>
-    <p> Date: {{ order.Date }}</p>
-  </li>
-  {% endif %}
-  {% endfor %}
-</ol>
-
-<h2> Your pending orders: </h2>
+<h2>  Current Pending Orders: </h2>
 <ol>
   {% for order in myOrders %}
   {% if order.Status == "Pending" %}
