@@ -66,7 +66,7 @@ def EditForm(request, Order_id):
             return HttpResponse(template.render(context, request))
         except json.decoder.JSONDecodeError:
             return HttpResponse("Ajja Bajja!")
-    r = requests.post(url=APIurl + Order_id, data=GetPayload(request))
+    r = requests.post(url=APIurl + Order_id +"/", data=GetPayload(request))
     return redirect('home')
 
 

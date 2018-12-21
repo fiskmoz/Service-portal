@@ -21,11 +21,11 @@ def Home(requests):
 class UpdateStatus(APIView):
 
     def post(self,request,Ordernumber,status):
-        
+
         if not Authenticate(request):
             return HttpResponse("Not authenticated")
 
-        user = User.objects.get(username=caller)
+        user = User.objects.get(username=request.POST.get('OrderCreator'))
         if not user.is_superuser == 1:
             return HttpResponse("Not enough privileges")
 
@@ -34,11 +34,11 @@ class UpdateStatus(APIView):
         if status == "Accept":
 
             order.Status = 'Active'
-            #order.save()
+            order.save()
             print(order.ParentOrder)
             if not order.ParentOrder == "ORIGINAL":
 
-                oldorder = Order.object.get(pk = order.ParentOrder)
+                oldorder = Order.objects.get(pk = order.ParentOrder)
                 oldorder.Status = 'Inactive'
                 oldorder.save()
         elif status == "Deny":
