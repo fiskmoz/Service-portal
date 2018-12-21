@@ -9,6 +9,7 @@ You need to have installed:
 - requests library
 
 Getting started in CMD or Terminal:
+
 Create a user!
 py manage.py createsuperuser
 Create/Update the database!
